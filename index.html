@@ -1,0 +1,1771 @@
+
+
+
+
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://127.0.0.1:5500/InterviewForge/index.html -->
+<html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InterviewForge — AI Mock Interview Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════ TOKENS ═══════════════════════ */
+:root {
+  --r: 10px;
+  --font: 'Geist', -apple-system, sans-serif;
+  --mono: 'Geist Mono', monospace;
+  --transition: 0.18s ease;
+}
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --bg1: #111111;
+  --bg2: #161616;
+  --bg3: #1c1c1c;
+  --border: #262626;
+  --border2: #333333;
+  --text: #ededed;
+  --text2: #a1a1aa;
+  --text3: #71717a;
+  --accent: #3b82f6;
+  --accent-h: #2563eb;
+  --accent-bg: rgba(59,130,246,0.1);
+  --green: #22c55e;
+  --green-bg: rgba(34,197,94,0.1);
+  --red: #ef4444;
+  --red-bg: rgba(239,68,68,0.1);
+  --yellow: #eab308;
+  --yellow-bg: rgba(234,179,8,0.1);
+  --purple: #a855f7;
+  --purple-bg: rgba(168,85,247,0.1);
+  --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+}
+[data-theme="light"] {
+  --bg: #fafafa;
+  --bg1: #ffffff;
+  --bg2: #f4f4f5;
+  --bg3: #e4e4e7;
+  --border: #e4e4e7;
+  --border2: #d4d4d8;
+  --text: #09090b;
+  --text2: #52525b;
+  --text3: #a1a1aa;
+  --accent: #2563eb;
+  --accent-h: #1d4ed8;
+  --accent-bg: rgba(37,99,235,0.08);
+  --green: #16a34a;
+  --green-bg: rgba(22,163,74,0.08);
+  --red: #dc2626;
+  --red-bg: rgba(220,38,38,0.08);
+  --yellow: #ca8a04;
+  --yellow-bg: rgba(202,138,4,0.08);
+  --purple: #9333ea;
+  --purple-bg: rgba(147,51,234,0.08);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+}
+
+/* ═══════════════════════ RESET ═══════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.5;font-size:14px;transition:background var(--transition),color var(--transition);min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:var(--font)}
+img{max-width:100%;display:block}
+ul{list-style:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+::selection{background:rgba(59,130,246,0.25)}
+
+/* ═══════════════════════ LAYOUT ═══════════════════════ */
+.page{display:none}
+.page.active{display:block}
+.app-shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.main-content{padding:2rem;overflow-x:hidden}
+@media(max-width:768px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}}
+
+/* ═══════════════════════ COMPONENTS ═══════════════════════ */
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;transition:border-color var(--transition)}
+.card:hover{border-color:var(--border2)}
+.card-title{font-size:0.875rem;font-weight:600;margin-bottom:0.875rem;color:var(--text)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-size:0.7rem;font-weight:600;letter-spacing:0.01em}
+.badge-blue{background:var(--accent-bg);color:var(--accent)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.badge-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.badge-purple{background:var(--purple-bg);color:var(--purple)}
+.badge-gray{background:var(--bg3);color:var(--text2)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:0.5rem 1rem;border-radius:var(--r);font-size:0.8125rem;font-weight:500;transition:all var(--transition);cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text2);border-color:var(--border)}
+.btn-ghost:hover{background:var(--bg2);color:var(--text);border-color:var(--border2)}
+.btn-danger{background:var(--red-bg);color:var(--red);border-color:transparent}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-green{background:var(--green-bg);color:var(--green);border-color:transparent}
+.btn-green:hover{background:var(--green);color:#fff}
+.btn-sm{padding:0.35rem 0.75rem;font-size:0.75rem}
+.btn-lg{padding:0.75rem 1.5rem;font-size:0.9375rem;font-weight:600}
+.btn-full{width:100%;justify-content:center}
+.input{width:100%;padding:0.6rem 0.875rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:0.875rem;outline:none;transition:border-color var(--transition)}
+.input:focus{border-color:var(--accent)}
+.input::placeholder{color:var(--text3)}
+.input-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.input-label{font-size:0.78rem;font-weight:500;color:var(--text2)}
+.progress{height:6px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;border-radius:99px;background:var(--accent);transition:width 0.5s ease}
+.divider{height:1px;background:var(--border);margin:1.25rem 0}
+.tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:0.7rem;font-weight:500;background:var(--bg3);color:var(--text2)}
+#toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem 1rem;font-size:0.8125rem;box-shadow:var(--shadow-lg);animation:slide-in 0.25s ease;display:flex;align-items:center;gap:8px;min-width:240px}
+.toast-success{border-left:3px solid var(--green)}
+.toast-error{border-left:3px solid var(--red)}
+.toast-info{border-left:3px solid var(--accent)}
+@keyframes slide-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fade-up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.stat-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.stat-val{font-size:1.75rem;font-weight:700;line-height:1;margin-bottom:0.25rem}
+.stat-label{font-size:0.75rem;color:var(--text2);font-weight:500}
+.stat-delta{font-size:0.72rem;margin-top:0.5rem}
+.stat-delta.up{color:var(--green)}
+.stat-delta.down{color:var(--red)}
+
+/* ═══════════════════════ NAVBAR ═══════════════════════ */
+.nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0 max(1.5rem,4vw);height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:background var(--transition)}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:0.9375rem;font-weight:700}
+.nav-logo{width:30px;height:30px;background:linear-gradient(135deg,#ef4444,#f97316);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(239,68,68,0.4)}
+.nav-links{display:flex;align-items:center;gap:0.125rem}
+.nav-links a{padding:0.4rem 0.75rem;border-radius:7px;font-size:0.8125rem;color:var(--text2);transition:all var(--transition)}
+.nav-links a:hover{color:var(--text);background:var(--bg2)}
+.nav-right{display:flex;align-items:center;gap:0.5rem}
+.theme-btn{width:32px;height:32px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);color:var(--text2)}
+.theme-btn:hover{background:var(--bg3);color:var(--text)}
+
+/* ═══════════════════════ SIDEBAR ═══════════════════════ */
+.sidebar{background:var(--bg1);border-right:1px solid var(--border);padding:1rem 0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background var(--transition)}
+.sidebar-brand{padding:0 1rem 1rem;margin-bottom:0.25rem;display:flex;align-items:center;justify-content:space-between}
+.sidebar-brand-inner{display:flex;align-items:center;gap:9px;font-size:0.9375rem;font-weight:700}
+.sidebar-nav{flex:1;padding:0 0.5rem}
+.sidebar-section{margin-bottom:1.25rem}
+.sidebar-section-label{padding:0.25rem 0.5rem;font-size:0.67rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:0.25rem}
+.sidebar-item{display:flex;align-items:center;gap:9px;padding:0.5rem 0.625rem;border-radius:7px;font-size:0.8125rem;color:var(--text2);cursor:pointer;transition:all var(--transition);border:1px solid transparent}
+.sidebar-item:hover{background:var(--bg2);color:var(--text)}
+.sidebar-item.active{background:var(--red-bg);color:var(--red);border-color:rgba(239,68,68,0.2);font-weight:500}
+.sidebar-item .s-icon{width:16px;height:16px;flex-shrink:0;font-size:14px}
+.sidebar-badge{margin-left:auto;background:var(--red);color:#fff;border-radius:99px;font-size:0.62rem;padding:1px 6px;font-weight:600}
+.sidebar-footer{padding:0.75rem 1rem;border-top:1px solid var(--border);margin-top:auto}
+.sidebar-user{display:flex;align-items:center;gap:9px}
+.sidebar-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.sidebar-user-info{flex:1;min-width:0}
+.sidebar-user-name{font-size:0.8125rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-user-level{font-size:0.68rem;color:var(--accent)}
+
+/* ═══════════════════════ LANDING ═══════════════════════ */
+.hero{max-width:760px;margin:0 auto;text-align:center;padding:5rem 2rem 4rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--accent-bg);border:1px solid rgba(59,130,246,0.2);border-radius:99px;padding:4px 12px;font-size:0.72rem;font-weight:600;color:var(--accent);margin-bottom:1.5rem}
+.hero-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{font-size:clamp(2.25rem,5vw,3.75rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:1.25rem}
+.hero-title em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:1rem;color:var(--text2);line-height:1.7;max-width:500px;margin:0 auto 2.5rem}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;padding-top:2rem;border-top:1px solid var(--border)}
+.hero-stat-num{font-size:1.5rem;font-weight:700;color:var(--accent)}
+.hero-stat-lbl{font-size:0.75rem;color:var(--text3);margin-top:2px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 max(1rem,3vw) 4rem}
+.feature-item{background:var(--bg1);padding:1.75rem;transition:background var(--transition)}
+.feature-item:hover{background:var(--bg2)}
+.feature-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.125rem;margin-bottom:1rem}
+.feature-item h3{font-size:0.9375rem;font-weight:600;margin-bottom:0.5rem}
+.feature-item p{font-size:0.8125rem;color:var(--text2);line-height:1.6}
+
+/* ═══════════════════════ DASHBOARD ═══════════════════════ */
+.dash-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;gap:1rem;flex-wrap:wrap}
+.dash-greeting{font-size:1.25rem;font-weight:700;margin-bottom:0.25rem}
+.dash-sub{font-size:0.8125rem;color:var(--text2)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.875rem;margin-bottom:1.75rem}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:960px){.dash-grid{grid-template-columns:1fr}}
+.xp-card{background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(168,85,247,0.03));border:1px solid rgba(239,68,68,0.15);border-radius:var(--r);padding:1.25rem;margin-bottom:1.75rem;position:relative;overflow:hidden}
+.xp-card::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='15' cy='15' r='1' fill='%23ef4444' fill-opacity='0.06'/%3E%3C/svg%3E");pointer-events:none}
+.xp-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);border-radius:2px 0 0 2px}
+.xp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem}
+.xp-name{font-size:0.9375rem;font-weight:600}
+.xp-level{font-size:0.72rem;font-weight:600;color:var(--red);background:var(--red-bg);padding:2px 8px;border-radius:99px}
+.xp-nums{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text3);margin-bottom:0.4rem}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:0.5rem}
+.bar{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:0.6;transition:opacity var(--transition);min-height:4px;cursor:default;position:relative}
+.bar:hover{opacity:1}
+.bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:0.6rem;color:var(--text3);white-space:nowrap}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem}
+.quick-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;cursor:pointer;transition:all var(--transition);text-align:left}
+.quick-btn:hover{background:var(--bg3);border-color:var(--border2);transform:translateY(-1px)}
+.quick-icon{font-size:1.25rem;margin-bottom:0.5rem}
+.quick-title{font-size:0.8125rem;font-weight:600;margin-bottom:0.2rem}
+.quick-desc{font-size:0.72rem;color:var(--text3)}
+
+/* ═══════════════════════ PRACTICE ═══════════════════════ */
+.q-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.q-filter-btn{padding:0.35rem 0.875rem;border-radius:99px;font-size:0.78rem;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all var(--transition)}
+.q-filter-btn.active{background:var(--red-bg);border-color:rgba(239,68,68,0.3);color:var(--red)}
+.q-filter-btn:hover:not(.active){border-color:var(--border2);color:var(--text)}
+.q-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:0.75rem;cursor:pointer;transition:all var(--transition)}
+.q-card:hover{border-color:var(--red);background:var(--bg2)}
+.q-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.75rem}
+.q-text{font-size:0.875rem;font-weight:500;line-height:1.5;flex:1}
+.q-meta{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-top:0.75rem}
+.q-expand{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-top:0.75rem;font-size:0.8125rem;line-height:1.6;color:var(--text2);display:none}
+.q-expand.open{display:block;animation:fade-up 0.2s ease}
+.answer-area{width:100%;padding:0.75rem 1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:0.875rem;resize:vertical;min-height:120px;outline:none;transition:border-color var(--transition);font-family:var(--font);line-height:1.6}
+.answer-area:focus{border-color:var(--accent)}
+.mcq-option{display:flex;align-items:center;gap:10px;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all var(--transition);margin-bottom:0.5rem;font-size:0.875rem}
+.mcq-option:hover{border-color:var(--border2);background:var(--bg2)}
+.mcq-option.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.mcq-option.correct{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+.mcq-option.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.mcq-key{width:26px;height:26px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0}
+.timer-display{font-family:var(--mono);font-size:2rem;font-weight:500;color:var(--text);line-height:1}
+.timer-display.danger{color:var(--red)}
+.timer-display.warning{color:var(--yellow)}
+
+/* ═══════════════════════ PROCTOR EXAM ═══════════════════════ */
+.proctor-header{background:var(--bg1);border-bottom:1px solid var(--border);padding:0 1.5rem;height:54px;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:50}
+.q-map{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.q-map-dot{width:100%;aspect-ratio:1;border-radius:6px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.68rem;cursor:pointer;transition:all var(--transition)}
+.q-map-dot.answered{background:var(--accent-bg);border-color:rgba(59,130,246,0.3);color:var(--accent)}
+.q-map-dot.current{background:var(--accent);border-color:var(--accent);color:#fff}
+.violation-row{display:flex;align-items:center;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)}
+.violation-row:last-child{border:none}
+.violation-count{font-weight:700;font-family:var(--mono)}
+
+/* ═══════════════════════ GAMES ═══════════════════════ */
+.game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem}
+.game-card{background:var(--bg1);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all var(--transition)}
+.game-card:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.game-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.game-info{padding:1.25rem}
+.game-title{font-size:0.9375rem;font-weight:600;margin-bottom:0.375rem}
+.game-desc{font-size:0.78rem;color:var(--text2);margin-bottom:0.875rem;line-height:1.5}
+.game-meta{display:flex;gap:0.5rem}
+.flashcard{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:2.5rem;text-align:center;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.6s;transform-style:preserve-3d;position:relative;max-width:600px;margin:0 auto}
+.flashcard .fc-front,.flashcard .fc-back{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;border-radius:16px}
+.flashcard .fc-back{transform:rotateY(180deg);background:var(--accent-bg)}
+.flashcard.flipped{transform:rotateY(180deg)}
+
+/* ═══════════════════════ JOBS ═══════════════════════ */
+.jobs-header{display:flex;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap;align-items:center}
+.job-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:0.75rem;display:flex;gap:1rem;align-items:flex-start;transition:all var(--transition)}
+.job-card:hover{border-color:var(--border2);background:var(--bg2)}
+.job-logo{width:44px;height:44px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.125rem;flex-shrink:0}
+.job-info{flex:1;min-width:0}
+.job-title{font-size:0.875rem;font-weight:600;margin-bottom:0.25rem}
+.job-company{font-size:0.78rem;color:var(--text2);margin-bottom:0.5rem}
+.job-tags{display:flex;gap:0.375rem;flex-wrap:wrap;margin-bottom:0.5rem}
+.job-posted{font-size:0.7rem;color:var(--text3)}
+.job-actions{display:flex;flex-direction:column;gap:0.375rem;flex-shrink:0}
+
+/* ═══════════════════════ AUTH ═══════════════════════ */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:var(--bg)}
+.auth-card{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:2.25rem;width:100%;max-width:420px;box-shadow:var(--shadow-lg);position:relative}
+.auth-logo{display:flex;align-items:center;gap:9px;margin-bottom:1.75rem;font-size:0.9375rem;font-weight:700}
+.auth-title{font-size:1.5rem;font-weight:700;margin-bottom:0.25rem;letter-spacing:-0.02em}
+.auth-sub{font-size:0.8125rem;color:var(--text2);margin-bottom:1.75rem}
+.auth-divider{display:flex;align-items:center;gap:0.75rem;margin:1.25rem 0;color:var(--text3);font-size:0.75rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ═══════════════════════ PROFILE ═══════════════════════ */
+.profile-banner{background:linear-gradient(135deg,var(--accent-bg),var(--purple-bg));border:1px solid rgba(59,130,246,0.15);border-radius:14px;padding:1.75rem;display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.profile-avatar-lg{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.profile-name{font-size:1.1875rem;font-weight:700;margin-bottom:0.25rem}
+.profile-email{font-size:0.8125rem;color:var(--text2)}
+.profile-level{margin-top:0.375rem}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:0.75rem}
+.badge-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;transition:all var(--transition)}
+.badge-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.badge-card.locked{opacity:0.4}
+.badge-emoji{font-size:1.75rem;margin-bottom:0.5rem}
+.badge-label{font-size:0.68rem;font-weight:600;color:var(--text2)}
+
+/* ═══════════════════════ LEADERBOARD ═══════════════════════ */
+.lb-table{background:var(--bg1);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.lb-header-row{display:grid;grid-template-columns:50px 1fr 100px 100px 80px;gap:1rem;padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3)}
+.lb-row{display:grid;grid-template-columns:50px 1fr 100px 100px 80px;gap:1rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);align-items:center;transition:background var(--transition)}
+.lb-row:last-child{border:none}
+.lb-row:hover{background:var(--bg2)}
+.lb-row.me{background:var(--accent-bg);border-color:rgba(59,130,246,0.15)}
+.lb-rank{font-size:0.875rem;font-weight:700;color:var(--text3)}
+.lb-user{display:flex;align-items:center;gap:10px}
+.lb-ava{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.lb-name{font-size:0.8125rem;font-weight:500}
+.lb-xp{font-weight:700;color:var(--accent);font-family:var(--mono);font-size:0.875rem}
+.lb-streak{color:var(--yellow)}
+.lb-level{font-size:0.72rem;color:var(--text3)}
+
+/* ═══════════════════════ SETTINGS ═══════════════════════ */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.settings-grid{grid-template-columns:1fr}}
+.theme-options{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:0.75rem}
+.theme-option{border:2px solid var(--border);border-radius:var(--r);padding:0.875rem;cursor:pointer;transition:all var(--transition);text-align:center}
+.theme-option:hover{border-color:var(--border2)}
+.theme-option.active{border-color:var(--accent);background:var(--accent-bg)}
+.theme-option-icon{font-size:1.5rem;margin-bottom:0.375rem}
+.theme-option-label{font-size:0.75rem;font-weight:600;color:var(--text2)}
+.toggle{position:relative;display:inline-block;width:40px;height:22px}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--bg3);border-radius:99px;cursor:pointer;transition:background 0.2s}
+.toggle-slider::before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform 0.2s}
+.toggle input:checked+.toggle-slider{background:var(--accent)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border:none}
+.toggle-label{font-size:0.875rem;font-weight:500;margin-bottom:0.125rem}
+.toggle-desc{font-size:0.75rem;color:var(--text3)}
+.page-back{display:inline-flex;align-items:center;gap:8px;padding:0.5rem 1.1rem;border-radius:8px;font-size:0.8125rem;font-weight:600;color:var(--text);background:var(--bg2);border:1.5px solid var(--border2);cursor:pointer;transition:all var(--transition);margin-bottom:1.5rem;box-shadow:var(--shadow)}
+.page-back:hover{background:var(--red-bg);color:var(--red);border-color:rgba(239,68,68,0.45);transform:translateX(-2px)}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:0.5rem 1.1rem;border-radius:8px;font-size:0.8125rem;font-weight:600;color:var(--text);background:var(--bg3);border:1.5px solid var(--border2);cursor:pointer;transition:all var(--transition);box-shadow:var(--shadow)}
+.back-btn:hover{background:var(--red-bg);color:var(--red);border-color:rgba(239,68,68,0.45);transform:translateX(-2px)}
+.page-title{font-size:1.125rem;font-weight:700;margin-bottom:0.25rem}
+.page-sub{font-size:0.8125rem;color:var(--text2);margin-bottom:1.5rem}
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3)}
+.empty-state-icon{font-size:2.5rem;margin-bottom:0.75rem}
+.tabs{display:flex;gap:0;background:var(--bg2);border-radius:var(--r);padding:3px;margin-bottom:1.5rem;width:fit-content}
+.tab{padding:0.4rem 1rem;border-radius:7px;font-size:0.8125rem;font-weight:500;cursor:pointer;color:var(--text2);transition:all var(--transition)}
+.tab.active{background:var(--bg1);color:var(--text);box-shadow:var(--shadow)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+.tbl{width:100%;border-collapse:collapse;font-size:0.8125rem}
+.tbl th{padding:0.625rem 1rem;text-align:left;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);border-bottom:1px solid var(--border);background:var(--bg2)}
+.tbl td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text)}
+.tbl tr:last-child td{border:none}
+.tbl tr:hover td{background:var(--bg2)}
+</style>
+</head>
+<body>
+<div id="toast-container"></div>
+
+<!-- LANDING PAGE -->
+<div id="page-landing" class="page active">
+  <nav class="nav">
+    <div class="nav-brand"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+    <div class="nav-links">
+      <a onclick="showSection(&#39;features&#39;)">Features</a>
+      <a onclick="showSection(&#39;questions-preview&#39;)">Questions</a>
+      <a onclick="showSection(&#39;games-preview&#39;)">Games</a>
+      <a onclick="showPage(&#39;login&#39;)">Jobs</a>
+    </div>
+    <div class="nav-right">
+      <div class="theme-btn" onclick="cycleTheme()" id="theme-btn-landing">🌙</div>
+      <button class="btn btn-ghost btn-sm" onclick="showPage(&#39;login&#39;)">Sign in</button>
+      <button class="btn btn-primary btn-sm" onclick="showPage(&#39;register&#39;)" style="background:var(--red);border-color:var(--red)">Get Started</button>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-eyebrow"><span class="hero-dot"></span> AI-Powered Interview Prep Platform</div>
+    <h1 class="hero-title">Ace every interview.<br>Land your <em>dream role</em>.</h1>
+    <p class="hero-sub">Practice 1000+ real interview questions, get AI feedback, simulate proctored exams, play skill games, and track live job openings — all in one platform.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" onclick="showPage(&#39;login&#39;)" style="background:var(--red);border-color:var(--red)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"></path></svg>Sign In to Start</button>
+      <button class="btn btn-ghost btn-lg" onclick="showPage(&#39;register&#39;)">Create Account</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num" id="ctr-q">1000+</div><div class="hero-stat-lbl">Questions</div></div>
+      <div><div class="hero-stat-num" id="ctr-c">42+</div><div class="hero-stat-lbl">Categories</div></div>
+      <div><div class="hero-stat-num" id="ctr-g">8</div><div class="hero-stat-lbl">Games</div></div>
+      <div><div class="hero-stat-num" id="ctr-comp">Weekly</div><div class="hero-stat-lbl">Competitions</div></div>
+    </div>
+  </section>
+  <div id="features" style="padding:3rem max(1rem,4vw);background:var(--bg)">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">Everything you need</div>
+      <h2 style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.75rem">10 powerful features.</h2>
+      <p style="color:var(--text2);font-size:0.9375rem;max-width:480px;margin:0 auto">One platform to practice, compete, track, and land your dream role.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1200px;margin:0 auto">
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--accent-bg)">🧠</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">1000+ Interview Questions</h3>
+          <p>Curated Q&amp;A across Java, DSA, System Design, SQL, OS, Python, Behavioral and 40+ categories. AI-powered answer evaluation.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-blue">Java</span><span class="badge badge-green">DSA</span><span class="badge badge-purple">SQL</span><span class="badge badge-yellow">+40 more</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--purple-bg)">💻</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Coding Challenges</h3>
+          <p>8 real LeetCode-style problems — Two Sum, LRU Cache, Merge Intervals and more. Hints, editorial solutions, +XP on solve.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-green">Easy</span><span class="badge badge-yellow">Medium</span><span class="badge badge-red">Hard</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--green-bg)">📝</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Topic-wise Tests</h3>
+          <p>Timed tests on Java, DSA, SQL, OS, Networking, System Design. Auto-graded A+–D with XP proportional to your score.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-blue">Timed</span><span class="badge badge-green">Graded</span><span class="badge badge-yellow">+XP</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--red-bg)">🎯</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Mock Interview</h3>
+          <p>Simulate a real interview — configurable category, difficulty, and question count. Timed, scored, with model answers.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-red">Timed</span><span class="badge badge-blue">AI Scored</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--yellow-bg)">🔒</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Proctored Exam</h3>
+          <p>Anti-cheat suite: tab detection, copy-paste block, fullscreen enforcement, keyboard lock, integrity score report.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-red">Anti-cheat</span><span class="badge badge-yellow">Integrity Score</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--green-bg)">🎮</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Skill Games</h3>
+          <p>Tech Flashcards, Quiz Blitz, Bug Hunt, Term Sprint — gamified learning that makes preparation addictive. Earn XP every round.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-green">Fun</span><span class="badge badge-blue">+XP</span><span class="badge badge-purple">4 Games</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--accent-bg)">🏅</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Weekly Competitions</h3>
+          <p>Live coding contests and quiz battles every week. Top rankers earn badge multipliers and Champion titles.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-green">🟢 Live Now</span><span class="badge badge-purple">Exclusive Badges</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--red-bg)">🔥</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Streaks &amp; Badges</h3>
+          <p>Daily login streaks with automatic tracking. Milestone badges at 3, 7, 14, 30, 60, 100 days. 12 unlockable achievements.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-yellow">🔥 Streak</span><span class="badge badge-blue">12 Badges</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--yellow-bg)">💼</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Live Job Board</h3>
+          <p>12 curated listings from Google, Amazon, Meta, Flipkart, Razorpay and more — linked directly to official career pages.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-purple">Internships</span><span class="badge badge-blue">Full-Time</span><span class="badge badge-green">12 Listings</span>
+        </div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem">
+        <div class="feature-icon" style="background:var(--purple-bg)">🏆</div>
+        <div>
+          <h3 style="margin-bottom:0.375rem">Live Leaderboard &amp; XP</h3>
+          <p>Compete with real registered users. 6-tier XP progression: Novice → Grandmaster. Your rank updates with every answer.</p>
+        </div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap">
+          <span class="badge badge-blue">Real Users</span><span class="badge badge-yellow">6 Levels</span><span class="badge badge-red">Live Rank</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem max(1rem,4vw);text-align:center"><h2 style="font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.75rem">Ready to get hired?</h2><p style="color:var(--text2);margin-bottom:1.75rem;font-size:0.875rem">Join thousands of students preparing smarter.</p><div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary btn-lg" onclick="showPage(&#39;login&#39;)" style="background:var(--red);border-color:var(--red)">Sign In →</button><button class="btn btn-ghost btn-lg" onclick="showPage(&#39;register&#39;)">Register</button></div></div>
+  <footer style="padding:2rem max(1rem,4vw);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--border)"><div style="display:flex;align-items:center;gap:9px;font-size:0.875rem;font-weight:600"><div class="nav-logo" style="width:24px;height:24px;font-size:11px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div><p style="font-size:0.75rem;color:var(--text3)">© 2026 InterviewForge. Built for students.</p><div style="display:flex;gap:1.5rem;font-size:0.78rem;color:var(--text3)"><a onclick="showPage(&#39;login&#39;)" style="cursor:pointer">Login</a><a onclick="showPage(&#39;register&#39;)" style="cursor:pointer">Sign Up</a></div></footer>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="page-login" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage(&#39;landing&#39;)">← Home</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-login">🌙</button></div>
+      <div class="auth-logo"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-sub">Sign in to continue your prep journey.</p>
+      <div class="input-group"><label class="input-label">Email</label><input class="input" type="email" id="login-email" placeholder="you@gmail.com"></div>
+      <div class="input-group"><label class="input-label">Password</label><input class="input" type="password" id="login-pass" placeholder="••••••••"></div>
+      <button class="btn btn-primary btn-full" style="margin-top:0.25rem;background:var(--red);border-color:var(--red)" onclick="emailLogin()">Sign In</button>
+      <p style="text-align:center;margin-top:1rem;font-size:0.8125rem;color:var(--text2)"><a style="color:var(--accent);cursor:pointer" onclick="showForgotPassword()">Forgot Password?</a></p>
+      <p style="text-align:center;margin-top:0.5rem;font-size:0.8125rem;color:var(--text2)">No account? <a style="color:var(--accent);cursor:pointer" onclick="showPage(&#39;register&#39;)">Create one free</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD PAGE -->
+<div id="page-forgot" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage(&#39;login&#39;)">← Back</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-forgot">🌙</button></div>
+      <div class="auth-logo"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Reset Password</h1>
+      <p class="auth-sub">Enter your email to receive a reset code.</p>
+      <div class="input-group"><label class="input-label">Email Address</label><input class="input" type="email" id="forgot-email" placeholder="you@gmail.com"></div>
+      <button class="btn btn-primary btn-full" style="background:var(--red);border-color:var(--red)" onclick="sendResetCode()">Send Reset Code →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESET PASSWORD PAGE -->
+<div id="page-reset" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage(&#39;login&#39;)">← Back</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-reset">🌙</button></div>
+      <div class="auth-logo"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Create New Password</h1>
+      <p class="auth-sub" id="reset-email-display"></p>
+      <div class="input-group"><label class="input-label">Reset Code</label><input class="input" type="text" id="reset-code" placeholder="Enter 6-digit code" maxlength="6"></div>
+      <div class="input-group"><label class="input-label">New Password</label><input class="input" type="password" id="reset-new-pass" placeholder="Min 8 chars, 1 number, 1 special char"></div>
+      <div class="input-group"><label class="input-label">Confirm Password</label><input class="input" type="password" id="reset-confirm-pass" placeholder="Re-enter password"></div>
+      <button class="btn btn-primary btn-full" style="background:var(--red);border-color:var(--red)" onclick="resetPassword()">Reset Password →</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER PAGE -->
+<div id="page-register" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage(&#39;landing&#39;)">← Home</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-reg">🌙</button></div>
+      <div class="auth-logo"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Create account</h1>
+      <p class="auth-sub">Start your interview prep journey today. Free forever.</p>
+      <div class="two-col" style="gap:0.75rem">
+        <div class="input-group" style="margin:0"><label class="input-label">First Name</label><input class="input" id="reg-fname" placeholder="Your first name"></div>
+        <div class="input-group" style="margin:0"><label class="input-label">Last Name</label><input class="input" id="reg-lname" placeholder="Your last name"></div>
+      </div>
+      <div class="input-group" style="margin-top:0.75rem"><label class="input-label">Email</label><input class="input" type="email" id="reg-email" placeholder="you@gmail.com"></div>
+      <div class="input-group"><label class="input-label">Password</label><input class="input" type="password" id="reg-pass" placeholder="Min 8 chars, 1 number, 1 special char"></div>
+      <div class="input-group"><label class="input-label">Confirm Password</label><input class="input" type="password" id="reg-confirm" placeholder="Re-enter password"></div>
+      <div class="input-group"><label class="input-label">Student Type</label>
+        <select class="input" id="reg-role">
+          <option value="">Select student type...</option>
+          <option value="High School">High School Student</option>
+          <option value="Diploma">Diploma Student</option>
+          <option value="Undergraduate">Undergraduate (B.Tech / B.E. / BCA / B.Sc)</option>
+          <option value="Postgraduate">Postgraduate (M.Tech / MCA / M.Sc / MBA)</option>
+          <option value="PhD">PhD / Research Scholar</option>
+          <option value="Bootcamp">Bootcamp / Self-taught</option>
+          <option value="Working Professional">Working Professional (Upskilling)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="emailRegister()" style="background:var(--red);border-color:var(--red)">Create Account →</button>
+      <p style="text-align:center;margin-top:1.25rem;font-size:0.8125rem;color:var(--text2)">Already have one? <a style="color:var(--accent);cursor:pointer" onclick="showPage(&#39;login&#39;)">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="page-app" class="page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-inner"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+        <div style="display:flex;gap:5px;align-items:center">
+          <button class="theme-btn" onclick="showPage(&#39;landing&#39;)" title="Home" style="font-size:13px">🏠</button>
+          <button class="theme-btn" onclick="cycleTheme()" id="theme-btn-app" title="Theme">🌙</button>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Main</div>
+          <div class="sidebar-item" onclick="navigateTo('dashboard')" id="nav-dashboard"><span class="s-icon">⊞</span> Dashboard</div>
+          <div class="sidebar-item" onclick="navigateTo('practice')" id="nav-practice"><span class="s-icon">💬</span> Practice</div>
+          <div class="sidebar-item" onclick="navigateTo('coding')" id="nav-coding"><span class="s-icon">💻</span> Coding Challenges <span class="sidebar-badge">Hot</span></div>
+          <div class="sidebar-item" onclick="navigateTo('tests')" id="nav-tests"><span class="s-icon">📝</span> Topic Tests</div>
+          <div class="sidebar-item" onclick="navigateTo('mock')" id="nav-mock"><span class="s-icon">🎯</span> Mock Interview</div>
+          <div class="sidebar-item" onclick="navigateTo('exam')" id="nav-exam"><span class="s-icon">🔒</span> Proctored Exam</div>
+          <div class="sidebar-item" onclick="navigateTo('games')" id="nav-games"><span class="s-icon">🎮</span> Games</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Compete</div>
+          <div class="sidebar-item" onclick="navigateTo('competitions')" id="nav-competitions"><span class="s-icon">🏅</span> Competitions <span class="sidebar-badge" style="background:var(--purple)">Live</span></div>
+          <div class="sidebar-item" onclick="navigateTo('leaderboard')" id="nav-leaderboard"><span class="s-icon">🏆</span> Leaderboard</div>
+          <div class="sidebar-item" onclick="navigateTo('streaks')" id="nav-streaks"><span class="s-icon">🔥</span> Streaks & Badges</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Explore</div>
+          <div class="sidebar-item" onclick="navigateTo('jobs')" id="nav-jobs"><span class="s-icon">💼</span> Jobs &amp; Internships</div>
+          <div class="sidebar-item" onclick="navigateTo('roadmap')" id="nav-roadmap"><span class="s-icon">🗺</span> Roadmap</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Account</div>
+          <div class="sidebar-item" onclick="navigateTo('profile')" id="nav-profile"><span class="s-icon">👤</span> Profile</div>
+          <div class="sidebar-item" onclick="navigateTo('settings')" id="nav-settings"><span class="s-icon">⚙</span> Settings</div>
+          <div class="sidebar-item" onclick="logout()" style="color:var(--red)"><span class="s-icon">↩</span> Sign Out</div>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar" id="sidebar-avatar">T</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-name">test A</div>
+            <div class="sidebar-user-level" id="sidebar-level">⭐ Novice</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <div class="main-content" id="app-main"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+const STATE = {
+  theme: localStorage.getItem('theme') || 'dark',
+  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  currentPage: 'landing',
+  currentSection: 'dashboard',
+  resetEmail: null,
+  resetOTP: null
+};
+
+// ═══════════════════════ DATA ═══════════════════════
+const QUESTIONS = [
+  {id:1,text:"What is the difference between JDK, JRE, and JVM?",cat:"Java",diff:"Easy",pts:5,answer:"JVM executes bytecode. JRE = JVM + class libraries. JDK = JRE + development tools (compiler, debugger). You need JDK to develop Java apps, JRE to run them.",type:"text"},
+  {id:2,text:"Explain Java streams and their main advantages.",cat:"Java",diff:"Medium",pts:10,answer:"Streams provide a functional-style API for processing collections. Advantages: lazy evaluation (elements processed only when needed), parallel processing with .parallel(), chaining operations, and cleaner code.",type:"text"},
+  {id:3,text:"What is HashMap's time complexity for get/put?",cat:"DSA",diff:"Easy",pts:5,options:["O(n)","O(1) average","O(log n)","O(n²)"],correct:1,type:"mcq"},
+  {id:4,text:"Which sorting algorithm guarantees O(n log n) in all cases?",cat:"Algorithms",diff:"Medium",pts:10,options:["Quick Sort","Bubble Sort","Merge Sort","Insertion Sort"],correct:2,type:"mcq"},
+  {id:5,text:"Design a URL shortening service like bit.ly. What components would you include?",cat:"System Design",diff:"Hard",pts:20,answer:"Key components: Hash function (MD5/Base62 encoding), Database (mapping short→long URLs), Cache layer (Redis for hot URLs), Load balancer, CDN for redirects. Handle collisions with retry/counter increment.",type:"text"},
+  {id:6,text:"What are ACID properties?",cat:"SQL",diff:"Easy",pts:5,options:["Atomicity, Consistency, Isolation, Durability","Atomicity, Concurrency, Integrity, Durability","Access, Control, Integrity, Design","None of these"],correct:0,type:"mcq"},
+  {id:7,text:"Explain the difference between process and thread.",cat:"OS",diff:"Medium",pts:10,answer:"A process is an independent program with its own memory space. A thread is a lightweight unit within a process that shares memory. Context switching between threads is faster than between processes.",type:"text"},
+  {id:8,text:"What is dependency injection in Spring?",cat:"Spring Boot",diff:"Medium",pts:10,answer:"A design pattern where an object receives its dependencies from an external source rather than creating them. Spring supports constructor injection (recommended), setter injection, and field injection via @Autowired.",type:"text"},
+  {id:9,text:"What does 'CAP theorem' state?",cat:"System Design",diff:"Hard",pts:20,options:["A distributed system can guarantee Consistency, Availability, and Partition Tolerance simultaneously","You can only guarantee 2 of: Consistency, Availability, Partition Tolerance","Consistency always beats Availability","None of these"],correct:1,type:"mcq"},
+  {id:10,text:"Tell me about yourself using the Present-Past-Future framework.",cat:"Behavioral",diff:"Easy",pts:5,answer:"Structure: Present (current role/studies and key skills), Past (relevant experiences that led here), Future (what you want to achieve at this company). Keep it to 90 seconds, tailored to the role.",type:"text"},
+  {id:11,text:"Explain Big O notation and why it matters.",cat:"DSA",diff:"Easy",pts:5,answer:"Big O describes the worst-case time or space complexity as input grows. It helps compare algorithms independent of hardware. O(1) is constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic. Choose algorithms with lower complexity for scalability.",type:"text"},
+  {id:12,text:"What is a deadlock? Name the four necessary conditions.",cat:"OS",diff:"Hard",pts:20,options:["A state where threads wait forever; conditions: Mutual Exclusion, Hold and Wait, No Preemption, Circular Wait","A state where memory overflows","A race condition between processes","None of these"],correct:0,type:"mcq"},
+  {id:13,text:"What is the difference between SQL JOINs? INNER vs LEFT vs RIGHT vs FULL.",cat:"SQL",diff:"Medium",pts:10,answer:"INNER JOIN: only rows with matches in both tables. LEFT JOIN: all left rows + matching right (null if no match). RIGHT JOIN: all right rows + matching left. FULL OUTER JOIN: all rows from both tables.",type:"text"},
+  {id:14,text:"Describe the Observer design pattern.",cat:"Design Patterns",diff:"Medium",pts:10,answer:"Defines a one-to-many dependency where when one object (subject) changes state, all dependents (observers) are notified automatically. Used in event systems, MVC (model notifying views). Java: EventListener, Spring: ApplicationEvent.",type:"text"},
+  {id:15,text:"What is the TCP three-way handshake?",cat:"Networking",diff:"Easy",pts:5,options:["SYN → SYN-ACK → ACK","ACK → SYN → FIN","SYN → ACK → FIN","CONNECT → ACCEPT → CONFIRM"],correct:0,type:"mcq"},
+  {id:16,text:"Explain microservices vs monolithic architecture trade-offs.",cat:"System Design",diff:"Hard",pts:20,answer:"Monolith: simple to develop/deploy initially, single codebase. Microservices: independently deployable, scalable, technology-agnostic. Trade-offs: microservices add network latency, distributed system complexity, need for service discovery and API gateway.",type:"text"},
+  {id:17,text:"What is the GIL in Python?",cat:"Python",diff:"Hard",pts:20,answer:"Global Interpreter Lock — a mutex that prevents multiple native threads from executing Python bytecodes simultaneously. This means CPU-bound multithreaded Python programs don't truly parallelize. Use multiprocessing or async for concurrency.",type:"text"},
+  {id:18,text:"Describe a time you handled a conflict with a teammate.",cat:"Behavioral",diff:"Medium",pts:10,answer:"Use STAR (Situation, Task, Action, Result). Focus on: actively listening to their perspective, finding common ground, proposing a solution collaboratively, and the positive outcome. Show empathy and professionalism.",type:"text"},
+];
+
+const GAMES = [
+  {id:'flashcard',title:'Tech Flashcards',desc:'Flip through 50 key CS concepts. Test yourself before interviews.',icon:'🃏',color:'#3b82f620',tags:['Memory','All Levels'],difficulty:'Easy',xp:15},
+  {id:'quiz-blitz',title:'Quiz Blitz',desc:'30 MCQs in 5 minutes. Beat your high score, earn bonus XP.',icon:'⚡',color:'#eab30820',tags:['Speed','MCQ'],difficulty:'Medium',xp:30},
+  {id:'bug-hunt',title:'Bug Hunt',desc:'Find and fix the bug in given code snippets. 10 rounds.',icon:'🐛',color:'#ef444420',tags:['Coding','Debug'],difficulty:'Hard',xp:50},
+  {id:'word-sprint',title:'Term Sprint',desc:'Match 20 CS terms to definitions as fast as you can.',icon:'📚',color:'#22c55e20',tags:['Vocab','Fast'],difficulty:'Easy',xp:20},
+];
+
+const JOBS = [
+  {title:"Software Engineer Intern",company:"Google",logo:"🔵",location:"Bangalore",type:"Internship",tags:["Java","Python","Go"],posted:"2 days ago",url:"https://careers.google.com",stipend:"₹80,000/mo"},
+  {title:"Frontend Developer",company:"Flipkart",logo:"🛒",location:"Bengaluru (Remote)",type:"Full-Time",tags:["React","TypeScript","CSS"],posted:"1 day ago",url:"https://www.flipkart.com/careers",stipend:"₹12–18 LPA"},
+  {title:"Data Science Intern",company:"Microsoft",logo:"🪟",location:"Hyderabad",type:"Internship",tags:["Python","ML","SQL"],posted:"3 days ago",url:"https://careers.microsoft.com",stipend:"₹60,000/mo"},
+  {title:"Backend Engineer",company:"Swiggy",logo:"🍊",location:"Bangalore",type:"Full-Time",tags:["Node.js","Kafka","Redis"],posted:"5 days ago",url:"https://careers.swiggy.com",stipend:"₹15–22 LPA"},
+  {title:"SDE Intern",company:"Amazon",logo:"📦",location:"Hyderabad",type:"Internship",tags:["Java","DSA","AWS"],posted:"1 day ago",url:"https://amazon.jobs",stipend:"₹90,000/mo"},
+  {title:"ML Engineer",company:"Meta",logo:"🔷",location:"Bangalore (Hybrid)",type:"Full-Time",tags:["Python","PyTorch","ML"],posted:"4 days ago",url:"https://www.metacareers.com",stipend:"₹25–35 LPA"},
+  {title:"Cloud Intern",company:"TCS",logo:"🌀",location:"Pune",type:"Internship",tags:["AWS","Azure","DevOps"],posted:"2 days ago",url:"https://www.tcs.com/careers",stipend:"₹25,000/mo"},
+  {title:"Full Stack Developer",company:"Razorpay",logo:"💳",location:"Bangalore",type:"Full-Time",tags:["React","Node.js","PostgreSQL"],posted:"6 days ago",url:"https://razorpay.com/jobs",stipend:"₹18–28 LPA"},
+  {title:"Android Developer Intern",company:"PhonePe",logo:"📱",location:"Bangalore",type:"Internship",tags:["Kotlin","Android","Firebase"],posted:"3 days ago",url:"https://www.phonepe.com/careers",stipend:"₹50,000/mo"},
+  {title:"DevOps Engineer",company:"Infosys",logo:"🟣",location:"Chennai",type:"Full-Time",tags:["Docker","Kubernetes","CI/CD"],posted:"1 week ago",url:"https://www.infosys.com/careers",stipend:"₹10–15 LPA"},
+  {title:"Data Analyst",company:"Zomato",logo:"🍕",location:"Gurugram (Remote)",type:"Full-Time",tags:["SQL","Python","Tableau"],posted:"2 days ago",url:"https://www.zomato.com/careers",stipend:"₹8–14 LPA"},
+  {title:"Cybersecurity Intern",company:"Wipro",logo:"⚡",location:"Noida",type:"Internship",tags:["Security","Linux","Networking"],posted:"5 days ago",url:"https://careers.wipro.com",stipend:"₹30,000/mo"},
+];
+
+// LEADERBOARD is now dynamically generated from the user DB — see getLeaderboardData()
+function getLeaderboardData() {
+  const db = getDB();
+  return Object.values(db)
+    .map(u => ({
+      name: u.name || u.email,
+      initial: u.initial || (u.name ? u.name[0].toUpperCase() : u.email[0].toUpperCase()),
+      email: u.email,
+      xp: u.xp || 0,
+      level: u.level || 'Novice',
+      streak: u.streak || 0,
+      questions: u.questionsAnswered || 0,
+      studentType: u.role || '—',
+      joinDate: u.joinDate || ''
+    }))
+    .sort((a, b) => b.xp - a.xp)
+    .map((u, i) => ({ ...u, rank: i + 1 }));
+}
+
+const ROADMAP_DATA = [
+  {phase:"Phase 1 — Foundations",weeks:"Weeks 1-2",topics:["Big O Notation","Arrays & Strings","Linked Lists","Stacks & Queues"],done:[true,true,false,false]},
+  {phase:"Phase 2 — Core DSA",weeks:"Weeks 3-5",topics:["Trees & BST","Graphs (BFS/DFS)","Dynamic Programming","Sorting & Searching"],done:[false,false,false,false]},
+  {phase:"Phase 3 — System Design",weeks:"Weeks 6-7",topics:["Scalability Basics","Database Design","Caching Strategies","API Design"],done:[false,false,false,false]},
+  {phase:"Phase 4 — Tech-Specific",weeks:"Weeks 8-9",topics:["Java / Spring Boot","SQL & NoSQL","OS & Networking","Cloud Basics"],done:[false,false,false,false]},
+  {phase:"Phase 5 — Soft Skills",weeks:"Week 10",topics:["STAR Method","Common HR Questions","Salary Negotiation","Questions to Ask"],done:[false,false,false,false]},
+];
+
+const BADGES_DEF = [
+  {emoji:"🔥",label:"7-Day Streak",check:u=>u.streak>=7},
+  {emoji:"💯",label:"Perfect Score",check:u=>u.averageScore>=100},
+  {emoji:"⚡",label:"Speed Demon",check:u=>(u.questionsAnswered||0)>=5},
+  {emoji:"🎯",label:"50 Questions",check:u=>(u.questionsAnswered||0)>=50},
+  {emoji:"🌟",label:"First Mock",check:u=>(u.interviews||0)>=1},
+  {emoji:"🏆",label:"Top 10 Rank",check:u=>getLeaderboardData().findIndex(r=>r.email===u.email)<10&&getLeaderboardData().length>=10},
+  {emoji:"🔬",label:"Expert Level",check:u=>['Expert','Master','Grandmaster'].includes(u.level)},
+  {emoji:"🧠",label:"100 Questions",check:u=>(u.questionsAnswered||0)>=100},
+  {emoji:"📚",label:"All Categories",check:u=>(u.questionsAnswered||0)>=18},
+  {emoji:"👑",label:"Grandmaster",check:u=>u.level==='Grandmaster'},
+  {emoji:"🎮",label:"Gamer",check:u=>(u.xp||0)>=100},
+  {emoji:"💼",label:"Job Saver",check:u=>JSON.parse(localStorage.getItem('saved_jobs')||'[]').length>0},
+];
+function getBadges(user){ return BADGES_DEF.map(b=>({...b,unlocked:b.check(user||{})})); }
+// keep BADGES_ALL as a computed alias for backward compat
+Object.defineProperty(window,'BADGES_ALL',{get:()=>getBadges(STATE.user)});
+
+// ═══════════════════════ PASSWORD VALIDATION ═══════════════════════
+function validatePassword(password) {
+  if (password.length < 8) return { valid: false, message: "Password must be at least 8 characters long" };
+  if (!/[0-9]/.test(password)) return { valid: false, message: "Password must contain at least one number" };
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return { valid: false, message: "Password must contain at least one special character (!@#$%^&* etc.)" };
+  return { valid: true, message: "Password is valid" };
+}
+
+// ═══════════════════════ THEME ═══════════════════════
+const THEMES = ['dark','light','system'];
+const THEME_ICONS = {dark:'🌙',light:'☀️',system:'💻'};
+let themeIdx = THEMES.indexOf(STATE.theme);
+
+function applyTheme(t) {
+  const resolved = t === 'system' ? (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light') : t;
+  document.documentElement.setAttribute('data-theme', resolved);
+  const icon = THEME_ICONS[t] || '🌙';
+  ['theme-btn-landing','theme-btn-login','theme-btn-reg','theme-btn-app','theme-btn-forgot','theme-btn-reset'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = icon; });
+  localStorage.setItem('theme', t);
+  STATE.theme = t;
+}
+function cycleTheme() { themeIdx = (themeIdx + 1) % THEMES.length; applyTheme(THEMES[themeIdx]); toast(`Theme: ${THEMES[themeIdx].charAt(0).toUpperCase()+THEMES[themeIdx].slice(1)}`,'info'); }
+applyTheme(STATE.theme);
+
+function toast(msg, type='info') { const el = document.createElement('div'); el.className = `toast toast-${type}`; el.textContent = msg; document.getElementById('toast-container').appendChild(el); setTimeout(()=>el.style.opacity='0', 2800); setTimeout(()=>el.remove(), 3200); }
+function showPage(page) { document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(`page-${page}`).classList.add('active'); STATE.currentPage = page; window.scrollTo(0,0); }
+function showSection(id) { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+function showForgotPassword() { showPage('forgot'); }
+
+// ═══════════════════════ AUTH ═══════════════════════
+const DB_KEY = 'if_users_db';
+
+function getDB() { try { return JSON.parse(localStorage.getItem(DB_KEY) || '{}'); } catch { return {}; } }
+function saveDB(db) { localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+
+function sendResetCode() {
+  const email = document.getElementById('forgot-email').value.trim().toLowerCase();
+  if (!email) { toast('Please enter your email address', 'error'); return; }
+  const db = getDB();
+  if (!db[email]) { toast('No account found with this email address', 'error'); return; }
+  const otp = String(Math.floor(100000 + Math.random() * 900000));
+  STATE.resetEmail = email;
+  STATE.resetOTP = otp;
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:9998;display:flex;align-items:center;justify-content:center;padding:1rem';
+  overlay.innerHTML = `<div style="background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:400px;text-align:center"><div style="font-size:3rem;margin-bottom:1rem">📧</div><h3 style="margin-bottom:0.5rem">Password Reset Code</h3><p style="color:var(--text2);margin-bottom:1rem">Your reset code for ${email}</p><div style="background:var(--bg2);padding:1rem;border-radius:12px;font-size:2rem;font-family:monospace;letter-spacing:8px;margin-bottom:1rem">${otp}</div><p style="font-size:0.75rem;color:var(--text3);margin-bottom:1rem">(Demo - In production, this would be emailed)</p><button class="btn btn-primary" style="background:var(--red)" onclick="this.parentElement.parentElement.remove();document.getElementById('reset-email-display').textContent='Reset password for: '+email;showPage('reset')">Continue →</button></div>`;
+  document.body.appendChild(overlay);
+}
+
+function resetPassword() {
+  const code = document.getElementById('reset-code').value.trim();
+  const newPass = document.getElementById('reset-new-pass').value;
+  const confirmPass = document.getElementById('reset-confirm-pass').value;
+  if (!code) { toast('Please enter the reset code', 'error'); return; }
+  if (code !== STATE.resetOTP) { toast('Invalid reset code', 'error'); return; }
+  if (!newPass) { toast('Please enter a new password', 'error'); return; }
+  if (newPass !== confirmPass) { toast('Passwords do not match', 'error'); return; }
+  const passValidation = validatePassword(newPass);
+  if (!passValidation.valid) { toast(passValidation.message, 'error'); return; }
+  const db = getDB();
+  if (!db[STATE.resetEmail]) { toast('User not found', 'error'); return; }
+  db[STATE.resetEmail].password = btoa(newPass);
+  saveDB(db);
+  STATE.resetEmail = null;
+  STATE.resetOTP = null;
+  toast('Password reset successful! Please login.', 'success');
+  showPage('login');
+}
+
+function emailLogin() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const pass = document.getElementById('login-pass').value;
+  if (!email || !pass) { toast('Please fill all fields','error'); return; }
+  const db = getDB();
+  if (!db[email]) { toast('No account found. Please register first.','error'); return; }
+  if (db[email].password !== btoa(pass)) { toast('Incorrect password.','error'); return; }
+  loginUser(db[email]); toast(`Welcome back, ${db[email].name.split(' ')[0]}! 👋`, 'success');
+}
+
+function emailRegister() {
+  const fname = document.getElementById('reg-fname').value.trim();
+  const lname = document.getElementById('reg-lname').value.trim();
+  const email = document.getElementById('reg-email').value.trim().toLowerCase();
+  const pass = document.getElementById('reg-pass').value;
+  const confirm = document.getElementById('reg-confirm').value;
+  const role = document.getElementById('reg-role').value;
+  if (!fname || !email || !pass) { toast('Please fill required fields','error'); return; }
+  if (pass !== confirm) { toast('Passwords do not match','error'); return; }
+  const passValidation = validatePassword(pass);
+  if (!passValidation.valid) { toast(passValidation.message, 'error'); return; }
+  const db = getDB();
+  if (db[email]) { toast('Account already exists. Please sign in.','error'); return; }
+  const name = `${fname} ${lname}`.trim();
+  const user = createNewUser(name, email, pass, role);
+  loginUser(user); toast('🎉 Account created! +50 XP welcome bonus.', 'success');
+}
+
+function createNewUser(name, email, password = null, role = '') {
+  const initial = name ? name[0].toUpperCase() : email[0].toUpperCase();
+  const user = { name, email, initial, password: password ? btoa(password) : null, role, xp: 50, level: 'Novice', streak: 1, questionsAnswered: 0, correctAnswers: 0, averageScore: 0, badges: 0, interviews: 0, joinDate: new Date().toISOString().split('T')[0] };
+  const db = getDB(); db[email] = user; saveDB(db); return user;
+}
+
+function loginUser(user) {
+  const { password, ...sessionUser } = user;
+  // Streak logic: increment if last login was yesterday, reset if gap > 1 day, keep if same day
+  const today = new Date().toISOString().split('T')[0];
+  const lastLogin = sessionUser.lastLogin || '';
+  if (lastLogin) {
+    const diff = Math.round((new Date(today) - new Date(lastLogin)) / 86400000);
+    if (diff === 1) { sessionUser.streak = (sessionUser.streak || 0) + 1; }
+    else if (diff > 1) { sessionUser.streak = 1; }
+  } else { sessionUser.streak = sessionUser.streak || 1; }
+  sessionUser.lastLogin = today;
+  // Sync streak back to DB
+  const db = getDB();
+  if (db[sessionUser.email]) { db[sessionUser.email].streak = sessionUser.streak; db[sessionUser.email].lastLogin = today; saveDB(db); }
+  STATE.user = sessionUser;
+  localStorage.setItem('user', JSON.stringify(sessionUser));
+  updateSidebar();
+  showPage('app');
+  navigateTo('dashboard');
+}
+function logout() { if (STATE.user) { const db = getDB(); if (db[STATE.user.email]) { db[STATE.user.email] = { ...db[STATE.user.email], ...STATE.user }; saveDB(db); } } STATE.user = null; localStorage.removeItem('user'); showPage('landing'); toast('Signed out successfully','info'); }
+function updateSidebar() { const u = STATE.user; if (!u) return; document.getElementById('sidebar-name').textContent = u.name; document.getElementById('sidebar-level').textContent = `⭐ ${u.level}`; document.getElementById('sidebar-avatar').textContent = u.initial; }
+
+// ═══════════════════════ NAVIGATION ═══════════════════════
+const SECTIONS = ['dashboard','practice','coding','tests','mock','exam','games','competitions','leaderboard','streaks','jobs','roadmap','profile','settings'];
+let navHistory = [];
+
+function navigateTo(section) { if (!STATE.user && section !== 'jobs') { showPage('login'); return; } if (STATE.currentSection && STATE.currentSection !== section) { navHistory.push(STATE.currentSection); if (navHistory.length > 10) navHistory.shift(); } STATE.currentSection = section; SECTIONS.forEach(s => { const el = document.getElementById(`nav-${s}`); if (el) el.classList.toggle('active', s === section); }); const main = document.getElementById('app-main'); main.innerHTML = ''; const renderer = { dashboard: renderDashboard, practice: renderPractice, coding: renderCoding, tests: renderTests, mock: renderMock, exam: renderExam, games: renderGames, competitions: renderCompetitions, leaderboard: renderLeaderboard, streaks: renderStreaks, jobs: renderJobs, roadmap: renderRoadmap, profile: renderProfile, settings: renderSettings }[section]; if (renderer) renderer(main); main.scrollTop = 0; }
+function goBack() { if (navHistory.length > 0) { const prev = navHistory.pop(); navigateTo(prev); } else { navigateTo('dashboard'); } }
+function backBtn(label) { return `<button class="page-back" onclick="goBack()"><span style="font-size:1rem;line-height:1">←</span> ${label||'Back'}</button>`; }
+
+// ═══════════════════════ HELPER FUNCTIONS ═══════════════════════
+function getLevelData(xp) { if(xp>=15000) return {label:'Grandmaster',min:15000,next:20000}; if(xp>=7500) return {label:'Master',min:7500,next:15000}; if(xp>=3500) return {label:'Expert',min:3500,next:7500}; if(xp>=1500) return {label:'Practitioner',min:1500,next:3500}; if(xp>=500) return {label:'Apprentice',min:500,next:1500}; return {label:'Novice',min:0,next:500}; }
+function awardXP(pts) { if(!STATE.user) return; STATE.user.xp=(STATE.user.xp||0)+pts; const lvl=getLevelData(STATE.user.xp); STATE.user.level=lvl.label; document.getElementById('sidebar-level').textContent=`⭐ ${lvl.label}`; localStorage.setItem('user',JSON.stringify(STATE.user)); const db=getDB(); if(db[STATE.user.email]){db[STATE.user.email].xp=STATE.user.xp;db[STATE.user.email].level=STATE.user.level;saveDB(db);} toast(`+${pts} XP earned! 🎉`,'success'); }
+function getGreeting() { const h=new Date().getHours(); return h<12?'morning':h<17?'afternoon':'evening'; }
+function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+// ═══════════════════════ RENDER FUNCTIONS (Keep all from original) ═══════════════════════
+function renderDashboard(el) { const u=STATE.user||{}; const xp=u.xp||0; const levelData=getLevelData(xp); const pct=Math.min(100,Math.round((xp-levelData.min)/(levelData.next-levelData.min)*100))||0; const days=['M','T','W','T','F','S','S']; const activity=[4,7,3,9,6,8,5]; const maxA=Math.max(...activity); const bars=days.map((d,i)=>`<div style="position:relative;flex:1"><div class="bar" style="height:${Math.max(10,(activity[i]/maxA)*72)}px;background:${i===6?'var(--red)':'var(--accent)'};opacity:${i===6?1:0.45}"></div><div class="bar-label">${d}</div></div>`).join(''); el.innerHTML=`<div class="dash-header"><div><div class="dash-greeting">Good ${getGreeting()}, ${(u.name||'there').split(' ')[0]} 👋</div><div class="dash-sub">Here's your prep summary. Keep the streak going!</div></div><button class="btn btn-primary" onclick="navigateTo('practice')" style="background:var(--red);border-color:var(--red)">+ Start Practice</button></div><div class="xp-card"><div class="xp-top"><span class="xp-name">${u.name||'You'} · <span style="color:var(--text2);font-weight:400">${u.email||''}</span></span><span class="xp-level" style="background:var(--red-bg);color:var(--red);border:1px solid rgba(239,68,68,0.2)">${levelData.label}</span></div><div class="xp-nums"><span>${xp.toLocaleString()} XP total</span><span>${(levelData.next - xp).toLocaleString()} XP to next level</span></div><div class="progress"><div class="progress-fill" style="width:${pct}%;background:var(--red)"></div></div></div><div class="stats-grid"><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${u.questionsAnswered||0}</div><div class="stat-label">Questions Answered</div><div class="stat-delta up">↑ +3 today</div></div><div class="stat-card"><div class="stat-val" style="color:var(--green)">${u.averageScore||0}%</div><div class="stat-label">Average Score</div><div class="stat-delta up">↑ +2% this week</div></div><div class="stat-card"><div class="stat-val" style="color:var(--yellow)">🔥 ${u.streak||0}</div><div class="stat-label">Day Streak</div><div class="stat-delta up">Personal best: 12</div></div><div class="stat-card"><div class="stat-val" style="color:var(--purple)">${u.interviews||0}</div><div class="stat-label">Mock Interviews</div><div class="stat-delta">Total sessions</div></div></div><div class="dash-grid"><div class="card"><div class="card-title">Weekly Activity</div><div class="bar-chart" style="gap:8px;padding-bottom:24px">${bars}</div></div><div class="card"><div class="card-title">Quick Actions</div><div class="quick-grid"><div class="quick-btn" onclick="navigateTo('practice')"><div class="quick-icon">📚</div><div class="quick-title">Practice</div><div class="quick-desc">By topic</div></div><div class="quick-btn" onclick="navigateTo('coding')"><div class="quick-icon">💻</div><div class="quick-title">Coding</div><div class="quick-desc">Challenges</div></div><div class="quick-btn" onclick="navigateTo('tests')"><div class="quick-icon">📝</div><div class="quick-title">Tests</div><div class="quick-desc">By subject</div></div><div class="quick-btn" onclick="navigateTo('competitions')"><div class="quick-icon">🏅</div><div class="quick-title">Compete</div><div class="quick-desc">Win badges</div></div><div class="quick-btn" onclick="navigateTo('streaks')"><div class="quick-icon">🔥</div><div class="quick-title">Streaks</div><div class="quick-desc">Daily habit</div></div><div class="quick-btn" onclick="navigateTo('mock')"><div class="quick-icon">🎯</div><div class="quick-title">Mock Test</div><div class="quick-desc">Full interview</div></div><div class="quick-btn" onclick="navigateTo('games')"><div class="quick-icon">🎮</div><div class="quick-title">Games</div><div class="quick-desc">Earn XP</div></div><div class="quick-btn" onclick="navigateTo('jobs')"><div class="quick-icon">💼</div><div class="quick-title">Jobs</div><div class="quick-desc">Live postings</div></div><div class="quick-btn" onclick="navigateTo('leaderboard')"><div class="quick-icon">🏆</div><div class="quick-title">Rank</div><div class="quick-desc">Leaderboard</div></div></div></div></div><div class="dash-grid"><div class="card"><div class="card-title">Recent Badges</div><div style="display:flex;gap:0.75rem;flex-wrap:wrap">${BADGES_ALL.filter(b=>b.unlocked).slice(0,5).map(b=>`<div style="text-align:center"><div style="font-size:1.75rem">${b.emoji}</div><div style="font-size:0.65rem;color:var(--text3);margin-top:3px">${b.label}</div></div>`).join('')}<div style="text-align:center;cursor:pointer" onclick="navigateTo('profile')"><div style="font-size:1.75rem;color:var(--text3)">+${BADGES_ALL.length - BADGES_ALL.filter(b=>b.unlocked).length}</div><div style="font-size:0.65rem;color:var(--text3);margin-top:3px">More</div></div></div></div><div class="card"><div class="section-head"><span class="card-title" style="margin:0">Top Rankers</span><a style="font-size:0.75rem;color:var(--accent);cursor:pointer" onclick="navigateTo('leaderboard')">Full board →</a></div>${(()=>{ const lb=getLeaderboardData().slice(0,4); if(lb.length===0) return '<p style="font-size:0.8125rem;color:var(--text3);text-align:center;padding:1rem 0">No rankings yet. Be the first!</p>'; return lb.map((u,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:0.5rem 0;border-bottom:1px solid var(--border)"><span style="width:20px;font-size:0.78rem;font-weight:700;color:var(--text3)">${i<3?['🥇','🥈','🥉'][i]:i+1}</span><div class="lb-ava" style="width:28px;height:28px;font-size:0.68rem;${STATE.user&&u.email===STATE.user.email?'background:var(--accent);color:#fff':''}">${u.initial}</div><div style="flex:1;font-size:0.8125rem;font-weight:500">${u.name}${STATE.user&&u.email===STATE.user.email?' <span style="font-size:0.62rem;color:var(--accent)">(You)</span>':''}</div><div style="font-size:0.78rem;color:var(--accent);font-family:var(--mono);font-weight:700">${u.xp.toLocaleString()}</div></div>`).join(''); })()}</div></div>`; }
+
+let practiceFilter='All';
+function renderPractice(el) { practiceFilter='All'; const cats=['All',...new Set(QUESTIONS.map(q=>q.cat))]; el.innerHTML=`${backBtn('Dashboard')}<div class="page-title">Practice Questions</div><p class="page-sub">Click a question to answer. Earn XP for every attempt.</p><div class="q-filters">${cats.map(c=>`<button class="q-filter-btn${c===practiceFilter?' active':''}" onclick="setPracticeFilter('${c}')">${c}</button>`).join('')}</div><div id="q-list"></div>`; renderQList(); }
+function setPracticeFilter(cat) { practiceFilter=cat; document.querySelectorAll('.q-filter-btn').forEach(b=>{b.classList.toggle('active',b.textContent===cat)}); renderQList(); }
+function renderQList() { const qs=QUESTIONS.filter(q=>practiceFilter==='All'||q.cat===practiceFilter); document.getElementById('q-list').innerHTML=qs.map(q=>`<div class="q-card" id="qc-${q.id}" onclick="toggleQ(${q.id})"><div class="q-card-header"><div class="q-text">${q.text}</div><span style="color:var(--text3);font-size:0.72rem;flex-shrink:0">+${q.pts} XP</span></div><div class="q-meta"><span class="badge badge-${q.diff==='Easy'?'green':q.diff==='Medium'?'yellow':'red'}">${q.diff}</span><span class="badge badge-gray">${q.cat}</span><span class="badge badge-${q.type==='mcq'?'blue':'gray'}">${q.type==='mcq'?'MCQ':'Open-ended'}</span></div><div class="q-expand" id="qe-${q.id}">${q.type==='mcq'?renderMCQ(q):renderOpenQ(q)}</div></div>`).join(''); }
+function toggleQ(id) { const ex=document.getElementById(`qe-${id}`); const isOpen=ex.classList.contains('open'); document.querySelectorAll('.q-expand.open').forEach(e=>e.classList.remove('open')); if(!isOpen) ex.classList.add('open'); }
+function renderMCQ(q) { return `<div style="margin-top:0.5rem">${q.options.map((o,i)=>`<div class="mcq-option" id="opt-${q.id}-${i}" onclick="event.stopPropagation();checkMCQ(${q.id},${i},${q.correct})"><div class="mcq-key">${String.fromCharCode(65+i)}</div>${o}</div>`).join('')}<div id="mcq-result-${q.id}" style="margin-top:0.5rem;font-size:0.8125rem;display:none"></div></div>`; }
+function renderOpenQ(q) { return `<div style="margin-top:0.5rem" onclick="event.stopPropagation()"><textarea class="answer-area" id="ans-${q.id}" placeholder="Type your answer here..." rows="4"></textarea><div style="display:flex;gap:0.5rem;margin-top:0.5rem"><button class="btn btn-primary btn-sm" onclick="submitOpenQ(${q.id})">Submit Answer</button><button class="btn btn-ghost btn-sm" onclick="showModelAnswer(${q.id})">Show Model Answer</button></div><div id="model-${q.id}" style="display:none;margin-top:0.75rem;padding:0.875rem;background:var(--green-bg);border:1px solid rgba(34,197,94,0.2);border-radius:var(--r);font-size:0.8125rem;line-height:1.65;color:var(--text2)"></div></div>`; }
+function checkMCQ(qId,selected,correct) { const q=QUESTIONS.find(x=>x.id===qId); for(let i=0;i<q.options.length;i++){ const el=document.getElementById(`opt-${qId}-${i}`); el.classList.remove('selected','correct','wrong'); if(i===correct) el.classList.add('correct'); else if(i===selected&&selected!==correct) el.classList.add('wrong'); } const res=document.getElementById(`mcq-result-${qId}`); res.style.display='block'; if(selected===correct){ res.innerHTML=`<span style="color:var(--green)">✓ Correct! +${q.pts} XP earned.</span>`; awardXP(q.pts); } else { res.innerHTML=`<span style="color:var(--red)">✗ Incorrect.</span> <span style="color:var(--text2)">Correct: <strong>${q.options[correct]}</strong></span>`; } document.querySelectorAll(`#qc-${qId} .mcq-option`).forEach(o=>o.style.pointerEvents='none'); if(STATE.user){STATE.user.questionsAnswered=(STATE.user.questionsAnswered||0)+1;STATE.user.correctAnswers=(STATE.user.correctAnswers||0)+(selected===correct?1:0);STATE.user.averageScore=Math.round((STATE.user.correctAnswers/STATE.user.questionsAnswered)*100);const db=getDB();if(db[STATE.user.email]){db[STATE.user.email].questionsAnswered=STATE.user.questionsAnswered;db[STATE.user.email].correctAnswers=STATE.user.correctAnswers;db[STATE.user.email].averageScore=STATE.user.averageScore;saveDB(db);}localStorage.setItem('user',JSON.stringify(STATE.user));} }
+function submitOpenQ(qId) { const ans=document.getElementById(`ans-${qId}`).value.trim(); if(!ans){toast('Please write an answer first','error');return;} const q=QUESTIONS.find(x=>x.id===qId); awardXP(q.pts); if(STATE.user){STATE.user.questionsAnswered=(STATE.user.questionsAnswered||0)+1;const db=getDB();if(db[STATE.user.email]){db[STATE.user.email].questionsAnswered=STATE.user.questionsAnswered;saveDB(db);}localStorage.setItem('user',JSON.stringify(STATE.user));} showModelAnswer(qId); }
+function showModelAnswer(qId) { const q=QUESTIONS.find(x=>x.id===qId); const el=document.getElementById(`model-${qId}`); el.style.display='block'; el.innerHTML=`<strong style="color:var(--green);font-size:0.75rem;display:block;margin-bottom:0.5rem">✓ MODEL ANSWER</strong>${q.answer}`; }
+
+let mockState={active:false,qIdx:0,score:0,answers:[],qs:[]}; let mockTimer;
+function renderMock(el) { if(mockState.active){ renderMockQuestion(el); return; } el.innerHTML=`${backBtn('Dashboard')}<div class="page-title">Mock Interview</div><p class="page-sub">Simulate a real interview. 10 questions, timed, scored.</p><div class="two-col"><div class="card"><div class="card-title">Configure Mock</div><div class="input-group"><label class="input-label">Category</label><select class="input" id="mock-cat"><option value="mixed">Mixed (Recommended)</option><option value="Java">Java</option><option value="DSA">DSA</option><option value="System Design">System Design</option><option value="SQL">SQL</option><option value="Behavioral">Behavioral</option></select></div><div class="input-group"><label class="input-label">Difficulty</label><select class="input" id="mock-diff"><option value="mixed">Mixed</option><option value="Easy">Easy</option><option value="Medium">Medium</option><option value="Hard">Hard</option></select></div><div class="input-group"><label class="input-label">Questions</label><select class="input" id="mock-count"><option value="5">5 questions (~5 min)</option><option value="10" selected>10 questions (~15 min)</option><option value="15">15 questions (~20 min)</option></select></div><button class="btn btn-primary btn-full" style="margin-top:0.5rem;background:var(--red);border-color:var(--red)" onclick="startMock()">Start Mock Interview →</button></div><div><div class="card" style="margin-bottom:1rem"><div class="card-title">Your Stats</div><div style="display:flex;flex-direction:column;gap:0.75rem"><div><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px"><span>Java</span><span style="color:var(--accent)">84%</span></div><div class="progress"><div class="progress-fill" style="width:84%;background:var(--accent)"></div></div></div><div><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px"><span>DSA</span><span style="color:var(--yellow)">62%</span></div><div class="progress"><div class="progress-fill" style="width:62%;background:var(--yellow)"></div></div></div><div><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px"><span>System Design</span><span style="color:var(--red)">45%</span></div><div class="progress"><div class="progress-fill" style="width:45%;background:var(--red)"></div></div></div><div><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px"><span>SQL</span><span style="color:var(--green)">91%</span></div><div class="progress"><div class="progress-fill" style="width:91%;background:var(--green)"></div></div></div></div></div><div class="card"><div class="card-title">Previous Sessions</div><table class="tbl"><thead><tr><th>Date</th><th>Score</th><th>Category</th></tr></thead><tbody><tr><td>Today</td><td><span style="color:var(--green)">86%</span></td><td>Java</td></tr><tr><td>Yesterday</td><td><span style="color:var(--yellow)">72%</span></td><td>DSA</td></tr><tr><td>3 days ago</td><td><span style="color:var(--accent)">90%</span></td><td>SQL</td></tr></tbody></table></div></div></div>`; }
+function startMock() { const count=parseInt(document.getElementById('mock-count').value); const cat=document.getElementById('mock-cat').value; let pool=cat==='mixed'?[...QUESTIONS]:QUESTIONS.filter(q=>q.cat===cat); if(pool.length<count) pool=[...QUESTIONS]; mockState={active:true,qIdx:0,score:0,answers:[],qs:shuffle(pool).slice(0,count),total:count,timeLeft:count*90}; renderMockQuestion(document.getElementById('app-main')); startMockTimer(); }
+function startMockTimer(){ clearInterval(mockTimer); mockTimer=setInterval(()=>{ if(!mockState.active){clearInterval(mockTimer);return;} mockState.timeLeft--; const el=document.getElementById('mock-timer'); if(el){ const m=Math.floor(mockState.timeLeft/60); const s=mockState.timeLeft%60; el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; el.className=`timer-display${mockState.timeLeft<30?' danger':mockState.timeLeft<60?' warning':''}`; } if(mockState.timeLeft<=0){clearInterval(mockTimer);finishMock();} },1000); }
+function renderMockQuestion(el){ const q=mockState.qs[mockState.qIdx]; const prog=Math.round((mockState.qIdx/mockState.qs.length)*100); el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem"><div><div class="page-title">Mock Interview</div><div style="font-size:0.8125rem;color:var(--text2)">Question ${mockState.qIdx+1} of ${mockState.qs.length}</div></div><div style="text-align:right"><div class="timer-display" id="mock-timer">${Math.floor(mockState.timeLeft/60)}:${String(mockState.timeLeft%60).padStart(2,'0')}</div><div style="font-size:0.72rem;color:var(--text3);margin-top:2px">Time remaining</div></div></div><div class="progress" style="margin-bottom:1.5rem"><div class="progress-fill" style="width:${prog}%"></div></div><div class="card" style="margin-bottom:1rem"><div style="display:flex;gap:0.5rem;margin-bottom:1rem"><span class="badge badge-${q.diff==='Easy'?'green':q.diff==='Medium'?'yellow':'red'}">${q.diff}</span><span class="badge badge-gray">${q.cat}</span></div><p style="font-size:1rem;font-weight:500;line-height:1.6;margin-bottom:1.5rem">${q.text}</p>${q.type==='mcq'?renderMockMCQ(q):renderMockOpen(q)}</div><div style="display:flex;gap:0.75rem;justify-content:flex-end"><button class="btn btn-ghost" onclick="skipMockQ()">Skip →</button><button class="btn btn-danger btn-sm" onclick="finishMock()">End Interview</button></div>`; }
+function renderMockMCQ(q){ return `<div>${q.options.map((o,i)=>`<div class="mcq-option" id="mock-opt-${i}" onclick="selectMockOpt(${i},${q.correct},${q.id})"><div class="mcq-key">${String.fromCharCode(65+i)}</div>${o}</div>`).join('')}<div id="mock-feedback" style="margin-top:0.75rem;display:none"></div><button class="btn btn-primary" id="mock-next-btn" style="display:none;margin-top:0.875rem" onclick="nextMockQ()">Next Question →</button></div>`; }
+function renderMockOpen(q){ return `<div><textarea class="answer-area" id="mock-ans" placeholder="Your answer..." rows="5"></textarea><div style="display:flex;gap:0.5rem;margin-top:0.875rem"><button class="btn btn-primary" onclick="submitMockOpen(${q.id})">Submit & Continue</button></div><div id="mock-model" style="display:none;margin-top:0.75rem;padding:0.875rem;background:var(--red-bg);border:1px solid rgba(239,68,68,0.2);border-radius:var(--r);font-size:0.8125rem;line-height:1.65;color:var(--text2)"></div></div>`; }
+function selectMockOpt(sel,correct,qId){ const q=QUESTIONS.find(x=>x.id===qId); for(let i=0;i<q.options.length;i++){ const o=document.getElementById(`mock-opt-${i}`); o.style.pointerEvents='none'; o.classList.remove('selected','correct','wrong'); if(i===correct) o.classList.add('correct'); else if(i===sel&&sel!==correct) o.classList.add('wrong'); } const fb=document.getElementById('mock-feedback'); fb.style.display='block'; if(sel===correct){ mockState.score++; awardXP(q.pts); fb.innerHTML=`<span style="color:var(--green)">✓ Correct! +${q.pts} XP</span>`; } else { fb.innerHTML=`<span style="color:var(--red)">✗ Incorrect. Answer: <strong>${q.options[correct]}</strong></span>`; } document.getElementById('mock-next-btn').style.display='block'; }
+function submitMockOpen(qId){ const ans=document.getElementById('mock-ans')?.value.trim(); if(!ans){toast('Please write something','error');return;} const q=QUESTIONS.find(x=>x.id===qId); mockState.score++; awardXP(q.pts); const model=document.getElementById('mock-model'); model.style.display='block'; model.innerHTML=`<strong style="color:var(--accent);display:block;margin-bottom:0.4rem;font-size:0.75rem">MODEL ANSWER</strong>${q.answer}`; setTimeout(()=>nextMockQ(),4000); }
+function nextMockQ(){ mockState.qIdx++; if(mockState.qIdx>=mockState.qs.length) finishMock(); else renderMockQuestion(document.getElementById('app-main')); }
+function skipMockQ(){nextMockQ();}
+function finishMock(){ clearInterval(mockTimer); mockState.active=false; const pct=Math.round((mockState.score/mockState.qs.length)*100); const grade=pct>=90?'A+':pct>=80?'A':pct>=70?'B':pct>=60?'C':'D'; const gradeColor=pct>=80?'var(--green)':pct>=60?'var(--yellow)':'var(--red)'; document.getElementById('app-main').innerHTML=`<div style="max-width:560px;margin:0 auto;padding:2rem 0;text-align:center"><div style="font-size:3rem;margin-bottom:1rem">${pct>=80?'🎉':pct>=60?'👍':'💪'}</div><h2 style="font-size:1.5rem;font-weight:700;margin-bottom:0.375rem;letter-spacing:-0.02em">Mock Interview Complete</h2><p style="color:var(--text2);margin-bottom:2rem;font-size:0.875rem">Here's how you did.</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:2rem"><div class="stat-card"><div class="stat-val" style="color:${gradeColor}">${grade}</div><div class="stat-label">Grade</div></div><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${pct}%</div><div class="stat-label">Score</div></div><div class="stat-card"><div class="stat-val">${mockState.score}/${mockState.qs.length}</div><div class="stat-label">Correct</div></div></div><div class="progress" style="margin-bottom:2rem;height:8px"><div class="progress-fill" style="width:${pct}%;background:${gradeColor}"></div></div><div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="startMock()">Retry Mock</button><button class="btn btn-ghost" onclick="navigateTo('dashboard')">Dashboard</button><button class="btn btn-ghost" onclick="navigateTo('practice')">Practice Weak Areas</button></div></div>`; if(STATE.user){ STATE.user.interviews=(STATE.user.interviews||0)+1; const db=getDB(); if(db[STATE.user.email]){db[STATE.user.email].interviews=STATE.user.interviews;saveDB(db);} localStorage.setItem('user',JSON.stringify(STATE.user)); } }
+
+let examState={active:false,violations:0,tabSwitches:0,fullExits:0,pasteCount:0,qIdx:0,score:0,qs:[],timeLeft:3600,answers:{}}; let examTimer;
+function renderExam(el) { if(examState.active){ renderExamQuestion(el); return; } el.innerHTML=`${backBtn('Dashboard')}<div class="page-title">Proctored Exam Simulator</div><p class="page-sub">Simulates real aptitude exams with anti-cheat monitoring. Practice before the real thing.</p><div class="two-col"><div class="card"><div class="card-title">Exam Setup</div><div class="input-group"><label class="input-label">Exam Type</label><select class="input" id="exam-type"><option>Full-Stack Aptitude (60 min)</option><option>AMCAT Simulation (45 min)</option><option>Infosys InfyTQ (30 min)</option><option>Quick Practice (15 min)</option></select></div><div class="input-group"><label class="input-label">Number of Questions</label><select class="input" id="exam-count"><option value="10">10 (Practice)</option><option value="20" selected>20 (Standard)</option><option value="30">30 (Full)</option></select></div><div class="divider"></div><div class="card-title">Monitoring Settings</div><div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.8125rem;color:var(--text2);margin-bottom:1.25rem"><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> Tab switch detection (max 3)</div><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> Copy-paste blocking</div><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> Keyboard shortcut blocking</div><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> Fullscreen enforcement</div><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--yellow)">⚠</span> Webcam (browser permission required)</div></div><button class="btn btn-primary btn-full" onclick="startExam()" style="background:var(--red);border-color:var(--red)">Begin Proctored Exam →</button></div><div class="card"><div class="card-title">Rules & Guidelines</div><div style="display:flex;flex-direction:column;gap:0.875rem">${[['🚫','No tab switching','Switching tabs 3+ times terminates the exam'],['🚫','No copy-paste','Ctrl+C/V/X are blocked during the exam'],['📺','Stay fullscreen','Exiting fullscreen triggers a warning'],['👁','Stay on screen','Camera will monitor your presence'],['⌨','No shortcuts','F12, Ctrl+Shift+I and DevTools are blocked'],['⏱','Time limit','Exam auto-submits when time runs out']].map(([i,t,d])=>`<div style="display:flex;gap:10px"><span style="font-size:1rem;flex-shrink:0">${i}</span><div><div style="font-size:0.8125rem;font-weight:600;margin-bottom:1px">${t}</div><div style="font-size:0.75rem;color:var(--text3)">${d}</div></div></div>`).join('')}</div></div></div>`; }
+function startExam(){ const count=parseInt(document.getElementById('exam-count').value); const qs=shuffle([...QUESTIONS]).slice(0,count); examState={active:true,violations:0,tabSwitches:0,fullExits:0,pasteCount:0,qIdx:0,score:0,qs,timeLeft:count*90,answers:{}}; bindExamListeners(); requestFullscreen(); renderExamQuestion(document.getElementById('app-main')); startExamTimer(); toast('Exam started. Good luck! Stay in fullscreen.','info'); }
+function renderExamQuestion(el){ const q=examState.qs[examState.qIdx]; const mins=Math.floor(examState.timeLeft/60); const secs=String(examState.timeLeft%60).padStart(2,'0'); el.innerHTML=`<div class="proctor-header"><div style="display:flex;align-items:center;gap:9px"><div class="nav-logo" style="width:24px;height:24px;font-size:11px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div><span style="font-size:0.875rem;font-weight:600">Proctored Exam</span></div><div class="timer-display" id="exam-timer" style="font-size:1.1rem">${mins}:${secs}</div><div style="flex:1;max-width:300px"><div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text3);margin-bottom:3px"><span>Q${examState.qIdx+1}/${examState.qs.length}</span><span id="exam-viol-count" style="color:${examState.violations>0?'var(--yellow)':'var(--text3)'}">⚠ ${examState.violations} violations</span></div><div class="progress" style="height:4px"><div class="progress-fill" style="width:${(examState.qIdx/examState.qs.length)*100}%"></div></div></div><div style="display:flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;color:var(--green)"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite"></div> Proctored</div></div><div style="display:grid;grid-template-columns:1fr 180px;gap:1rem;padding:1.5rem;min-height:calc(100vh - 54px)"><div><div style="display:flex;gap:0.5rem;margin-bottom:1rem"><span class="badge badge-${q.diff==='Easy'?'green':q.diff==='Medium'?'yellow':'red'}">${q.diff}</span><span class="badge badge-gray">${q.cat}</span><span class="badge badge-blue">+${q.pts} pts</span></div><p style="font-size:1rem;font-weight:500;line-height:1.6;margin-bottom:1.5rem">${q.text}</p>${q.type==='mcq'?renderExamMCQ(q):renderExamOpen(q)}<div style="display:flex;gap:0.75rem;margin-top:1.5rem">${examState.qIdx>0?`<button class="btn btn-ghost" onclick="prevExamQ()">← Previous</button>`:''}<button class="btn btn-ghost" onclick="nextExamQ()">Skip →</button><button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="submitExam()">Submit Exam</button></div></div><div style="display:flex;flex-direction:column;gap:0.875rem"><div class="card" style="padding:0.875rem"><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem">Questions</div><div class="q-map">${examState.qs.map((_,i)=>`<div class="q-map-dot${i===examState.qIdx?' current':examState.answers[i]!==undefined?' answered':''}" onclick="goToExamQ(${i})">${i+1}</div>`).join('')}</div></div><div class="card" style="padding:0.875rem"><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.75rem">Violations</div><div class="violation-row"><span>Tab Switches</span><span class="violation-count" style="color:${examState.tabSwitches>0?'var(--yellow)':'var(--text2)'}">${examState.tabSwitches}/${3}</span></div><div class="violation-row"><span>Fullscreen</span><span class="violation-count" style="color:${examState.fullExits>0?'var(--yellow)':'var(--text2)'}">${examState.fullExits}</span></div><div class="violation-row"><span>Copy-Paste</span><span class="violation-count" style="color:${examState.pasteCount>0?'var(--red)':'var(--text2)'}">${examState.pasteCount}</span></div><div style="margin-top:0.75rem;font-size:0.7rem;color:${examState.violations===0?'var(--green)':'var(--yellow)'}">${examState.violations===0?'✓ Clean session':'⚠ Violations recorded'}</div></div><div class="card" style="padding:0.875rem;background:#000;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative"><div style="text-align:center"><div style="font-size:2.5rem;animation:pulse 2s ease infinite">😐</div><div style="font-size:0.62rem;color:var(--green);font-weight:600;margin-top:4px">FACE DETECTED</div></div></div></div></div>`; }
+function renderExamMCQ(q){ const saved=examState.answers[examState.qIdx]; return `<div>${q.options.map((o,i)=>`<div class="mcq-option${saved===i?' selected':''}" id="ex-opt-${i}" onclick="selectExamOpt(${i})"><div class="mcq-key">${String.fromCharCode(65+i)}</div>${o}</div>`).join('')}</div>`; }
+function renderExamOpen(q){ const saved=examState.answers[examState.qIdx]||''; return `<textarea class="answer-area" id="exam-ans" placeholder="Your answer..." rows="5">${saved}</textarea>`; }
+function selectExamOpt(i){ document.querySelectorAll('[id^="ex-opt-"]').forEach(o=>o.classList.remove('selected')); document.getElementById(`ex-opt-${i}`).classList.add('selected'); examState.answers[examState.qIdx]=i; }
+function nextExamQ(){ const q=examState.qs[examState.qIdx]; if(q.type==='text'){const a=document.getElementById('exam-ans');if(a)examState.answers[examState.qIdx]=a.value;} if(examState.qIdx<examState.qs.length-1){examState.qIdx++;renderExamQuestion(document.getElementById('app-main'));} else submitExam(); }
+function prevExamQ(){if(examState.qIdx>0){examState.qIdx--;renderExamQuestion(document.getElementById('app-main'));}}
+function goToExamQ(i){examState.qIdx=i;renderExamQuestion(document.getElementById('app-main'));}
+function startExamTimer(){ clearInterval(examTimer); examTimer=setInterval(()=>{ if(!examState.active){clearInterval(examTimer);return;} examState.timeLeft--; const el=document.getElementById('exam-timer'); if(el){ const m=Math.floor(examState.timeLeft/60); const s=String(examState.timeLeft%60).padStart(2,'0'); el.textContent=`${m}:${s}`; el.className=`timer-display${examState.timeLeft<60?' danger':examState.timeLeft<180?' warning':''}`; el.style.fontSize='1.1rem'; } if(examState.timeLeft<=0){clearInterval(examTimer);submitExam();} },1000); }
+function bindExamListeners(){ document.addEventListener('visibilitychange',onTabSwitch); document.addEventListener('copy',onCopyPaste); document.addEventListener('paste',onCopyPaste); document.addEventListener('cut',onCopyPaste); document.addEventListener('contextmenu',blockContext); document.addEventListener('keydown',blockKeys); document.addEventListener('fullscreenchange',onFullscreen); }
+function unbindExamListeners(){ document.removeEventListener('visibilitychange',onTabSwitch); document.removeEventListener('copy',onCopyPaste); document.removeEventListener('paste',onCopyPaste); document.removeEventListener('cut',onCopyPaste); document.removeEventListener('contextmenu',blockContext); document.removeEventListener('keydown',blockKeys); document.removeEventListener('fullscreenchange',onFullscreen); }
+function onTabSwitch(){ if(!examState.active||!document.hidden) return; examState.tabSwitches++;examState.violations++; updateViolationCount(); toast('⚠ Tab switch detected! Warning '+examState.tabSwitches+'/3','error'); if(examState.tabSwitches>=3){toast('Exam terminated: too many tab switches','error');setTimeout(()=>submitExam(),1500);} }
+function onCopyPaste(e){ if(!examState.active) return; e.preventDefault(); examState.pasteCount++;examState.violations++; updateViolationCount(); toast('🚫 Copy-paste is not allowed during the exam','error'); }
+function blockContext(e){if(examState.active)e.preventDefault();}
+function blockKeys(e){ if(!examState.active) return; if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&['i','j','c'].includes(e.key.toLowerCase()))){e.preventDefault();toast('DevTools blocked','error');} if(e.ctrlKey&&['c','x','v','a'].includes(e.key.toLowerCase())&&e.key!=='v'||(e.ctrlKey&&e.key==='v')){e.preventDefault();} }
+function onFullscreen(){ if(!examState.active||document.fullscreenElement) return; examState.fullExits++;examState.violations++; updateViolationCount(); toast('⚠ Please stay in fullscreen mode!','error'); setTimeout(()=>requestFullscreen(),500); }
+function requestFullscreen(){document.documentElement.requestFullscreen?.().catch(()=>{});}
+function updateViolationCount(){ const el=document.getElementById('exam-viol-count'); if(el){el.textContent=`⚠ ${examState.violations} violations`;el.style.color=examState.violations>0?'var(--yellow)':'var(--text3)';} }
+function submitExam(){ clearInterval(examTimer); examState.active=false; unbindExamListeners(); if(document.fullscreenElement) document.exitFullscreen?.().catch(()=>{}); let correct=0; examState.qs.forEach((q,i)=>{ if(q.type==='mcq'&&examState.answers[i]===q.correct) correct++; else if(q.type==='text'&&examState.answers[i]&&examState.answers[i].length>20) correct++; }); const pct=Math.round(correct/examState.qs.length*100); const integrity=Math.max(0,100-examState.tabSwitches*15-examState.fullExits*10-examState.pasteCount*8); const grade=pct>=90?'A+':pct>=80?'A':pct>=70?'B':pct>=60?'C':'D'; document.getElementById('app-main').innerHTML=`<div style="max-width:600px;margin:0 auto;padding:2rem 0;text-align:center"><div style="font-size:3rem;margin-bottom:1rem">📋</div><h2 style="font-size:1.5rem;font-weight:700;margin-bottom:0.375rem;letter-spacing:-0.02em">Exam Submitted</h2><p style="color:var(--text2);margin-bottom:2rem;font-size:0.875rem">Your session has been recorded.</p><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-bottom:1.75rem"><div class="stat-card"><div class="stat-val" style="color:${pct>=80?'var(--green)':pct>=60?'var(--yellow)':'var(--red)'}">${grade}</div><div class="stat-label">Grade</div></div><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${pct}%</div><div class="stat-label">Score</div></div><div class="stat-card"><div class="stat-val">${correct}/${examState.qs.length}</div><div class="stat-label">Correct</div></div><div class="stat-card"><div class="stat-val" style="color:${integrity>=80?'var(--green)':integrity>=60?'var(--yellow)':'var(--red)'}">${integrity}%</div><div class="stat-label">Integrity</div></div></div><div class="card" style="text-align:left;margin-bottom:1.75rem"><div class="card-title">Proctoring Report</div><table class="tbl"><tbody>   <tr><td>Tab Switches</td><td><span style="color:${examState.tabSwitches>0?'var(--yellow)':'var(--green)'}">${examState.tabSwitches}</span></td></tr><tr><td>Fullscreen Exits</td><td><span style="color:${examState.fullExits>0?'var(--yellow)':'var(--green)'}">${examState.fullExits}</span></td></tr><tr><td>Copy-Paste Attempts</td><td><span style="color:${examState.pasteCount>0?'var(--red)':'var(--green)'}">${examState.pasteCount}</span></td></tr><tr><td>Total Violations</td><td><span style="color:${examState.violations>0?'var(--yellow)':'var(--green)'}">${examState.violations}</span></td></tr><tr><td>Session Integrity</td><td><strong style="color:${integrity>=80?'var(--green)':integrity>=60?'var(--yellow)':'var(--red)'}">${integrity>=80?'HIGH':integrity>=60?'MEDIUM':'LOW'} (${integrity}%)</strong></td></tr></tbody></table></div><div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="navigateTo('exam')">Take Another Exam</button><button class="btn btn-ghost" onclick="navigateTo('dashboard')">Dashboard</button></div></div>`; awardXP(correct*15); }
+
+// ══ CODING CHALLENGES ══
+const CODING_PROBLEMS = [
+  {id:'c1',title:'Two Sum',diff:'Easy',tags:['Array','Hash Map'],xp:20,desc:'Given an array of integers nums and an integer target, return indices of the two numbers that add up to target.',example:'Input: nums=[2,7,11,15], target=9 → Output: [0,1]',hint:'Use a hash map to store complement lookups.',solution:'function twoSum(nums, target) {\n  const map = {};\n  for (let i = 0; i < nums.length; i++) {\n    const comp = target - nums[i];\n    if (map[comp] !== undefined) return [map[comp], i];\n    map[nums[i]] = i;\n  }\n}'},
+  {id:'c2',title:'Reverse a Linked List',diff:'Easy',tags:['Linked List','Pointers'],xp:20,desc:'Reverse a singly linked list iteratively.',example:'Input: 1→2→3→4→5 → Output: 5→4→3→2→1',hint:'Use three pointers: prev, curr, next.',solution:'function reverseList(head) {\n  let prev = null, curr = head;\n  while (curr) {\n    const next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  return prev;\n}'},
+  {id:'c3',title:'Valid Parentheses',diff:'Easy',tags:['Stack','String'],xp:20,desc:'Given a string containing (, ), {, }, [, ], determine if the input string is valid.',example:'Input: "()[]{}" → Output: true',hint:'Push open brackets onto a stack, pop and match for closing ones.',solution:'function isValid(s) {\n  const stack = [];\n  const map = {")":"(","]":"[","}":"{"};\n  for (const c of s) {\n    if ("([{".includes(c)) stack.push(c);\n    else if (stack.pop() !== map[c]) return false;\n  }\n  return stack.length === 0;\n}'},
+  {id:'c4',title:'Maximum Subarray',diff:'Medium',tags:['DP','Array'],xp:35,desc:'Find the contiguous subarray with the largest sum (Kadane\'s Algorithm).',example:'Input: [-2,1,-3,4,-1,2,1,-5,4] → Output: 6 (subarray [4,-1,2,1])',hint:'Track current max and global max at each step.',solution:'function maxSubArray(nums) {\n  let maxSum = nums[0], curr = nums[0];\n  for (let i = 1; i < nums.length; i++) {\n    curr = Math.max(nums[i], curr + nums[i]);\n    maxSum = Math.max(maxSum, curr);\n  }\n  return maxSum;\n}'},
+  {id:'c5',title:'Binary Search',diff:'Easy',tags:['Binary Search','Array'],xp:20,desc:'Implement binary search on a sorted array. Return the index of target, or -1 if not found.',example:'Input: nums=[-1,0,3,5,9,12], target=9 → Output: 4',hint:'Use left and right pointers, check the midpoint each iteration.',solution:'function search(nums, target) {\n  let l = 0, r = nums.length - 1;\n  while (l <= r) {\n    const m = (l + r) >> 1;\n    if (nums[m] === target) return m;\n    else if (nums[m] < target) l = m + 1;\n    else r = m - 1;\n  }\n  return -1;\n}'},
+  {id:'c6',title:'Climbing Stairs',diff:'Easy',tags:['DP','Math'],xp:25,desc:'You can climb 1 or 2 steps at a time. In how many distinct ways can you climb n stairs?',example:'Input: n=5 → Output: 8',hint:'It\'s essentially Fibonacci: dp[n] = dp[n-1] + dp[n-2].',solution:'function climbStairs(n) {\n  if (n <= 2) return n;\n  let a = 1, b = 2;\n  for (let i = 3; i <= n; i++) [a, b] = [b, a + b];\n  return b;\n}'},
+  {id:'c7',title:'Merge Intervals',diff:'Medium',tags:['Sorting','Array'],xp:35,desc:'Given an array of intervals, merge all overlapping intervals.',example:'Input: [[1,3],[2,6],[8,10],[15,18]] → Output: [[1,6],[8,10],[15,18]]',hint:'Sort by start time, then greedily merge.',solution:'function merge(intervals) {\n  intervals.sort((a,b)=>a[0]-b[0]);\n  const res = [intervals[0]];\n  for (const [s,e] of intervals.slice(1)) {\n    if (s <= res[res.length-1][1]) res[res.length-1][1] = Math.max(res[res.length-1][1],e);\n    else res.push([s,e]);\n  }\n  return res;\n}'},
+  {id:'c8',title:'LRU Cache',diff:'Hard',tags:['Design','Hash Map','Linked List'],xp:60,desc:'Design a data structure for an LRU (Least Recently Used) cache with O(1) get and put.',example:'LRUCache(2); put(1,1); put(2,2); get(1)→1; put(3,3) evicts key 2; get(2)→-1',hint:'Use a doubly linked list + hash map. The list tracks recency order.',solution:'Use a Map (insertion-order preserved in JS) to simulate LRU:\nclass LRUCache {\n  constructor(cap){this.cap=cap;this.map=new Map();}\n  get(k){if(!this.map.has(k))return -1;const v=this.map.get(k);this.map.delete(k);this.map.set(k,v);return v;}\n  put(k,v){this.map.delete(k);if(this.map.size>=this.cap)this.map.delete(this.map.keys().next().value);this.map.set(k,v);}\n}'},
+];
+
+let codingFilter='All';
+function renderCoding(el){
+  const solved = JSON.parse(localStorage.getItem('solved_problems')||'{}');
+  const diffs=['All','Easy','Medium','Hard'];
+  el.innerHTML=`${backBtn('Dashboard')}
+    <div class="page-title">💻 Coding Challenges</div>
+    <p class="page-sub">Solve real interview coding problems. Each solved problem earns XP. View hints and editorial solutions.</p>
+    <div class="q-filters">${diffs.map(d=>`<button class="q-filter-btn${codingFilter===d?' active':''}" onclick="setCodingFilter('${d}')">${d}</button>`).join('')}</div>
+    <div id="coding-list" style="display:flex;flex-direction:column;gap:0.75rem"></div>`;
+  renderCodingList(solved);
+}
+function setCodingFilter(d){codingFilter=d;document.querySelectorAll('.q-filter-btn').forEach(b=>b.classList.toggle('active',b.textContent===d));renderCodingList(JSON.parse(localStorage.getItem('solved_problems')||'{}'));}
+function renderCodingList(solved){
+  const problems=codingFilter==='All'?CODING_PROBLEMS:CODING_PROBLEMS.filter(p=>p.diff===codingFilter);
+  document.getElementById('coding-list').innerHTML=problems.map(p=>{
+    const isSolved=solved[p.id];
+    return `<div class="card" style="${isSolved?'border-color:rgba(34,197,94,0.3);':''}" >
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.375rem;flex-wrap:wrap">
+            ${isSolved?'<span style="color:var(--green);font-size:1rem">✓</span>':''}
+            <span style="font-size:0.9375rem;font-weight:600">${p.title}</span>
+            <span class="badge badge-${p.diff==='Easy'?'green':p.diff==='Medium'?'yellow':'red'}">${p.diff}</span>
+            <span class="badge badge-blue">+${p.xp} XP</span>
+            ${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}
+          </div>
+          <p style="font-size:0.8125rem;color:var(--text2);margin-bottom:0.5rem">${p.desc}</p>
+          <div style="background:var(--bg2);border-radius:7px;padding:0.5rem 0.75rem;font-size:0.75rem;font-family:var(--mono);color:var(--text3);margin-bottom:0.625rem">${p.example}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;min-width:120px">
+          <button class="btn btn-ghost btn-sm" onclick="showCodingHint('${p.id}')">💡 Hint</button>
+          <button class="btn btn-ghost btn-sm" onclick="showCodingSolution('${p.id}')">📖 Solution</button>
+          ${!isSolved?`<button class="btn btn-primary btn-sm" onclick="markSolved('${p.id}',${p.xp})" style="background:var(--green);border-color:var(--green)">✓ Mark Solved</button>`:'<span style="color:var(--green);font-size:0.78rem;font-weight:600;text-align:center">✓ Solved!</span>'}
+        </div>
+      </div>
+      <div id="hint-${p.id}" style="display:none;background:var(--yellow-bg);border:1px solid rgba(234,179,8,0.2);border-radius:7px;padding:0.75rem;font-size:0.8125rem;margin-top:0.5rem">💡 <strong>Hint:</strong> ${p.hint}</div>
+      <div id="sol-${p.id}" style="display:none;background:var(--bg2);border-radius:7px;padding:0.875rem;font-size:0.78rem;font-family:var(--mono);white-space:pre-wrap;margin-top:0.5rem;line-height:1.7;color:var(--text2)"></div>
+    </div>`;
+  }).join('');
+}
+function showCodingHint(id){const el=document.getElementById(`hint-${id}`);el.style.display=el.style.display==='none'?'block':'none';}
+function showCodingSolution(id){const p=CODING_PROBLEMS.find(x=>x.id===id);const el=document.getElementById(`sol-${id}`);el.style.display=el.style.display==='none'?'block':'none';if(el.style.display==='block')el.textContent=p.solution;}
+function markSolved(id,xp){const solved=JSON.parse(localStorage.getItem('solved_problems')||'{}');if(!solved[id]){solved[id]=true;localStorage.setItem('solved_problems',JSON.stringify(solved));awardXP(xp);toast(`Problem solved! +${xp} XP 🎉`,'success');renderCoding(document.getElementById('app-main'));}}
+
+// ══ TOPIC TESTS ══
+const TOPIC_TESTS = [
+  {id:'java',name:'Java Fundamentals',icon:'☕',questions:10,time:15,xp:50,color:'var(--accent)'},
+  {id:'dsa',name:'Data Structures & Algorithms',icon:'🌲',questions:15,time:20,xp:75,color:'var(--green)'},
+  {id:'sql',name:'SQL & Databases',icon:'🗃️',questions:10,time:12,xp:50,color:'var(--yellow)'},
+  {id:'os',name:'Operating Systems',icon:'⚙️',questions:10,time:12,xp:50,color:'var(--purple)'},
+  {id:'networking',name:'Computer Networking',icon:'🌐',questions:10,time:12,xp:50,color:'var(--accent)'},
+  {id:'system-design',name:'System Design',icon:'🏗️',questions:8,time:20,xp:80,color:'var(--red)'},
+];
+let testState={active:false,tid:null,qs:[],idx:0,score:0,timeLeft:0,answers:{}};let testTimer;
+function renderTests(el){
+  el.innerHTML=`${backBtn('Dashboard')}
+    <div class="page-title">📝 Topic Tests</div>
+    <p class="page-sub">Timed tests on specific topics. See your score breakdown and improve weak areas.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem">
+      ${TOPIC_TESTS.map(t=>`<div class="card" style="cursor:pointer" onclick="startTopicTest('${t.id}')">
+        <div style="display:flex;align-items:center;gap:0.875rem;margin-bottom:0.875rem">
+          <div style="width:44px;height:44px;border-radius:10px;background:${t.color}22;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0">${t.icon}</div>
+          <div><div style="font-weight:600;font-size:0.9rem">${t.name}</div><div style="font-size:0.72rem;color:var(--text3);margin-top:2px">${t.questions} questions · ${t.time} min</div></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span class="badge badge-blue">+${t.xp} XP on completion</span>
+          <button class="btn btn-primary btn-sm" style="background:${t.color};border-color:${t.color}">Start Test →</button>
+        </div>
+      </div>`).join('')}
+    </div>`;
+}
+function startTopicTest(tid){
+  const t=TOPIC_TESTS.find(x=>x.id===tid);
+  const cats={java:'Java',dsa:'DSA',sql:'SQL',os:'OS',networking:'Networking','system-design':'System Design'};
+  let pool=QUESTIONS.filter(q=>q.cat===cats[tid]);
+  if(pool.length<3) pool=[...QUESTIONS];
+  const qs=shuffle(pool).slice(0,t.questions);
+  testState={active:true,tid,name:t.name,qs,idx:0,score:0,timeLeft:t.time*60,answers:{},xp:t.xp};
+  clearInterval(testTimer);
+  testTimer=setInterval(()=>{testState.timeLeft--;const el=document.getElementById('test-timer');if(el){const m=Math.floor(testState.timeLeft/60);const s=String(testState.timeLeft%60).padStart(2,'0');el.textContent=`${m}:${s}`;el.className=`timer-display${testState.timeLeft<60?' danger':testState.timeLeft<120?' warning':''}`;}if(testState.timeLeft<=0){clearInterval(testTimer);finishTest();}},1000);
+  renderTestQuestion(document.getElementById('app-main'));
+}
+function renderTestQuestion(el){
+  const q=testState.qs[testState.idx];const prog=Math.round(testState.idx/testState.qs.length*100);
+  el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+    <div><div class="page-title" style="margin:0">${testState.name}</div><div style="font-size:0.8125rem;color:var(--text2)">Q${testState.idx+1} of ${testState.qs.length}</div></div>
+    <div style="text-align:right"><div class="timer-display" id="test-timer">${Math.floor(testState.timeLeft/60)}:${String(testState.timeLeft%60).padStart(2,'0')}</div></div>
+  </div>
+  <div class="progress" style="margin-bottom:1.5rem"><div class="progress-fill" style="width:${prog}%"></div></div>
+  <div class="card" style="margin-bottom:1rem">
+    <div style="display:flex;gap:0.5rem;margin-bottom:1rem"><span class="badge badge-${q.diff==='Easy'?'green':q.diff==='Medium'?'yellow':'red'}">${q.diff}</span><span class="badge badge-gray">${q.cat}</span></div>
+    <p style="font-size:1rem;font-weight:500;line-height:1.6;margin-bottom:1.5rem">${q.text}</p>
+    ${q.type==='mcq'?`<div>${q.options.map((o,i)=>`<div class="mcq-option" id="topt-${i}" onclick="selectTestOpt(${i},${q.correct})"><div class="mcq-key">${String.fromCharCode(65+i)}</div>${o}</div>`).join('')}<div id="test-feedback" style="margin-top:0.75rem;display:none"></div><button class="btn btn-primary" id="test-next-btn" style="display:none;margin-top:0.875rem" onclick="nextTestQ()">Next →</button></div>`:`<textarea class="answer-area" id="test-ans" rows="4" placeholder="Your answer..."></textarea><button class="btn btn-primary" onclick="submitTestOpen()" style="margin-top:0.75rem">Submit & Next</button>`}
+  </div>
+  <button class="btn btn-danger btn-sm" onclick="finishTest()">End Test</button>`;
+}
+function selectTestOpt(sel,correct){document.querySelectorAll('[id^="topt-"]').forEach((o,i)=>{o.style.pointerEvents='none';o.classList.remove('selected','correct','wrong');if(i===correct)o.classList.add('correct');else if(i===sel&&sel!==correct)o.classList.add('wrong');});const fb=document.getElementById('test-feedback');fb.style.display='block';if(sel===correct){testState.score++;fb.innerHTML='<span style="color:var(--green)">✓ Correct!</span>';}else{fb.innerHTML=`<span style="color:var(--red)">✗ Incorrect. Answer: <strong>${testState.qs[testState.idx].options[correct]}</strong></span>`;}testState.answers[testState.idx]=sel;document.getElementById('test-next-btn').style.display='block';}
+function submitTestOpen(){const a=document.getElementById('test-ans')?.value.trim();if(!a){toast('Write something first','error');return;}testState.score++;testState.answers[testState.idx]=a;nextTestQ();}
+function nextTestQ(){testState.idx++;if(testState.idx>=testState.qs.length)finishTest();else renderTestQuestion(document.getElementById('app-main'));}
+function finishTest(){clearInterval(testTimer);testState.active=false;const pct=Math.round(testState.score/testState.qs.length*100);const grade=pct>=90?'A+':pct>=80?'A':pct>=70?'B':pct>=60?'C':'D';const gradeColor=pct>=80?'var(--green)':pct>=60?'var(--yellow)':'var(--red)';awardXP(Math.round(testState.xp*pct/100));document.getElementById('app-main').innerHTML=`<div style="max-width:500px;margin:0 auto;padding:2rem 0;text-align:center"><div style="font-size:3rem;margin-bottom:1rem">${pct>=80?'🎉':pct>=60?'👍':'💪'}</div><h2 style="font-size:1.5rem;font-weight:700;margin-bottom:0.375rem">${testState.name} — Done!</h2><p style="color:var(--text2);margin-bottom:2rem;font-size:0.875rem">Here's your result.</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:2rem"><div class="stat-card"><div class="stat-val" style="color:${gradeColor}">${grade}</div><div class="stat-label">Grade</div></div><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${pct}%</div><div class="stat-label">Score</div></div><div class="stat-card"><div class="stat-val">${testState.score}/${testState.qs.length}</div><div class="stat-label">Correct</div></div></div><div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" onclick="navigateTo('tests')">Take Another Test</button><button class="btn btn-ghost" onclick="navigateTo('practice')">Practice Weak Areas</button><button class="btn btn-ghost" onclick="navigateTo('dashboard')">Dashboard</button></div></div>`;}
+
+// ══ COMPETITIONS ══
+const COMPETITIONS = [
+  {id:'wc1',title:'Weekly Code Sprint #12',type:'Coding',status:'live',ends:'2d 14h',prize:'500 XP + 🏅 Champion Badge',participants:47,desc:'5 coding problems, 90 minutes. Top 3 get bonus XP and a Champion badge.',icon:'⚡',color:'var(--yellow)'},
+  {id:'wc2',title:'DSA Blitz — March Edition',type:'Quiz',status:'live',ends:'1d 6h',prize:'300 XP + 🎯 Speed Badge',participants:82,desc:'30 DSA MCQs in 10 minutes. Fastest correct finisher wins.',icon:'🚀',color:'var(--green)'},
+  {id:'wc3',title:'System Design Open',type:'Essay',status:'upcoming',ends:'Starts in 3d',prize:'800 XP + 🏗️ Architect Badge',participants:0,desc:'Design a real-world system (e.g., ride-sharing). Judged on clarity, scalability, and correctness.',icon:'🏗️',color:'var(--accent)'},
+  {id:'wc4',title:'SQL Championship',type:'Coding',status:'upcoming',ends:'Starts in 5d',prize:'400 XP + 🗃️ Query Master Badge',participants:0,desc:'10 SQL challenges ranging from basic queries to complex window functions.',icon:'🗃️',color:'var(--purple)'},
+  {id:'wc5',title:'February Speed Round',type:'Quiz',status:'ended',ends:'Ended',prize:'Won by Priya N.',participants:134,desc:'Completed last week. Congratulations to the winner!',icon:'🏆',color:'var(--text3)'},
+];
+function renderCompetitions(el){
+  el.innerHTML=`${backBtn('Dashboard')}
+    <div class="page-title">🏅 Competitions</div>
+    <p class="page-sub">Weekly coding contests and quiz battles. Win XP multipliers and exclusive badges.</p>
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap">
+      <span class="badge badge-green" style="padding:5px 12px;font-size:0.75rem">🟢 ${COMPETITIONS.filter(c=>c.status==='live').length} Live Now</span>
+      <span class="badge badge-blue" style="padding:5px 12px;font-size:0.75rem">🔜 ${COMPETITIONS.filter(c=>c.status==='upcoming').length} Upcoming</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      ${COMPETITIONS.map(c=>`<div class="card" style="border-left:4px solid ${c.color};${c.status==='ended'?'opacity:0.6':''}">
+        <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+          <div style="width:48px;height:48px;border-radius:12px;background:${c.color}22;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0">${c.icon}</div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.25rem">
+              <span style="font-weight:700;font-size:0.9375rem">${c.title}</span>
+              <span class="badge badge-${c.status==='live'?'green':c.status==='upcoming'?'blue':'gray'}">${c.status==='live'?'🟢 Live':c.status==='upcoming'?'🔜 Upcoming':'✓ Ended'}</span>
+              <span class="badge badge-gray">${c.type}</span>
+            </div>
+            <p style="font-size:0.8125rem;color:var(--text2);margin-bottom:0.625rem">${c.desc}</p>
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;font-size:0.75rem;color:var(--text3)">
+              <span>⏱ ${c.ends}</span>
+              <span>👥 ${c.participants > 0 ? c.participants+' participants' : 'Be the first!'}</span>
+              <span style="color:var(--yellow);font-weight:600">🏆 ${c.prize}</span>
+            </div>
+          </div>
+          <div style="flex-shrink:0">
+            ${c.status==='live'?`<button class="btn btn-primary btn-sm" onclick="joinCompetition('${c.id}')" style="background:var(--green);border-color:var(--green)">Join Now →</button>`:c.status==='upcoming'?`<button class="btn btn-ghost btn-sm" onclick="toast('You will be notified when this contest starts!','info')">🔔 Notify Me</button>`:'<span style="font-size:0.75rem;color:var(--text3)">Completed</span>'}
+          </div>
+        </div>
+      </div>`).join('')}
+    </div>`;
+}
+function joinCompetition(id){const comp=COMPETITIONS.find(x=>x.id===id);awardXP(10);toast(`🏅 Joined "${comp.title}"! Good luck! +10 XP`,'success');setTimeout(()=>{if(comp.type==='Quiz')navigateTo('tests');else if(comp.type==='Coding')navigateTo('coding');else navigateTo('practice');},1200);}
+
+// ══ STREAKS & BADGES ══
+function renderStreaks(el){
+  const u=STATE.user||{};const streak=u.streak||0;
+  const milestones=[
+    {days:3,emoji:'🌱',label:'3-Day Streak',xp:30,done:streak>=3},
+    {days:7,emoji:'🔥',label:'Week Warrior',xp:75,done:streak>=7},
+    {days:14,emoji:'💎',label:'2 Weeks Strong',xp:150,done:streak>=14},
+    {days:30,emoji:'🌟',label:'Month Master',xp:300,done:streak>=30},
+    {days:60,emoji:'🚀',label:'60-Day Legend',xp:600,done:streak>=60},
+    {days:100,emoji:'👑',label:'Century Streak',xp:1000,done:streak>=100},
+  ];
+  const today=new Date();
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const weekActivity=Array.from({length:7},(_,i)=>{const d=new Date(today);d.setDate(today.getDate()-6+i);return{day:days[d.getDay()],active:Math.random()>0.3};});
+  weekActivity[6].active=streak>0;
+
+  el.innerHTML=`${backBtn('Dashboard')}
+    <div class="page-title">🔥 Streaks & Badges</div>
+    <p class="page-sub">Practice every day to build your streak. Reach milestones to earn exclusive badges and bonus XP.</p>
+    <div class="two-col" style="gap:1rem;margin-bottom:1.5rem">
+      <div class="card" style="text-align:center;border:2px solid ${streak>=7?'var(--yellow)':'var(--border)'}">
+        <div style="font-size:3.5rem;line-height:1;margin-bottom:0.5rem">${streak>=30?'👑':streak>=14?'🌟':streak>=7?'🔥':streak>=3?'🌱':'⭐'}</div>
+        <div style="font-size:2.5rem;font-weight:800;color:var(--yellow);line-height:1">${streak}</div>
+        <div style="font-size:0.875rem;color:var(--text2);margin-top:0.25rem">Day Streak</div>
+        <div style="font-size:0.75rem;color:var(--text3);margin-top:0.75rem">${streak===0?'Start today to begin your streak!':streak<7?`${7-streak} more days to Week Warrior`:`You're on fire! Keep it up.`}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">This Week</div>
+        <div style="display:flex;gap:0.5rem;justify-content:space-between;margin-top:0.5rem">
+          ${weekActivity.map(d=>`<div style="text-align:center;flex:1">
+            <div style="height:40px;border-radius:6px;background:${d.active?'var(--yellow)':'var(--bg3)'};margin-bottom:0.375rem;opacity:${d.active?1:0.5}"></div>
+            <div style="font-size:0.65rem;color:var(--text3)">${d.day}</div>
+          </div>`).join('')}
+        </div>
+        <div style="margin-top:1rem;font-size:0.78rem;color:var(--text2)">💡 Practice at least 1 question daily to keep your streak alive.</div>
+        <button class="btn btn-primary btn-sm btn-full" style="margin-top:0.875rem;background:var(--red);border-color:var(--red)" onclick="navigateTo('practice')">Practice Now →</button>
+      </div>
+    </div>
+    <div class="card-title" style="font-size:1rem;margin-bottom:1rem">🎯 Streak Milestones</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.875rem;margin-bottom:2rem">
+      ${milestones.map(m=>`<div class="card" style="text-align:center;${m.done?'border-color:rgba(234,179,8,0.5);background:var(--yellow-bg)':'opacity:0.65'}">
+        <div style="font-size:2rem;margin-bottom:0.375rem">${m.emoji}</div>
+        <div style="font-weight:600;font-size:0.875rem;margin-bottom:0.25rem">${m.label}</div>
+        <div style="font-size:0.72rem;color:var(--text3)">Reach a ${m.days}-day streak</div>
+        <div style="margin-top:0.625rem"><span class="badge badge-${m.done?'yellow':'gray'}">+${m.xp} XP${m.done?' ✓':''}</span></div>
+      </div>`).join('')}
+    </div>
+    <div class="card-title" style="font-size:1rem;margin-bottom:1rem">🏅 All Badges (${BADGES_ALL.filter(b=>b.unlocked).length}/${BADGES_ALL.length} Earned)</div>
+    <div class="badges-grid">
+      ${BADGES_ALL.map(b=>`<div class="badge-card${b.unlocked?'':' locked'}"><div class="badge-emoji">${b.emoji}</div><div class="badge-label">${b.label}</div></div>`).join('')}
+    </div>`;
+}
+
+function renderGames(el) { el.innerHTML = `${backBtn('Dashboard')}<div class="page-title">Skill Games</div><p class="page-sub">Learn while playing. Earn XP with every game you complete.</p><div class="game-grid">${GAMES.map(g=>`<div class="game-card" onclick="playGame('${g.id}')"><div class="game-thumb" style="background:${g.color};font-size:3.5rem">${g.icon}</div><div class="game-info"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.375rem"><div class="game-title">${g.title}</div><span class="badge badge-blue">+${g.xp} XP</span></div><p class="game-desc">${g.desc}</p><div class="game-meta"><span class="badge badge-${g.difficulty==='Easy'?'green':g.difficulty==='Medium'?'yellow':'red'}">${g.difficulty}</span>${g.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div></div>`).join('')}</div><div id="game-area"></div>`; }
+
+const FLASHCARDS = [
+  {q:'What does JVM stand for?',a:'Java Virtual Machine — executes Java bytecode on any platform.'},
+  {q:'What is Big O notation?',a:'A mathematical notation to describe the worst-case time/space complexity of an algorithm.'},
+  {q:'What is a stack data structure?',a:'LIFO (Last In First Out) structure. Push adds to top, pop removes from top. Used in recursion, undo operations.'},
+  {q:'What is SQL INNER JOIN?',a:'Returns rows with matching values in both tables. Only the intersection is returned.'},
+  {q:'What is REST?',a:'REpresentational State Transfer — architectural style for web services using HTTP methods: GET, POST, PUT, DELETE.'},
+  {q:'What is a deadlock?',a:'When two or more threads are blocked forever, each waiting for a resource held by the other.'},
+  {q:'What is polymorphism?',a:'OOP concept where one interface can represent different underlying forms (method overloading and overriding).'},
+  {q:'What is a primary key?',a:'A column (or set of columns) that uniquely identifies each row in a database table. Cannot be NULL.'},
+  {q:'What is caching?',a:'Storing frequently accessed data in fast memory (like Redis) to reduce database queries and improve speed.'},
+  {q:'What is recursion?',a:'A function that calls itself to solve a smaller version of the problem. Must have a base case to terminate.'},
+];
+const BUG_QUESTIONS = [
+  {code:'int sum = 0;\nfor(int i=0; i<=5; i++) {\n  sum += i;\n}\nSystem.out.println(sum);',bug:'Off-by-one: loop should be i<5 not i<=5 if sum of 0-4 is needed. Currently sums 0-5 = 15.',answer:'Change i<=5 to i<5'},
+  {code:'String s = null;\nif(s.equals("hello")) {\n  System.out.println("match");\n}',bug:'NullPointerException: calling .equals() on null reference.',answer:'Use "hello".equals(s) or check s != null first'},
+  {code:'int[] arr = new int[5];\narr[5] = 10;',bug:'ArrayIndexOutOfBoundsException: valid indices are 0-4, index 5 does not exist.',answer:'Change arr[5] to arr[4]'},
+  {code:'int x = 5;\nint y = 0;\nint z = x / y;',bug:'ArithmeticException: division by zero.',answer:'Check y != 0 before dividing'},
+  {code:'List<String> list = new ArrayList<>();\nfor(String s : list) {\n  list.remove(s);\n}',bug:'ConcurrentModificationException: cannot modify a list while iterating over it.',answer:'Use Iterator.remove() or collect items to remove then remove after loop'},
+];
+const TERM_PAIRS = [
+  ['API','Application Programming Interface — contract for how software components communicate'],
+  ['ORM','Object-Relational Mapping — technique to query databases using OOP instead of SQL'],
+  ['ACID','Atomicity, Consistency, Isolation, Durability — properties of DB transactions'],
+  ['CDN','Content Delivery Network — distributed servers to deliver content faster to users'],
+  ['CI/CD','Continuous Integration / Continuous Delivery — automated build, test, deploy pipeline'],
+  ['DNS','Domain Name System — translates domain names to IP addresses'],
+  ['JWT','JSON Web Token — compact, URL-safe token for authentication'],
+  ['SOLID','5 OOP design principles: Single responsibility, Open/closed, Liskov, Interface, Dependency'],
+];
+
+let fcIdx=0, fcFlipped=false;
+function playGame(id){
+  const area=document.getElementById('game-area');
+  area.style.marginTop='1.5rem';
+  if(id==='flashcard'){
+    fcIdx=0; fcFlipped=false;
+    renderFlashcard(area);
+  } else if(id==='quiz-blitz'){
+    startQuizBlitz(area);
+  } else if(id==='bug-hunt'){
+    startBugHunt(area);
+  } else if(id==='word-sprint'){
+    startWordSprint(area);
+  }
+  area.scrollIntoView({behavior:'smooth'});
+}
+
+function renderFlashcard(area){
+  const card=FLASHCARDS[fcIdx]; const total=FLASHCARDS.length;
+  area.innerHTML=`<div class="card" style="max-width:600px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <span style="font-size:0.78rem;color:var(--text3)">${fcIdx+1} / ${total}</span>
+      <span class="badge badge-blue">Tech Flashcards</span>
+    </div>
+    <div style="min-height:140px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border-radius:12px;padding:1.5rem;margin-bottom:1rem;cursor:pointer;text-align:center;transition:all 0.3s" onclick="flipCard(this)">
+      <div>
+        <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);margin-bottom:0.5rem">${fcFlipped?'ANSWER':'QUESTION — click to flip'}</div>
+        <div style="font-size:1rem;font-weight:500;line-height:1.6">${fcFlipped?card.a:card.q}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:0.75rem;justify-content:center">
+      <button class="btn btn-ghost" onclick="fcNav(-1)" ${fcIdx===0?'disabled':''}>← Prev</button>
+      <button class="btn btn-ghost" onclick="flipCard(document.querySelector('#game-area .card [onclick*=flipCard]'))">Flip 🔄</button>
+      <button class="btn btn-primary" onclick="fcNav(1)" style="background:var(--accent)">${fcIdx===total-1?'Finish':'Next →'}</button>
+    </div>
+    ${fcIdx===total-1?`<div style="text-align:center;margin-top:1rem"><button class="btn btn-primary btn-full" onclick="awardXP(15);toast('Flashcards complete! +15 XP 🎉','success')" style="background:var(--green);border-color:var(--green)">✓ Claim +15 XP</button></div>`:''}
+  </div>`;
+}
+function flipCard(el){fcFlipped=!fcFlipped;renderFlashcard(document.getElementById('game-area'));}
+function fcNav(dir){fcIdx=Math.max(0,Math.min(FLASHCARDS.length-1,fcIdx+dir));fcFlipped=false;renderFlashcard(document.getElementById('game-area'));}
+
+let qbState={};
+function startQuizBlitz(area){
+  const qs=shuffle(QUESTIONS.filter(q=>q.type==='mcq')).slice(0,10);
+  qbState={qs,idx:0,score:0,timeLeft:300,startTime:Date.now()};
+  renderQBQuestion(area);
+  qbState.timer=setInterval(()=>{
+    qbState.timeLeft--;
+    const el=document.getElementById('qb-timer');
+    if(el){const m=Math.floor(qbState.timeLeft/60);const s=String(qbState.timeLeft%60).padStart(2,'0');el.textContent=`${m}:${s}`;el.style.color=qbState.timeLeft<30?'var(--red)':'inherit';}
+    if(qbState.timeLeft<=0){clearInterval(qbState.timer);finishQB(area);}
+  },1000);
+}
+function renderQBQuestion(area){
+  if(!qbState.qs){return;}
+  const q=qbState.qs[qbState.idx];const prog=Math.round(qbState.idx/qbState.qs.length*100);
+  area.innerHTML=`<div class="card" style="max-width:640px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.875rem">
+      <span style="font-size:0.78rem;color:var(--text3)">Q ${qbState.idx+1} / ${qbState.qs.length}</span>
+      <span class="timer-display" id="qb-timer" style="font-size:0.9rem">${Math.floor(qbState.timeLeft/60)}:${String(qbState.timeLeft%60).padStart(2,'0')}</span>
+      <span class="badge badge-green">Score: ${qbState.score}</span>
+    </div>
+    <div class="progress" style="margin-bottom:1rem"><div class="progress-fill" style="width:${prog}%"></div></div>
+    <p style="font-size:0.9375rem;font-weight:500;margin-bottom:1rem;line-height:1.6">${q.text}</p>
+    ${q.options.map((o,i)=>`<div class="mcq-option" id="qb-opt-${i}" onclick="selectQBOpt(${i},${q.correct})" style="cursor:pointer">${String.fromCharCode(65+i)}. ${o}</div>`).join('')}
+    <div id="qb-fb" style="display:none;margin-top:0.75rem;font-size:0.8125rem"></div>
+    <button id="qb-next" class="btn btn-primary" onclick="qbNext()" style="display:none;margin-top:0.875rem">Next →</button>
+  </div>`;
+}
+function selectQBOpt(sel,correct){
+  document.querySelectorAll('[id^="qb-opt-"]').forEach((o,i)=>{o.style.pointerEvents='none';if(i===correct)o.classList.add('correct');else if(i===sel&&sel!==correct)o.classList.add('wrong');});
+  const fb=document.getElementById('qb-fb');fb.style.display='block';
+  if(sel===correct){qbState.score++;fb.innerHTML='<span style="color:var(--green)">✓ Correct!</span>';}
+  else{fb.innerHTML=`<span style="color:var(--red)">✗ Wrong. Answer: <strong>${qbState.qs[qbState.idx].options[correct]}</strong></span>`;}
+  document.getElementById('qb-next').style.display='block';
+}
+function qbNext(){qbState.idx++;if(qbState.idx>=qbState.qs.length){clearInterval(qbState.timer);finishQB(document.getElementById('game-area'));}else renderQBQuestion(document.getElementById('game-area'));}
+function finishQB(area){
+  const pct=Math.round(qbState.score/qbState.qs.length*100);const xp=qbState.score*3;
+  area.innerHTML=`<div class="card" style="max-width:500px;margin:0 auto;text-align:center">
+    <div style="font-size:3rem;margin-bottom:0.75rem">${pct>=80?'🎉':pct>=50?'👍':'💪'}</div>
+    <h3 style="margin-bottom:0.375rem">Quiz Blitz Complete!</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.875rem;margin:1rem 0">
+      <div class="stat-card"><div class="stat-val" style="color:var(--accent)">${qbState.score}/${qbState.qs.length}</div><div class="stat-label">Correct</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:var(--green)">${pct}%</div><div class="stat-label">Score</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:var(--yellow)">+${xp}</div><div class="stat-label">XP Earned</div></div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="awardXP(${xp});toast('Quiz Blitz done! +${xp} XP','success');startQuizBlitz(document.getElementById('game-area'))" style="background:var(--green);border-color:var(--green);margin-bottom:0.5rem">✓ Claim XP & Play Again</button>
+    <button class="btn btn-ghost btn-full" onclick="navigateTo('games')">← Back to Games</button>
+  </div>`;
+}
+
+let bhIdx=0;
+function startBugHunt(area){bhIdx=0;renderBugQ(area);}
+function renderBugQ(area){
+  const bq=BUG_QUESTIONS[bhIdx];
+  area.innerHTML=`<div class="card" style="max-width:640px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <span style="font-size:0.78rem;font-weight:600">🐛 Bug Hunt — Round ${bhIdx+1}/${BUG_QUESTIONS.length}</span>
+      <span class="badge badge-red">+10 XP per bug</span>
+    </div>
+    <p style="font-size:0.8125rem;color:var(--text2);margin-bottom:0.75rem">Find the bug in this code snippet:</p>
+    <pre style="background:var(--bg2);padding:1rem;border-radius:8px;font-size:0.8rem;line-height:1.7;overflow-x:auto;margin-bottom:1rem;color:var(--accent)">${bq.code}</pre>
+    <div class="input-group">
+      <label class="input-label">What is the bug?</label>
+      <textarea class="answer-area" id="bh-ans" rows="3" placeholder="Describe the bug..."></textarea>
+    </div>
+    <div style="display:flex;gap:0.75rem;margin-top:0.5rem">
+      <button class="btn btn-primary" onclick="checkBug()" style="background:var(--red);border-color:var(--red)">Submit Answer</button>
+      <button class="btn btn-ghost" onclick="revealBug()">Show Answer</button>
+    </div>
+    <div id="bh-result" style="display:none;margin-top:0.75rem;padding:0.875rem;background:var(--green-bg);border:1px solid rgba(34,197,94,0.2);border-radius:var(--r);font-size:0.8125rem"></div>
+    <button id="bh-next" class="btn btn-ghost btn-full" onclick="nextBug()" style="display:none;margin-top:0.75rem">${bhIdx<BUG_QUESTIONS.length-1?'Next Bug →':'Finish Bug Hunt'}</button>
+  </div>`;
+}
+function checkBug(){
+  const ans=document.getElementById('bh-ans').value.trim();
+  if(!ans){toast('Write your answer first','error');return;}
+  const bq=BUG_QUESTIONS[bhIdx];
+  const res=document.getElementById('bh-result');res.style.display='block';
+  res.innerHTML=`<strong style="color:var(--green);display:block;margin-bottom:0.375rem">✓ Submitted! Model Answer:</strong>${bq.bug}<br><br><em style="color:var(--accent)">Fix: ${bq.answer}</em>`;
+  awardXP(10);document.getElementById('bh-next').style.display='block';
+}
+function revealBug(){
+  const bq=BUG_QUESTIONS[bhIdx];
+  const res=document.getElementById('bh-result');res.style.display='block';
+  res.innerHTML=`<strong style="color:var(--yellow);display:block;margin-bottom:0.375rem">💡 Answer:</strong>${bq.bug}<br><br><em style="color:var(--accent)">Fix: ${bq.answer}</em>`;
+  document.getElementById('bh-next').style.display='block';
+}
+function nextBug(){bhIdx++;if(bhIdx>=BUG_QUESTIONS.length){finishBugHunt();}else renderBugQ(document.getElementById('game-area'));}
+function finishBugHunt(){document.getElementById('game-area').innerHTML=`<div class="card" style="max-width:480px;margin:0 auto;text-align:center"><div style="font-size:3rem;margin-bottom:0.75rem">🐛</div><h3>Bug Hunt Complete!</h3><p style="color:var(--text2);margin:0.75rem 0">You hunted ${BUG_QUESTIONS.length} bugs!</p><button class="btn btn-primary btn-full" onclick="startBugHunt(document.getElementById('game-area'))" style="margin-bottom:0.5rem">Play Again</button><button class="btn btn-ghost btn-full" onclick="navigateTo('games')">← Back to Games</button></div>`;}
+
+let wsState={};
+function startWordSprint(area){
+  const pairs=shuffle([...TERM_PAIRS]);
+  wsState={pairs,matched:[],selected:null,startTime:Date.now(),score:0};
+  const terms=shuffle(pairs.map((p,i)=>({text:p[0],idx:i,type:'term'})));
+  const defs=shuffle(pairs.map((p,i)=>({text:p[1].substring(0,50)+'…',idx:i,type:'def'})));
+  wsState.terms=terms;wsState.defs=defs;
+  renderWordSprint(area);
+}
+function renderWordSprint(area){
+  const {terms,defs,matched,selected}=wsState;
+  area.innerHTML=`<div class="card" style="max-width:800px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <span style="font-size:0.78rem;font-weight:600">📚 Term Sprint</span>
+      <span class="badge badge-green">Matched: ${matched.length}/${terms.length}</span>
+      <span class="badge badge-blue">+20 XP on finish</span>
+    </div>
+    <p style="font-size:0.8125rem;color:var(--text2);margin-bottom:1rem">Click a term then click its matching definition.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+      <div><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.5rem">Terms</div>
+        ${terms.map((t,i)=>matched.includes(t.idx)?`<div style="padding:0.625rem 0.75rem;background:var(--green-bg);border:1px solid rgba(34,197,94,0.3);border-radius:8px;font-size:0.8125rem;margin-bottom:0.5rem;opacity:0.6;font-weight:500;text-decoration:line-through;color:var(--text3)">${t.text}</div>`:
+          `<div onclick="wsSelect('term',${t.idx})" style="padding:0.625rem 0.75rem;background:${selected&&selected.type==='term'&&selected.idx===t.idx?'var(--accent-bg)':'var(--bg2)'};border:1px solid ${selected&&selected.type==='term'&&selected.idx===t.idx?'var(--accent)':'var(--border)'};border-radius:8px;font-size:0.8125rem;margin-bottom:0.5rem;cursor:pointer;font-weight:600;transition:all 0.15s">${t.text}</div>`).join('')}
+      </div>
+      <div><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.5rem">Definitions</div>
+        ${defs.map((d,i)=>matched.includes(d.idx)?`<div style="padding:0.625rem 0.75rem;background:var(--green-bg);border:1px solid rgba(34,197,94,0.3);border-radius:8px;font-size:0.75rem;margin-bottom:0.5rem;opacity:0.6;color:var(--text3);text-decoration:line-through">${d.text}</div>`:
+          `<div onclick="wsSelect('def',${d.idx})" style="padding:0.625rem 0.75rem;background:${selected&&selected.type==='def'&&selected.idx===d.idx?'var(--accent-bg)':'var(--bg2)'};border:1px solid ${selected&&selected.type==='def'&&selected.idx===d.idx?'var(--accent)':'var(--border)'};border-radius:8px;font-size:0.75rem;margin-bottom:0.5rem;cursor:pointer;transition:all 0.15s">${d.text}</div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+function wsSelect(type,idx){
+  if(!wsState.selected){wsState.selected={type,idx};}
+  else{
+    const prev=wsState.selected;
+    if(prev.type!==type&&prev.idx===idx){wsState.matched.push(idx);wsState.selected=null;if(wsState.matched.length===wsState.terms.length){setTimeout(()=>{document.getElementById('game-area').innerHTML=`<div class="card" style="max-width:480px;margin:0 auto;text-align:center"><div style="font-size:3rem;margin-bottom:0.75rem">🎉</div><h3>Term Sprint Complete!</h3><p style="color:var(--text2);margin:0.75rem 0">All ${wsState.terms.length} terms matched!</p><button class="btn btn-primary btn-full" onclick="awardXP(20);toast('Term Sprint done! +20 XP','success');startWordSprint(document.getElementById('game-area'))" style="background:var(--green);border-color:var(--green);margin-bottom:0.5rem">✓ Claim +20 XP & Play Again</button><button class="btn btn-ghost btn-full" onclick="navigateTo('games')">← Back to Games</button></div>`;},300);}toast('✓ Match!','success');}
+    else if(prev.type===type){wsState.selected={type,idx};}
+    else{wsState.selected=null;toast('✗ No match — try again','error');}
+  }
+  renderWordSprint(document.getElementById('game-area'));
+}
+
+
+function renderJobs(el){
+  const saved=JSON.parse(localStorage.getItem('saved_jobs')||'[]');
+  let filter='all';
+  const render=()=>{
+    const list=filter==='saved'?JOBS.filter((_,i)=>saved.includes(i)):filter==='internship'?JOBS.filter(j=>j.type==='Internship'):filter==='fulltime'?JOBS.filter(j=>j.type==='Full-Time'):JOBS;
+    document.getElementById('job-list').innerHTML=list.length===0?'<div class="card" style="text-align:center;padding:2rem;color:var(--text3)">No jobs match this filter.</div>':list.map((j,rawIdx)=>{
+      const actualIdx=JOBS.indexOf(j);const isSaved=saved.includes(actualIdx);
+      return `<div class="job-card"><div class="job-logo">${j.logo}</div><div class="job-info"><div class="job-title">${j.title}</div><div class="job-company">${j.company} · ${j.location} · <span style="color:var(--accent)">${j.stipend}</span></div><div class="job-tags"><span class="badge badge-${j.type==='Internship'?'purple':'blue'}">${j.type}</span>${j.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="job-posted">Posted ${j.posted}</div></div><div class="job-actions"><a href="${j.url}" target="_blank"><button class="btn btn-primary btn-sm">Apply →</button></a><button class="btn btn-${isSaved?'green':'ghost'} btn-sm" onclick="toggleSaveJob(${actualIdx})">${isSaved?'✓ Saved':'Save'}</button></div></div>`;
+    }).join('');
+  };
+  el.innerHTML=`${backBtn('Dashboard')}<div class="page-title">Jobs & Internships</div><p class="page-sub">Live openings from top companies. Click Apply to go to official career pages.</p>
+  <div style="display:flex;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap">
+    <button class="q-filter-btn active" id="jf-all" onclick="setJobFilter('all')">All (${JOBS.length})</button>
+    <button class="q-filter-btn" id="jf-internship" onclick="setJobFilter('internship')">Internships</button>
+    <button class="q-filter-btn" id="jf-fulltime" onclick="setJobFilter('fulltime')">Full-Time</button>
+    <button class="q-filter-btn" id="jf-saved" onclick="setJobFilter('saved')">⭐ Saved (${saved.length})</button>
+  </div>
+  <div id="job-list"></div>`;
+  window._jobFilter=filter; window._renderJobs=render; render();
+}
+function setJobFilter(f){window._jobFilter=f;document.querySelectorAll('[id^="jf-"]').forEach(b=>b.classList.remove('active'));document.getElementById(`jf-${f}`)?.classList.add('active');window._renderJobs();}
+function toggleSaveJob(idx){const saved=JSON.parse(localStorage.getItem('saved_jobs')||'[]');const i=saved.indexOf(idx);if(i>=0)saved.splice(i,1);else saved.push(idx);localStorage.setItem('saved_jobs',JSON.stringify(saved));toast(i>=0?'Job removed from saved':'Job saved! ⭐','info');renderJobs(document.getElementById('app-main'));}
+
+function renderLeaderboard(el){
+  const lb = getLeaderboardData();
+  const currentEmail = STATE.user ? STATE.user.email : null;
+  const myRank = lb.findIndex(r => r.email === currentEmail);
+
+  if(lb.length === 0){
+    el.innerHTML = `${backBtn('Dashboard')}
+      <div class="page-title">🏆 Leaderboard</div>
+      <p class="page-sub">Rankings are based on XP earned by registered students. Be the first!</p>
+      <div class="card" style="text-align:center;padding:3rem 1.5rem">
+        <div style="font-size:3rem;margin-bottom:1rem">🏅</div>
+        <div style="font-size:1rem;font-weight:600;margin-bottom:0.5rem">No students yet</div>
+        <p style="color:var(--text2);font-size:0.875rem">Start practicing to earn XP and appear on the leaderboard.</p>
+        <button class="btn btn-primary" onclick="navigateTo('practice')" style="margin-top:1.25rem;background:var(--red);border-color:var(--red)">Start Practicing →</button>
+      </div>`;
+    return;
+  }
+
+  const medals = ['🥇','🥈','🥉'];
+
+  // "You are ranked X" banner
+  const rankBanner = myRank >= 0 ? `
+    <div style="background:var(--accent-bg);border:1px solid rgba(59,130,246,0.25);border-radius:var(--r);padding:0.875rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem">
+      <div style="font-size:1.5rem">${myRank < 3 ? medals[myRank] : '🎯'}</div>
+      <div>
+        <div style="font-size:0.875rem;font-weight:600">You are ranked <span style="color:var(--accent)">#${myRank+1}</span> out of ${lb.length} students</div>
+        <div style="font-size:0.75rem;color:var(--text2);margin-top:2px">${myRank === 0 ? "You're at the top! 🔥 Keep it up." : `${(lb[0].xp - (STATE.user.xp||0)).toLocaleString()} XP away from #1`}</div>
+      </div>
+      ${myRank > 0 ? `<button class="btn btn-primary btn-sm" onclick="navigateTo('practice')" style="margin-left:auto;background:var(--red);border-color:var(--red);white-space:nowrap">Climb Up ↑</button>` : ''}
+    </div>` : '';
+
+  const rows = lb.map((r, i) => {
+    const isMe = r.email === currentEmail;
+    return `<div class="lb-row" style="${isMe ? 'background:var(--accent-bg);border-left:3px solid var(--accent);' : ''}">
+      <div class="lb-rank">${i < 3 ? medals[i] : r.rank}</div>
+      <div class="lb-user">
+        <div class="lb-ava" style="${isMe ? 'background:var(--accent);color:#fff' : ''}">${r.initial}</div>
+        <div>
+          <div class="lb-name">${r.name}${isMe ? ' <span style="font-size:0.65rem;background:var(--accent-bg);color:var(--accent);padding:1px 6px;border-radius:99px;font-weight:600">You</span>' : ''}</div>
+          <div style="font-size:0.7rem;color:var(--text3)">${r.studentType}</div>
+        </div>
+      </div>
+      <div class="lb-xp">${r.xp.toLocaleString()}</div>
+      <div class="lb-streak">🔥 ${r.streak}</div>
+      <div class="lb-level">${r.level}</div>
+      <div style="font-size:0.78rem;color:var(--text2);text-align:right">${r.questions} Qs</div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `${backBtn('Dashboard')}
+    <div class="page-title">🏆 Leaderboard</div>
+    <p class="page-sub">Live rankings of all registered students by total XP. Updated instantly.</p>
+    ${rankBanner}
+    <div class="lb-table">
+      <div class="lb-header-row">
+        <div>Rank</div>
+        <div>Student</div>
+        <div>XP</div>
+        <div>Streak</div>
+        <div>Level</div>
+        <div style="text-align:right">Questions</div>
+      </div>
+      ${rows}
+    </div>`;
+}
+
+function renderRoadmap(el){
+  const saved=JSON.parse(localStorage.getItem('roadmap_progress')||'null');
+  if(saved) ROADMAP_DATA.forEach((p,i)=>{ if(saved[i]) p.done=saved[i]; });
+  const totalTopics=ROADMAP_DATA.reduce((s,p)=>s+p.topics.length,0);
+  const doneTopics=ROADMAP_DATA.reduce((s,p)=>s+p.done.filter(Boolean).length,0);
+  const pct=Math.round(doneTopics/totalTopics*100);
+  el.innerHTML=`${backBtn('Dashboard')}
+  <div class="page-title">Learning Roadmap</div>
+  <p class="page-sub">Your personalized 10-week plan to interview readiness. Click any topic to mark complete and earn +5 XP.</p>
+  <div class="card" style="margin-bottom:1.25rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+      <span style="font-size:0.875rem;font-weight:600">Overall Progress</span>
+      <span style="font-size:0.875rem;font-weight:700;color:var(--accent)">${doneTopics}/${totalTopics} topics (${pct}%)</span>
+    </div>
+    <div class="progress" style="height:8px"><div class="progress-fill" style="width:${pct}%;background:var(--accent)"></div></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    ${ROADMAP_DATA.map((phase,pi)=>{
+      const phaseDone=phase.done.every(Boolean);
+      const prevDone=pi===0||ROADMAP_DATA[pi-1].done.every(Boolean);
+      const locked=!prevDone&&pi>0;
+      const status=phaseDone?'Completed':prevDone?pi===0?'In Progress':'In Progress':'Locked';
+      const badgeClass=phaseDone?'green':prevDone?'blue':'gray';
+      return `<div class="card" style="${locked?'opacity:0.55':''}">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem">
+          <div><div style="font-size:0.9375rem;font-weight:700">${phase.phase}</div><div style="font-size:0.75rem;color:var(--text3)">${phase.weeks}</div></div>
+          <span class="badge badge-${badgeClass}">${phaseDone?'✓ Completed':status}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.5rem">
+          ${phase.topics.map((t,ti)=>`<div style="display:flex;align-items:center;gap:8px;padding:0.5rem 0.75rem;background:var(--bg2);border-radius:7px;font-size:0.8125rem;${phase.done[ti]?'opacity:0.55':''}${locked?';pointer-events:none':''}" onclick="markRoadmapTopic(${pi},${ti})">
+            <span class="rd-check" style="color:${phase.done[ti]?'var(--green)':'var(--border2)'};font-size:0.875rem;flex-shrink:0">${phase.done[ti]?'✓':'○'}</span>
+            <span>${t}</span>
+          </div>`).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+function markRoadmapTopic(pi,ti){
+  if(ROADMAP_DATA[pi].done[ti]) return;
+  ROADMAP_DATA[pi].done[ti]=true;
+  const progress=ROADMAP_DATA.map(p=>p.done);
+  localStorage.setItem('roadmap_progress',JSON.stringify(progress));
+  awardXP(5);
+  renderRoadmap(document.getElementById('app-main'));
+}
+
+function renderProfile(el){ const u=STATE.user||{}; const xp=u.xp||0; const lvl=getLevelData(xp); el.innerHTML=`${backBtn('Dashboard')}<div class="profile-banner"><div class="profile-avatar-lg">${u.initial||'U'}</div><div><div class="profile-name">${u.name||'User'}</div><div class="profile-email">${u.email||''}</div><div class="profile-level"><span class="badge badge-red">⭐ ${lvl.label}</span></div></div><div style="margin-left:auto"><button class="btn btn-ghost btn-sm" onclick="navigateTo('settings')">Edit Profile</button></div></div><div class="stats-grid"><div class="stat-card"><div class="stat-val" style="color:var(--accent)">${xp.toLocaleString()}</div><div class="stat-label">Total XP</div></div><div class="stat-card"><div class="stat-val">${u.questionsAnswered||0}</div><div class="stat-label">Questions Answered</div></div><div class="stat-card"><div class="stat-val" style="color:var(--green)">${u.averageScore||0}%</div><div class="stat-label">Avg Score</div></div><div class="stat-card"><div class="stat-val" style="color:var(--yellow)">🔥 ${u.streak||0}</div><div class="stat-label">Current Streak</div></div></div><div class="two-col"><div class="card"><div class="card-title">Category Scores</div>${(()=>{const db=getDB();const eu=db[u.email]||u;const qa=eu.questionsAnswered||0;return [['Java',qa>0?Math.min(95,50+Math.floor(Math.random()*30+qa)):0,'var(--accent)'],['DSA',qa>0?Math.min(90,45+Math.floor(Math.random()*25+qa)):0,'var(--yellow)'],['System Design',qa>0?Math.min(85,30+Math.floor(Math.random()*35+qa)):0,'var(--red)'],['SQL',qa>0?Math.min(98,55+Math.floor(Math.random()*30+qa)):0,'var(--green)'],['Behavioral',qa>0?Math.min(92,50+Math.floor(Math.random()*30+qa)):0,'var(--purple)']]})().map(([cat,pct,color])=>`<div style="margin-bottom:0.875rem"><div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px"><span>${cat}</span><span style="color:${color};font-weight:600">${pct}%</span></div><div class="progress"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div></div>`).join('')}</div><div class="card"><div class="card-title">Badges (${BADGES_ALL.filter(b=>b.unlocked).length}/${BADGES_ALL.length})</div><div class="badges-grid">${BADGES_ALL.map(b=>`<div class="badge-card${b.unlocked?'':' locked'}"><div class="badge-emoji">${b.emoji}</div><div class="badge-label">${b.label}</div></div>`).join('')}</div></div></div>`; }
+
+function renderSettings(el){ const u=STATE.user||{}; el.innerHTML=`${backBtn('Dashboard')}<div class="page-title">Settings</div><p class="page-sub">Customize your InterviewForge experience.</p><div class="settings-grid"><div class="card"><div class="card-title">Profile Information</div><div class="input-group"><label class="input-label">Display Name</label><input class="input" value="${u.name||''}" id="set-name"/></div><div class="input-group"><label class="input-label">Email</label><input class="input" value="${u.email||''}" disabled style="opacity:0.6"/></div><div class="input-group"><label class="input-label">Student Type</label><select class="input" id="set-role"><option value="High School" ${u.role==='High School'?'selected':''}>High School Student</option><option value="Diploma" ${u.role==='Diploma'?'selected':''}>Diploma Student</option><option value="Undergraduate" ${u.role==='Undergraduate'?'selected':''}>Undergraduate (B.Tech / B.E. / BCA / B.Sc)</option><option value="Postgraduate" ${u.role==='Postgraduate'?'selected':''}>Postgraduate (M.Tech / MCA / M.Sc / MBA)</option><option value="PhD" ${u.role==='PhD'?'selected':''}>PhD / Research Scholar</option><option value="Bootcamp" ${u.role==='Bootcamp'?'selected':''}>Bootcamp / Self-taught</option><option value="Working Professional" ${u.role==='Working Professional'?'selected':''}>Working Professional (Upskilling)</option></select></div><button class="btn btn-primary btn-sm" onclick="saveProfile()" style="background:var(--red);border-color:var(--red)">Save Changes</button></div><div class="card"><div class="card-title">Appearance</div><div style="font-size:0.8125rem;color:var(--text2);margin-bottom:0.875rem">Choose your preferred theme</div><div class="theme-options"><div class="theme-option ${STATE.theme==='dark'?'active':''}" onclick="setThemeOption('dark',this)"><div class="theme-option-icon">🌙</div><div class="theme-option-label">Dark</div></div><div class="theme-option ${STATE.theme==='light'?'active':''}" onclick="setThemeOption('light',this)"><div class="theme-option-icon">☀️</div><div class="theme-option-label">Light</div></div><div class="theme-option ${STATE.theme==='system'?'active':''}" onclick="setThemeOption('system',this)"><div class="theme-option-icon">💻</div><div class="theme-option-label">System</div></div></div></div><div class="card"><div class="card-title">Account</div><div style="display:flex;flex-direction:column;gap:0.75rem"><button class="btn btn-ghost" onclick="exportData()">📦 Export My Data</button><div class="divider"></div><button class="btn btn-danger" onclick="logout()">Sign Out</button></div></div></div>`; }
+function setThemeOption(t, el){ document.querySelectorAll('.theme-option').forEach(o=>o.classList.remove('active')); el.classList.add('active'); themeIdx = THEMES.indexOf(t); applyTheme(t); toast(`Theme: ${t.charAt(0).toUpperCase()+t.slice(1)}`,'info'); }
+function saveProfile(){ const name=document.getElementById('set-name').value; const role=document.getElementById('set-role').value; if(STATE.user){STATE.user.name=name;STATE.user.role=role;const db=getDB();if(db[STATE.user.email]){db[STATE.user.email].name=name;db[STATE.user.email].role=role;saveDB(db);}localStorage.setItem('user',JSON.stringify(STATE.user));updateSidebar();} toast('Profile saved!','success'); }
+function exportData(){ const data=JSON.stringify({user:STATE.user,theme:STATE.theme},null,2); const a=document.createElement('a'); a.href='data:text/json,'+encodeURIComponent(data); a.download='interviewforge-data.json'; a.click(); }
+
+// ═══════════════════════ INIT ═══════════════════════
+function initLanding(){ function counter(id,target,suffix=''){ let v=0;const step=target/60; const t=setInterval(()=>{ v=Math.min(v+step,target); const el=document.getElementById(id); if(el) el.textContent=Math.floor(v)+suffix; if(v>=target)clearInterval(t); },20); } counter('ctr-q',1000,'+'); counter('ctr-c',42,'+'); counter('ctr-g',8); }
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  applyTheme(STATE.theme);
+  initLanding();
+  if(STATE.user){
+    updateSidebar();
+    showPage('app');
+    navigateTo('dashboard');
+  } else {
+    showPage('landing');
+  }
+  matchMedia('(prefers-color-scheme:dark)').addEventListener('change',()=>{ if(STATE.theme==='system') applyTheme('system'); });
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     InterviewForge — MySQL API Client
+     Replaces localStorage auth/DB with real Express + MySQL calls.
+     Patches: emailLogin, emailRegister, logout, awardXP,
+              markRoadmapTopic, renderLeaderboard
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── Config ───────────────────────────────────────────────
+const API_BASE = 'http://localhost:3001/api';
+
+// ── Token helpers ────────────────────────────────────────
+const Token = {
+  get:   ()  => localStorage.getItem('if_token'),
+  set:   (t) => localStorage.setItem('if_token', t),
+  clear: ()  => localStorage.removeItem('if_token'),
+  has:   ()  => !!localStorage.getItem('if_token'),
+};
+
+// ── Core fetch wrapper ───────────────────────────────────
+async function apiFetch(path, { method = 'GET', body, auth = true } = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (auth && Token.has()) headers['Authorization'] = `Bearer ${Token.get()}`;
+
+  const res = await fetch(`${API_BASE}${path}`, {
+    method,
+    headers,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  return data;
+}
+
+// ── Auth ─────────────────────────────────────────────────
+async function _apiRegister({ name, email, password, role }) {
+  const data = await apiFetch('/auth/register', {
+    method: 'POST', body: { name, email, password, role }, auth: false,
+  });
+  Token.set(data.token);
+  const u = { ...data.user, initial: data.user.name[0].toUpperCase() };
+  localStorage.setItem('user', JSON.stringify(u));
+  return u;
+}
+
+async function _apiLogin({ email, password }) {
+  const data = await apiFetch('/auth/login', {
+    method: 'POST', body: { email, password }, auth: false,
+  });
+  Token.set(data.token);
+  const u = { ...data.user, initial: data.user.name[0].toUpperCase() };
+  localStorage.setItem('user', JSON.stringify(u));
+  return u;
+}
+
+// ── User / XP / Roadmap ──────────────────────────────────
+async function apiGetMe()          { return apiFetch('/users/me'); }
+async function apiAwardXP(amt, reason = '') {
+  return apiFetch('/users/xp', { method: 'POST', body: { amount: amt, reason } });
+}
+async function apiGetRoadmap()     { return apiFetch('/users/roadmap'); }
+async function apiMarkRoadmap(pi, ti) {
+  return apiFetch('/users/roadmap', { method: 'POST', body: { phase_index: pi, topic_index: ti } });
+}
+async function apiUpdateProfile({ name, role }) {
+  return apiFetch('/users/me', { method: 'PATCH', body: { name, role } });
+}
+
+// ── Sessions ─────────────────────────────────────────────
+async function apiSaveSession(payload) {
+  return apiFetch('/sessions', { method: 'POST', body: payload });
+}
+async function apiGetSessions(limit = 20) {
+  return apiFetch(`/sessions?limit=${limit}`);
+}
+
+// ── Leaderboard ──────────────────────────────────────────
+async function apiGetLeaderboard(limit = 50) {
+  return apiFetch(`/leaderboard?limit=${limit}`, { auth: false });
+}
+
+// ════════════════════════════════════════════════════════
+//  OVERRIDE existing app functions to use MySQL API
+// ════════════════════════════════════════════════════════
+
+// ── emailRegister (was localStorage only) ────────────────
+window.emailRegister = async function () {
+  const fname   = document.getElementById('reg-fname').value.trim();
+  const lname   = document.getElementById('reg-lname').value.trim();
+  const email   = document.getElementById('reg-email').value.trim().toLowerCase();
+  const pass    = document.getElementById('reg-pass').value;
+  const confirm = document.getElementById('reg-confirm').value;
+  const role    = document.getElementById('reg-role').value;
+
+  if (!fname || !email || !pass) { toast('Please fill required fields', 'error'); return; }
+  if (pass !== confirm)           { toast('Passwords do not match', 'error'); return; }
+  const pv = validatePassword(pass);
+  if (!pv.valid)                  { toast(pv.message, 'error'); return; }
+
+  try {
+    const user = await _apiRegister({ name: `${fname} ${lname}`.trim(), email, password: pass, role });
+    STATE.user = user;
+    updateSidebar();
+    showPage('app');
+    navigateTo('dashboard');
+    toast('🎉 Account created! +50 XP welcome bonus.', 'success');
+  } catch (err) {
+    toast(err.message || 'Registration failed', 'error');
+  }
+};
+
+// ── emailLogin (was localStorage only) ───────────────────
+window.emailLogin = async function () {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('login-pass').value;
+
+  if (!email || !pass) { toast('Please fill all fields', 'error'); return; }
+
+  try {
+    const user = await _apiLogin({ email, password: pass });
+    STATE.user = user;
+    updateSidebar();
+    showPage('app');
+    navigateTo('dashboard');
+    toast(`Welcome back, ${user.name.split(' ')[0]}! 👋`, 'success');
+  } catch (err) {
+    toast(err.message || 'Login failed', 'error');
+  }
+};
+
+// ── logout ────────────────────────────────────────────────
+const _origLogout = window.logout;
+window.logout = function () {
+  // Persist latest STATE.user back to DB before clearing
+  if (STATE.user && Token.has()) {
+    apiUpdateProfile({ name: STATE.user.name, role: STATE.user.role }).catch(() => {});
+  }
+  Token.clear();
+  if (_origLogout) _origLogout();
+  else {
+    STATE.user = null;
+    localStorage.removeItem('user');
+    showPage('landing');
+    toast('Signed out successfully', 'info');
+  }
+};
+
+// ── awardXP — also persists to DB ────────────────────────
+const _origAwardXP = window.awardXP;
+window.awardXP = function (pts, reason = '') {
+  if (_origAwardXP) _origAwardXP(pts);           // update local STATE + UI immediately
+  if (Token.has()) {
+    apiAwardXP(pts, reason).catch(console.warn); // sync to DB in background
+  }
+};
+
+// ── markRoadmapTopic — also persists to DB ───────────────
+const _origMarkRoadmap = window.markRoadmapTopic;
+window.markRoadmapTopic = function (pi, ti) {
+  if (_origMarkRoadmap) _origMarkRoadmap(pi, ti);
+  if (Token.has()) {
+    apiMarkRoadmap(pi, ti).catch(console.warn);
+  }
+};
+
+// ── saveProfile — also persists to DB ────────────────────
+const _origSaveProfile = window.saveProfile;
+window.saveProfile = function () {
+  if (_origSaveProfile) _origSaveProfile();
+  if (Token.has() && STATE.user) {
+    apiUpdateProfile({ name: STATE.user.name, role: STATE.user.role }).catch(console.warn);
+  }
+};
+
+// ── renderLeaderboard — pulls from MySQL via API ─────────
+window.renderLeaderboard = async function (el) {
+  // Show loading state
+  el.innerHTML = `<div class="page-title">🏆 Leaderboard</div>
+    <p class="page-sub">Loading live rankings…</p>
+    <div class="card" style="text-align:center;padding:3rem">
+      <div style="font-size:2rem;animation:pulse 1s ease infinite">⏳</div>
+    </div>`;
+
+  try {
+    const rows = await apiGetLeaderboard(100);
+    _renderLeaderboardHTML(el, rows);
+  } catch {
+    // API unreachable — fall back to localStorage leaderboard
+    const fallback = getLeaderboardData();
+    _renderLeaderboardHTML(el, fallback.map(r => ({
+      rank: r.rank, name: r.name, email: r.email,
+      xp: r.xp, streak: r.streak, level: r.level,
+      questions_answered: r.questions,
+    })));
+  }
+};
+
+function _renderLeaderboardHTML(el, rows) {
+  const u       = STATE.user || {};
+  const myRank  = rows.findIndex(r => r.email === u.email);
+  const medals  = ['🥇', '🥈', '🥉'];
+
+  const rankBanner = myRank >= 0 ? `
+    <div style="background:var(--accent-bg);border:1px solid rgba(59,130,246,0.25);border-radius:var(--r);padding:0.875rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem">
+      <div style="font-size:1.5rem">${myRank < 3 ? medals[myRank] : '🎯'}</div>
+      <div>
+        <div style="font-size:0.875rem;font-weight:600">You are ranked <span style="color:var(--accent)">#${myRank + 1}</span> out of ${rows.length} students</div>
+        <div style="font-size:0.75rem;color:var(--text2);margin-top:2px">${myRank === 0 ? "You're #1! 🔥 Keep it up." : `${((rows[0].xp || 0) - (u.xp || 0)).toLocaleString()} XP away from #1`}</div>
+      </div>
+      ${myRank > 0 ? `<button class="btn btn-primary btn-sm" onclick="navigateTo('practice')" style="margin-left:auto;background:var(--red);border-color:var(--red)">Climb Up ↑</button>` : ''}
+    </div>` : '';
+
+  const tableRows = rows.map((r, i) => {
+    const isMe = r.email === u.email;
+    return `<div class="lb-row" style="${isMe ? 'background:var(--accent-bg);border-left:3px solid var(--accent);' : ''}">
+      <div class="lb-rank">${i < 3 ? medals[i] : r.rank}</div>
+      <div class="lb-user">
+        <div class="lb-ava" style="${isMe ? 'background:var(--accent);color:#fff' : ''}">${r.name ? r.name[0].toUpperCase() : '?'}</div>
+        <div>
+          <div class="lb-name">${r.name}${isMe ? ' <span style="font-size:0.65rem;background:var(--accent-bg);color:var(--accent);padding:1px 6px;border-radius:99px;font-weight:600">You</span>' : ''}</div>
+          <div style="font-size:0.7rem;color:var(--text3)">${r.level || ''}</div>
+        </div>
+      </div>
+      <div class="lb-xp">${(r.xp || 0).toLocaleString()}</div>
+      <div class="lb-streak">🔥 ${r.streak || 0}</div>
+      <div class="lb-level">${r.level || ''}</div>
+      <div style="font-size:0.78rem;color:var(--text2);text-align:right">${r.questions_answered || 0} Qs</div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = `${backBtn('Dashboard')}
+    <div class="page-title">🏆 Leaderboard</div>
+    <p class="page-sub">Live rankings from the database, updated in real time.</p>
+    ${rankBanner}
+    <div class="lb-table">
+      <div class="lb-header-row">
+        <div>Rank</div><div>Student</div><div>XP</div>
+        <div>Streak</div><div>Level</div>
+        <div style="text-align:right">Questions</div>
+      </div>
+      ${tableRows || '<div style="padding:2rem;text-align:center;color:var(--text3)">No students yet — be the first! 🏅</div>'}
+    </div>`;
+}
+
+// ════════════════════════════════════════════════════════
+//  Auto-sync profile from DB on page load
+// ════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', async () => {
+  if (Token.has()) {
+    try {
+      const fresh = await apiGetMe();
+      const merged = { ...fresh, initial: fresh.name[0].toUpperCase() };
+      STATE.user = merged;
+      localStorage.setItem('user', JSON.stringify(merged));
+      // If already in app shell, refresh sidebar
+      if (document.getElementById('page-app')?.classList.contains('active')) {
+        updateSidebar();
+      }
+    } catch {
+      // Token expired or server down — force logout
+      Token.clear();
+      STATE.user = null;
+      localStorage.removeItem('user');
+      showPage('landing');
+      toast('Session expired. Please sign in again.', 'info');
+    }
+  }
+}, { once: true });
+</script>
+
+
+
+</body>
+</html> 
+
