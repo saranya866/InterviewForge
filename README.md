@@ -3,7 +3,7 @@
 
 # 🔥 InterviewForge — AI-Powered Interview Preparation Platform
 
-*"Forge Your Future, One Interview at a Time"*
+*"Your Future Starts with the Next Question"*
 
 The world's most comprehensive AI-driven interview training platform. Master technical interviews, coding challenges, and soft skills through immersive simulations.
 
@@ -414,11 +414,7 @@ copies or substantial portions of the Software.
 
 <div align="center">
 
-Made with ❤️ for students who want to get hired.
+Made by Saranya | Designed for Impact | 2026
 
-**⭐ Star this repo if InterviewForge helped you prepare!**
-
-[![Launch Website](https://img.shields.io/badge/🚀%20Launch%20InterviewForge-ef4444?style=for-the-badge)](https://your-domain.com)
-[![GitHub Stars](https://img.shields.io/github/stars/YOUR_USERNAME/InterviewForge?style=for-the-badge&color=yellow)](https://github.com/YOUR_USERNAME/InterviewForge)
 
 </div>
