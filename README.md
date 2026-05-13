@@ -15,7 +15,7 @@ The world's most comprehensive AI-driven interview training platform. Master tec
 ![License](https://img.shields.io/badge/License-MIT-gray?style=flat-square)
 ![MIT](https://img.shields.io/badge/MIT-green?style=flat-square)
 
-### 🚀 [Launch InterviewForge →](https://interviewforgebysara.netlify.app/)
+### 🚀 [Launch InterviewForge →](https://interviewforge22.netlify.app/)
 
 </div>
 
