@@ -1,28 +1,19 @@
-// db.js — MySQL connection pool (mysql2/promise)
 require('dotenv').config();
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
 
-const pool = mysql.createPool({
-  host:               process.env.DB_HOST     || 'localhost',
-  port:               parseInt(process.env.DB_PORT || '3306'),
-  user:               process.env.DB_USER     || 'root',
-  password:           process.env.DB_PASSWORD || '',
-  database:           process.env.DB_NAME     || 'interviewforge',
-  waitForConnections: true,
-  connectionLimit:    10,
-  queueLimit:         0,
-  timezone:           '+00:00',
-  charset:            'utf8mb4',
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+  connectionTimeoutMillis: 5000,
 });
 
-// Test on startup
-pool.getConnection()
-  .then(conn => {
-    console.log('✅  MySQL connected successfully');
-    conn.release();
+pool.connect()
+  .then(client => {
+    console.log('✅ Neon PostgreSQL connected successfully');
+    client.release();
   })
   .catch(err => {
-    console.error('❌  MySQL connection failed:', err.message);
+    console.error('❌ Neon PostgreSQL connection failed:', err.message);
     process.exit(1);
   });
 
