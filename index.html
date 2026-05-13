@@ -799,32 +799,60 @@ function resetPassword() {
   showPage('login');
 }
 
-function emailLogin() {
-  const email = document.getElementById('login-email').value.trim().toLowerCase();
-  const pass = document.getElementById('login-pass').value;
-  if (!email || !pass) { toast('Please fill all fields','error'); return; }
-  const db = getDB();
-  if (!db[email]) { toast('No account found. Please register first.','error'); return; }
-  if (db[email].password !== btoa(pass)) { toast('Incorrect password.','error'); return; }
-  loginUser(db[email]); toast(`Welcome back, ${db[email].name.split(' ')[0]}! 👋`, 'success');
+async function emailLogin() {
+    const email = document.getElementById('login-email').value.trim().toLowerCase();
+    const pass = document.getElementById('login-pass').value;
+
+    if (!email || !pass) {
+        toast('Please fill all fields', 'error');
+        return;
+    }
+
+    toast('Logging in...', 'info');
+    const result = await loginUserDirect(email, pass);
+    
+    if (result.success) {
+        STATE.user = result.user;
+        updateSidebar();
+        showPage('app');
+        navigateTo('dashboard');
+        toast(`Welcome back, ${result.user.name}!`, 'success');
+    } else {
+        toast(result.error, 'error');
+    }
 }
 
-function emailRegister() {
-  const fname = document.getElementById('reg-fname').value.trim();
-  const lname = document.getElementById('reg-lname').value.trim();
-  const email = document.getElementById('reg-email').value.trim().toLowerCase();
-  const pass = document.getElementById('reg-pass').value;
-  const confirm = document.getElementById('reg-confirm').value;
-  const role = document.getElementById('reg-role').value;
-  if (!fname || !email || !pass) { toast('Please fill required fields','error'); return; }
-  if (pass !== confirm) { toast('Passwords do not match','error'); return; }
-  const passValidation = validatePassword(pass);
-  if (!passValidation.valid) { toast(passValidation.message, 'error'); return; }
-  const db = getDB();
-  if (db[email]) { toast('Account already exists. Please sign in.','error'); return; }
-  const name = `${fname} ${lname}`.trim();
-  const user = createNewUser(name, email, pass, role);
-  loginUser(user); toast('🎉 Account created! +50 XP welcome bonus.', 'success');
+async function emailRegister() {
+    const fname = document.getElementById('reg-fname').value.trim();
+    const lname = document.getElementById('reg-lname').value.trim();
+    const email = document.getElementById('reg-email').value.trim().toLowerCase();
+    const pass = document.getElementById('reg-pass').value;
+    const confirm = document.getElementById('reg-confirm').value;
+    const role = document.getElementById('reg-role').value;
+
+    if (!fname || !email || !pass) {
+        toast('Please fill all fields', 'error');
+        return;
+    }
+    if (pass !== confirm) {
+        toast('Passwords do not match', 'error');
+        return;
+    }
+
+    const name = `${fname} ${lname}`.trim();
+    toast('Creating account...', 'info');
+    
+    const result = await registerUserDirect(name, email, pass, role);
+    
+    if (result.success) {
+        STATE.user = result.user;
+        updateSidebar();
+        showPage('app');
+        navigateTo('dashboard');
+        toast('Account created!', 'success');
+    } else {
+        toast(result.error, 'error');
+    }
 }
 
 function createNewUser(name, email, password = null, role = '') {
@@ -1764,7 +1792,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 }, { once: true });
 </script>
 
-
+<script src="neon-client.js"></script>
 
 </body>
 </html> 
