@@ -1,76 +1,79 @@
-// Neon Database Connection
-const NEON_CONFIG = {
-    apiKey: 'napi_ltit3gzzmggbjygdsrzr445dg0z6r0b1rp8bme3jla1t6ku9ui5hv25r55vj55zs',
-    projectId: 'billowing-art-37743061',
-    branchId: 'br-broad-feather-aorlkd87'
-};
+// ============================================
+// InterviewForge - Backend API Client
+// Uses your Render backend to connect to Neon
+// ============================================
 
-async function executeQuery(sql) {
-    const url = `https://console.neon.tech/api/v2/projects/${NEON_CONFIG.projectId}/branches/${NEON_CONFIG.branchId}/query`;
+// YOUR RENDER BACKEND URL
+const API_URL = 'https://interviewforgebysaranya.onrender.com';
+
+// Register a new user
+async function registerUserDirect(name, email, password, role) {
+    console.log("Registering user:", email);
     
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${API_URL}/api/register`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${NEON_CONFIG.apiKey}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ query: sql })
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                role: role || 'Undergraduate'
+            })
         });
+        
         const data = await response.json();
-        return data.rows || [];
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
-    }
-}
-
-async function registerUserDirect(name, email, password, role) {
-    try {
-        const passwordHash = btoa(password);
-        const safeName = name.replace(/'/g, "''");
+        console.log("Register response:", data);
         
-        const checkSql = `SELECT email FROM users WHERE email = '${email}'`;
-        const existing = await executeQuery(checkSql);
-        
-        if (existing.length > 0) {
-            return { success: false, error: 'Email already exists' };
+        if (data.success) {
+            // Save user to localStorage
+            localStorage.setItem('user', JSON.stringify(data.user));
+            return { success: true, user: data.user };
+        } else {
+            return { success: false, error: data.error };
         }
-        
-        const insertSql = `
-            INSERT INTO users (name, email, password_hash, role, xp, streak, level)
-            VALUES ('${safeName}', '${email}', '${passwordHash}', '${role || 'Student'}', 100, 1, 'Beginner')
-            RETURNING id, name, email, role, xp, streak, level
-        `;
-        
-        const result = await executeQuery(insertSql);
-        
-        if (result && result.length > 0) {
-            localStorage.setItem('user', JSON.stringify(result[0]));
-            return { success: true, user: result[0] };
-        }
-        return { success: false, error: 'Registration failed' };
     } catch (error) {
+        console.error("Register error:", error);
         return { success: false, error: error.message };
     }
 }
 
+// Login user
 async function loginUserDirect(email, password) {
+    console.log("Logging in user:", email);
+    
     try {
-        const passwordHash = btoa(password);
-        const sql = `SELECT id, name, email, role, xp, streak, level FROM users WHERE email = '${email}' AND password_hash = '${passwordHash}'`;
-        const result = await executeQuery(sql);
+        const response = await fetch(`${API_URL}/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
         
-        if (result && result.length > 0) {
-            localStorage.setItem('user', JSON.stringify(result[0]));
-            return { success: true, user: result[0] };
+        const data = await response.json();
+        console.log("Login response:", data);
+        
+        if (data.success) {
+            // Save user to localStorage
+            localStorage.setItem('user', JSON.stringify(data.user));
+            return { success: true, user: data.user };
+        } else {
+            return { success: false, error: data.error };
         }
-        return { success: false, error: 'Invalid email or password' };
     } catch (error) {
+        console.error("Login error:", error);
         return { success: false, error: error.message };
     }
 }
 
+// Make functions available globally
 window.registerUserDirect = registerUserDirect;
 window.loginUserDirect = loginUserDirect;
-console.log('Neon ready!');
+
+console.log('✅ API Client Ready! Backend:', API_URL);
