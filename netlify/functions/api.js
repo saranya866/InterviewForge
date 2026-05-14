@@ -1,10 +1,5 @@
 const { Pool } = require('pg');
 
-const pool = new Pool({
-    connectionString: process.env.NEON_DB_URL,
-    ssl: { rejectUnauthorized: false }
-});
-
 exports.handler = async (event) => {
     const path = event.path.replace('/.netlify/functions/api', '');
     const method = event.httpMethod;
@@ -28,6 +23,12 @@ exports.handler = async (event) => {
             const { name, email, password, role } = JSON.parse(event.body);
             const hashedPassword = Buffer.from(password).toString('base64');
             
+            const { Pool } = require('pg');
+            const pool = new Pool({
+                connectionString: process.env.NEON_DB_URL,
+                ssl: { rejectUnauthorized: false }
+            });
+            
             const result = await pool.query(
                 `INSERT INTO users (name, email, password_hash, role, xp, streak, level) 
                  VALUES ($1, $2, $3, $4, 50, 1, 'Novice') 
@@ -45,6 +46,12 @@ exports.handler = async (event) => {
         try {
             const { email, password } = JSON.parse(event.body);
             const hashedPassword = Buffer.from(password).toString('base64');
+            
+            const { Pool } = require('pg');
+            const pool = new Pool({
+                connectionString: process.env.NEON_DB_URL,
+                ssl: { rejectUnauthorized: false }
+            });
             
             const result = await pool.query(
                 `SELECT id, name, email, role, xp, streak, level FROM users 
