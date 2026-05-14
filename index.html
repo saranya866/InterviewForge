@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InterviewForge — AI Mock Interview Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════ TOKENS ═══════════════════════ */
+:root {
+  --r: 10px;
+  --font: 'Geist', -apple-system, sans-serif;
+  --mono: 'Geist Mono', monospace;
+  --transition: 0.18s ease;
+}
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --bg1: #111111;
+  --bg2: #161616;
+  --bg3: #1c1c1c;
+  --border: #262626;
+  --border2: #333333;
+  --text: #ededed;
+  --text2: #a1a1aa;
+  --text3: #71717a;
+  --accent: #3b82f6;
+  --accent-h: #2563eb;
+  --accent-bg: rgba(59,130,246,0.1);
+  --green: #22c55e;
+  --green-bg: rgba(34,197,94,0.1);
+  --red: #ef4444;
+  --red-bg: rgba(239,68,68,0.1);
+  --yellow: #eab308;
+  --yellow-bg: rgba(234,179,8,0.1);
+  --purple: #a855f7;
+  --purple-bg: rgba(168,85,247,0.1);
+  --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+}
+[data-theme="light"] {
+  --bg: #fafafa;
+  --bg1: #ffffff;
+  --bg2: #f4f4f5;
+  --bg3: #e4e4e7;
+  --border: #e4e4e7;
+  --border2: #d4d4d8;
+  --text: #09090b;
+  --text2: #52525b;
+  --text3: #a1a1aa;
+  --accent: #2563eb;
+  --accent-h: #1d4ed8;
+  --accent-bg: rgba(37,99,235,0.08);
+  --green: #16a34a;
+  --green-bg: rgba(22,163,74,0.08);
+  --red: #dc2626;
+  --red-bg: rgba(220,38,38,0.08);
+  --yellow: #ca8a04;
+  --yellow-bg: rgba(202,138,4,0.08);
+  --purple: #9333ea;
+  --purple-bg: rgba(147,51,234,0.08);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+}
+
+/* ═══════════════════════ RESET ═══════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.5;font-size:14px;transition:background var(--transition),color var(--transition);min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font);cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:var(--font)}
+img{max-width:100%;display:block}
+ul{list-style:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+::selection{background:rgba(59,130,246,0.25)}
+
+/* ═══════════════════════ LAYOUT ═══════════════════════ */
+.page{display:none}
+.page.active{display:block}
+.app-shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.main-content{padding:2rem;overflow-x:hidden}
+@media(max-width:768px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}}
+
+/* ═══════════════════════ COMPONENTS ═══════════════════════ */
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;transition:border-color var(--transition)}
+.card:hover{border-color:var(--border2)}
+.card-title{font-size:0.875rem;font-weight:600;margin-bottom:0.875rem;color:var(--text)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-size:0.7rem;font-weight:600;letter-spacing:0.01em}
+.badge-blue{background:var(--accent-bg);color:var(--accent)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.badge-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.badge-purple{background:var(--purple-bg);color:var(--purple)}
+.badge-gray{background:var(--bg3);color:var(--text2)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:0.5rem 1rem;border-radius:var(--r);font-size:0.8125rem;font-weight:500;transition:all var(--transition);cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text2);border-color:var(--border)}
+.btn-ghost:hover{background:var(--bg2);color:var(--text);border-color:var(--border2)}
+.btn-danger{background:var(--red-bg);color:var(--red);border-color:transparent}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-green{background:var(--green-bg);color:var(--green);border-color:transparent}
+.btn-green:hover{background:var(--green);color:#fff}
+.btn-sm{padding:0.35rem 0.75rem;font-size:0.75rem}
+.btn-lg{padding:0.75rem 1.5rem;font-size:0.9375rem;font-weight:600}
+.btn-full{width:100%;justify-content:center}
+.input{width:100%;padding:0.6rem 0.875rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:0.875rem;outline:none;transition:border-color var(--transition)}
+.input:focus{border-color:var(--accent)}
+.input::placeholder{color:var(--text3)}
+.input-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.input-label{font-size:0.78rem;font-weight:500;color:var(--text2)}
+.progress{height:6px;background:var(--bg3);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;border-radius:99px;background:var(--accent);transition:width 0.5s ease}
+.divider{height:1px;background:var(--border);margin:1.25rem 0}
+.tag{display:inline-flex;align-items:center;padding:3px 8px;border-radius:6px;font-size:0.7rem;font-weight:500;background:var(--bg3);color:var(--text2)}
+#toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem 1rem;font-size:0.8125rem;box-shadow:var(--shadow-lg);animation:slide-in 0.25s ease;display:flex;align-items:center;gap:8px;min-width:240px}
+.toast-success{border-left:3px solid var(--green)}
+.toast-error{border-left:3px solid var(--red)}
+.toast-info{border-left:3px solid var(--accent)}
+@keyframes slide-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fade-up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.stat-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
+.stat-val{font-size:1.75rem;font-weight:700;line-height:1;margin-bottom:0.25rem}
+.stat-label{font-size:0.75rem;color:var(--text2);font-weight:500}
+.stat-delta{font-size:0.72rem;margin-top:0.5rem}
+.stat-delta.up{color:var(--green)}
+.stat-delta.down{color:var(--red)}
+
+/* ═══════════════════════ NAVBAR ═══════════════════════ */
+.nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0 max(1.5rem,4vw);height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:background var(--transition)}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:0.9375rem;font-weight:700}
+.nav-logo{width:30px;height:30px;background:linear-gradient(135deg,#ef4444,#f97316);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(239,68,68,0.4)}
+.nav-links{display:flex;align-items:center;gap:0.125rem}
+.nav-links a{padding:0.4rem 0.75rem;border-radius:7px;font-size:0.8125rem;color:var(--text2);transition:all var(--transition)}
+.nav-links a:hover{color:var(--text);background:var(--bg2)}
+.nav-right{display:flex;align-items:center;gap:0.5rem}
+.theme-btn{width:32px;height:32px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);color:var(--text2)}
+.theme-btn:hover{background:var(--bg3);color:var(--text)}
+
+/* ═══════════════════════ SIDEBAR ═══════════════════════ */
+.sidebar{background:var(--bg1);border-right:1px solid var(--border);padding:1rem 0;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background var(--transition)}
+.sidebar-brand{padding:0 1rem 1rem;margin-bottom:0.25rem;display:flex;align-items:center;justify-content:space-between}
+.sidebar-brand-inner{display:flex;align-items:center;gap:9px;font-size:0.9375rem;font-weight:700}
+.sidebar-nav{flex:1;padding:0 0.5rem}
+.sidebar-section{margin-bottom:1.25rem}
+.sidebar-section-label{padding:0.25rem 0.5rem;font-size:0.67rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:0.25rem}
+.sidebar-item{display:flex;align-items:center;gap:9px;padding:0.5rem 0.625rem;border-radius:7px;font-size:0.8125rem;color:var(--text2);cursor:pointer;transition:all var(--transition);border:1px solid transparent}
+.sidebar-item:hover{background:var(--bg2);color:var(--text)}
+.sidebar-item.active{background:var(--red-bg);color:var(--red);border-color:rgba(239,68,68,0.2);font-weight:500}
+.sidebar-item .s-icon{width:16px;height:16px;flex-shrink:0;font-size:14px}
+.sidebar-badge{margin-left:auto;background:var(--red);color:#fff;border-radius:99px;font-size:0.62rem;padding:1px 6px;font-weight:600}
+.sidebar-footer{padding:0.75rem 1rem;border-top:1px solid var(--border);margin-top:auto}
+.sidebar-user{display:flex;align-items:center;gap:9px}
+.sidebar-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.sidebar-user-info{flex:1;min-width:0}
+.sidebar-user-name{font-size:0.8125rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-user-level{font-size:0.68rem;color:var(--accent)}
+
+/* ═══════════════════════ LANDING ═══════════════════════ */
+.hero{max-width:760px;margin:0 auto;text-align:center;padding:5rem 2rem 4rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--accent-bg);border:1px solid rgba(59,130,246,0.2);border-radius:99px;padding:4px 12px;font-size:0.72rem;font-weight:600;color:var(--accent);margin-bottom:1.5rem}
+.hero-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-title{font-size:clamp(2.25rem,5vw,3.75rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;margin-bottom:1.25rem}
+.hero-title em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:1rem;color:var(--text2);line-height:1.7;max-width:500px;margin:0 auto 2.5rem}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem}
+.hero-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;padding-top:2rem;border-top:1px solid var(--border)}
+.hero-stat-num{font-size:1.5rem;font-weight:700;color:var(--accent)}
+.hero-stat-lbl{font-size:0.75rem;color:var(--text3);margin-top:2px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 max(1rem,3vw) 4rem}
+.feature-item{background:var(--bg1);padding:1.75rem;transition:background var(--transition)}
+.feature-item:hover{background:var(--bg2)}
+.feature-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.125rem;margin-bottom:1rem}
+.feature-item h3{font-size:0.9375rem;font-weight:600;margin-bottom:0.5rem}
+.feature-item p{font-size:0.8125rem;color:var(--text2);line-height:1.6}
+
+/* ═══════════════════════ DASHBOARD ═══════════════════════ */
+.dash-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;gap:1rem;flex-wrap:wrap}
+.dash-greeting{font-size:1.25rem;font-weight:700;margin-bottom:0.25rem}
+.dash-sub{font-size:0.8125rem;color:var(--text2)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.875rem;margin-bottom:1.75rem}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:960px){.dash-grid{grid-template-columns:1fr}}
+.xp-card{background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(168,85,247,0.03));border:1px solid rgba(239,68,68,0.15);border-radius:var(--r);padding:1.25rem;margin-bottom:1.75rem;position:relative;overflow:hidden}
+.xp-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);border-radius:2px 0 0 2px}
+.xp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem}
+.xp-name{font-size:0.9375rem;font-weight:600}
+.xp-level{font-size:0.72rem;font-weight:600;color:var(--red);background:var(--red-bg);padding:2px 8px;border-radius:99px}
+.xp-nums{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text3);margin-bottom:0.4rem}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px;padding-top:0.5rem}
+.bar{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:0.6;transition:opacity var(--transition);min-height:4px;cursor:default;position:relative}
+.bar:hover{opacity:1}
+.bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:0.6rem;color:var(--text3);white-space:nowrap}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem}
+.quick-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;cursor:pointer;transition:all var(--transition);text-align:left}
+.quick-btn:hover{background:var(--bg3);border-color:var(--border2);transform:translateY(-1px)}
+.quick-icon{font-size:1.25rem;margin-bottom:0.5rem}
+.quick-title{font-size:0.8125rem;font-weight:600;margin-bottom:0.2rem}
+.quick-desc{font-size:0.72rem;color:var(--text3)}
+
+/* ═══════════════════════ PRACTICE ═══════════════════════ */
+.q-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.q-filter-btn{padding:0.35rem 0.875rem;border-radius:99px;font-size:0.78rem;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:all var(--transition)}
+.q-filter-btn.active{background:var(--red-bg);border-color:rgba(239,68,68,0.3);color:var(--red)}
+.q-filter-btn:hover:not(.active){border-color:var(--border2);color:var(--text)}
+.q-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:0.75rem;cursor:pointer;transition:all var(--transition)}
+.q-card:hover{border-color:var(--red);background:var(--bg2)}
+.q-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:0.75rem}
+.q-text{font-size:0.875rem;font-weight:500;line-height:1.5;flex:1}
+.q-meta{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-top:0.75rem}
+.q-expand{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;margin-top:0.75rem;font-size:0.8125rem;line-height:1.6;color:var(--text2);display:none}
+.q-expand.open{display:block;animation:fade-up 0.2s ease}
+.answer-area{width:100%;padding:0.75rem 1rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:0.875rem;resize:vertical;min-height:120px;outline:none;transition:border-color var(--transition);font-family:var(--font);line-height:1.6}
+.answer-area:focus{border-color:var(--accent)}
+.mcq-option{display:flex;align-items:center;gap:10px;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all var(--transition);margin-bottom:0.5rem;font-size:0.875rem}
+.mcq-option:hover{border-color:var(--border2);background:var(--bg2)}
+.mcq-option.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.mcq-option.correct{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+.mcq-option.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.mcq-key{width:26px;height:26px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0}
+.timer-display{font-family:var(--mono);font-size:2rem;font-weight:500;color:var(--text);line-height:1}
+.timer-display.danger{color:var(--red)}
+.timer-display.warning{color:var(--yellow)}
+
+/* ═══════════════════════ PROCTOR EXAM ═══════════════════════ */
+.proctor-header{background:var(--bg1);border-bottom:1px solid var(--border);padding:0 1.5rem;height:54px;display:flex;align-items:center;gap:1.5rem;position:sticky;top:0;z-index:50}
+.q-map{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.q-map-dot{width:100%;aspect-ratio:1;border-radius:6px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.68rem;cursor:pointer;transition:all var(--transition)}
+.q-map-dot.answered{background:var(--accent-bg);border-color:rgba(59,130,246,0.3);color:var(--accent)}
+.q-map-dot.current{background:var(--accent);border-color:var(--accent);color:#fff}
+.violation-row{display:flex;align-items:center;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)}
+.violation-row:last-child{border:none}
+.violation-count{font-weight:700;font-family:var(--mono)}
+
+/* ═══════════════════════ GAMES ═══════════════════════ */
+.game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem}
+.game-card{background:var(--bg1);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all var(--transition)}
+.game-card:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.game-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.game-info{padding:1.25rem}
+.game-title{font-size:0.9375rem;font-weight:600;margin-bottom:0.375rem}
+.game-desc{font-size:0.78rem;color:var(--text2);margin-bottom:0.875rem;line-height:1.5}
+.game-meta{display:flex;gap:0.5rem}
+
+/* ═══════════════════════ JOBS ═══════════════════════ */
+.job-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:0.75rem;display:flex;gap:1rem;align-items:flex-start;transition:all var(--transition)}
+.job-card:hover{border-color:var(--border2);background:var(--bg2)}
+.job-logo{width:44px;height:44px;border-radius:9px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.125rem;flex-shrink:0}
+.job-info{flex:1;min-width:0}
+.job-title{font-size:0.875rem;font-weight:600;margin-bottom:0.25rem}
+.job-company{font-size:0.78rem;color:var(--text2);margin-bottom:0.5rem}
+.job-tags{display:flex;gap:0.375rem;flex-wrap:wrap;margin-bottom:0.5rem}
+.job-posted{font-size:0.7rem;color:var(--text3)}
+.job-actions{display:flex;flex-direction:column;gap:0.375rem;flex-shrink:0}
+
+/* ═══════════════════════ AUTH ═══════════════════════ */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:var(--bg)}
+.auth-card{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:2.25rem;width:100%;max-width:420px;box-shadow:var(--shadow-lg);position:relative}
+.auth-logo{display:flex;align-items:center;gap:9px;margin-bottom:1.75rem;font-size:0.9375rem;font-weight:700}
+.auth-title{font-size:1.5rem;font-weight:700;margin-bottom:0.25rem;letter-spacing:-0.02em}
+.auth-sub{font-size:0.8125rem;color:var(--text2);margin-bottom:1.75rem}
+
+/* ═══════════════════════ PROFILE ═══════════════════════ */
+.profile-banner{background:linear-gradient(135deg,var(--accent-bg),var(--purple-bg));border:1px solid rgba(59,130,246,0.15);border-radius:14px;padding:1.75rem;display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.profile-avatar-lg{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:1.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.profile-name{font-size:1.1875rem;font-weight:700;margin-bottom:0.25rem}
+.profile-email{font-size:0.8125rem;color:var(--text2)}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:0.75rem}
+.badge-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;transition:all var(--transition)}
+.badge-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.badge-card.locked{opacity:0.4}
+.badge-emoji{font-size:1.75rem;margin-bottom:0.5rem}
+.badge-label{font-size:0.68rem;font-weight:600;color:var(--text2)}
+
+/* ═══════════════════════ LEADERBOARD ═══════════════════════ */
+.lb-table{background:var(--bg1);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.lb-header-row{display:grid;grid-template-columns:50px 1fr 100px 100px 80px 80px;gap:1rem;padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3)}
+.lb-row{display:grid;grid-template-columns:50px 1fr 100px 100px 80px 80px;gap:1rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);align-items:center;transition:background var(--transition)}
+.lb-row:last-child{border:none}
+.lb-row:hover{background:var(--bg2)}
+.lb-rank{font-size:0.875rem;font-weight:700;color:var(--text3)}
+.lb-user{display:flex;align-items:center;gap:10px}
+.lb-ava{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.lb-name{font-size:0.8125rem;font-weight:500}
+.lb-xp{font-weight:700;color:var(--accent);font-family:var(--mono);font-size:0.875rem}
+
+/* ═══════════════════════ SETTINGS ═══════════════════════ */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.settings-grid{grid-template-columns:1fr}}
+.theme-options{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-top:0.75rem}
+.theme-option{border:2px solid var(--border);border-radius:var(--r);padding:0.875rem;cursor:pointer;transition:all var(--transition);text-align:center}
+.theme-option:hover{border-color:var(--border2)}
+.theme-option.active{border-color:var(--accent);background:var(--accent-bg)}
+.theme-option-icon{font-size:1.5rem;margin-bottom:0.375rem}
+.theme-option-label{font-size:0.75rem;font-weight:600;color:var(--text2)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 0;border-bottom:1px solid var(--border)}
+.toggle-row:last-child{border:none}
+.page-back{display:inline-flex;align-items:center;gap:8px;padding:0.5rem 1.1rem;border-radius:8px;font-size:0.8125rem;font-weight:600;color:var(--text);background:var(--bg2);border:1.5px solid var(--border2);cursor:pointer;transition:all var(--transition);margin-bottom:1.5rem;box-shadow:var(--shadow)}
+.page-back:hover{background:var(--red-bg);color:var(--red);border-color:rgba(239,68,68,0.45);transform:translateX(-2px)}
+.back-btn{display:inline-flex;align-items:center;gap:8px;padding:0.5rem 1.1rem;border-radius:8px;font-size:0.8125rem;font-weight:600;color:var(--text);background:var(--bg3);border:1.5px solid var(--border2);cursor:pointer;transition:all var(--transition);box-shadow:var(--shadow)}
+.back-btn:hover{background:var(--red-bg);color:var(--red);border-color:rgba(239,68,68,0.45);transform:translateX(-2px)}
+.page-title{font-size:1.125rem;font-weight:700;margin-bottom:0.25rem}
+.page-sub{font-size:0.8125rem;color:var(--text2);margin-bottom:1.5rem}
+.tabs{display:flex;gap:0;background:var(--bg2);border-radius:var(--r);padding:3px;margin-bottom:1.5rem;width:fit-content}
+.tab{padding:0.4rem 1rem;border-radius:7px;font-size:0.8125rem;font-weight:500;cursor:pointer;color:var(--text2);transition:all var(--transition)}
+.tab.active{background:var(--bg1);color:var(--text);box-shadow:var(--shadow)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+.tbl{width:100%;border-collapse:collapse;font-size:0.8125rem}
+.tbl th{padding:0.625rem 1rem;text-align:left;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);border-bottom:1px solid var(--border);background:var(--bg2)}
+.tbl td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text)}
+.tbl tr:last-child td{border:none}
+.tbl tr:hover td{background:var(--bg2)}
+</style>
+</head>
+<body>
+<div id="toast-container"></div>
+
+<!-- LANDING PAGE -->
+<div id="page-landing" class="page active">
+  <nav class="nav">
+    <div class="nav-brand"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+    <div class="nav-links">
+      <a onclick="showSection('features')" style="cursor:pointer">Features</a>
+      <a onclick="showSection('questions-preview')" style="cursor:pointer">Questions</a>
+      <a onclick="showSection('games-preview')" style="cursor:pointer">Games</a>
+      <a onclick="showPage('login')" style="cursor:pointer">Jobs</a>
+    </div>
+    <div class="nav-right">
+      <div class="theme-btn" onclick="cycleTheme()" id="theme-btn-landing">🌙</div>
+      <button class="btn btn-ghost btn-sm" onclick="showPage('login')">Sign in</button>
+      <button class="btn btn-primary btn-sm" onclick="showPage('register')" style="background:var(--red);border-color:var(--red)">Get Started</button>
+    </div>
+  </nav>
+  <section class="hero">
+    <div class="hero-eyebrow"><span class="hero-dot"></span> AI-Powered Interview Prep Platform</div>
+    <h1 class="hero-title">Ace every interview.<br>Land your <em>dream role</em>.</h1>
+    <p class="hero-sub">Practice 1000+ real interview questions, get AI feedback, simulate proctored exams, play skill games, and track live job openings — all in one platform.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" onclick="showPage('login')" style="background:var(--red);border-color:var(--red)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>Sign In to Start</button>
+      <button class="btn btn-ghost btn-lg" onclick="showPage('register')">Create Account</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num" id="ctr-q">0</div><div class="hero-stat-lbl">Questions</div></div>
+      <div><div class="hero-stat-num" id="ctr-c">0</div><div class="hero-stat-lbl">Categories</div></div>
+      <div><div class="hero-stat-num" id="ctr-g">0</div><div class="hero-stat-lbl">Games</div></div>
+      <div><div class="hero-stat-num" id="ctr-comp">Weekly</div><div class="hero-stat-lbl">Competitions</div></div>
+    </div>
+  </section>
+  <div id="features" style="padding:3rem max(1rem,4vw);background:var(--bg)">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem">Everything you need</div>
+      <h2 style="font-size:1.75rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.75rem">10 powerful features.</h2>
+      <p style="color:var(--text2);font-size:0.9375rem;max-width:480px;margin:0 auto">One platform to practice, compete, track, and land your dream role.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1200px;margin:0 auto">
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--accent-bg)">🧠</div>
+        <div><h3 style="margin-bottom:0.375rem">1000+ Interview Questions</h3><p>Curated Q&A across Java, DSA, System Design, SQL, OS, Python, Behavioral and 40+ categories.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Java</span><span class="badge badge-green">DSA</span><span class="badge badge-purple">SQL</span><span class="badge badge-yellow">+40 more</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--purple-bg)">💻</div>
+        <div><h3 style="margin-bottom:0.375rem">Coding Challenges</h3><p>8 real LeetCode-style problems — Two Sum, LRU Cache, Merge Intervals and more. Hints, editorial solutions, +XP on solve.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Easy</span><span class="badge badge-yellow">Medium</span><span class="badge badge-red">Hard</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--green-bg)">📝</div>
+        <div><h3 style="margin-bottom:0.375rem">Topic-wise Tests</h3><p>Timed tests on Java, DSA, SQL, OS, Networking, System Design. Auto-graded A+–D with XP proportional to your score.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Timed</span><span class="badge badge-green">Graded</span><span class="badge badge-yellow">+XP</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--red-bg)">🎯</div>
+        <div><h3 style="margin-bottom:0.375rem">Mock Interview</h3><p>Simulate a real interview — configurable category, difficulty, and question count. Timed, scored, with model answers.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Timed</span><span class="badge badge-blue">AI Scored</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--yellow-bg)">🔒</div>
+        <div><h3 style="margin-bottom:0.375rem">Proctored Exam</h3><p>Anti-cheat suite: tab detection, copy-paste block, fullscreen enforcement, keyboard lock, integrity score report.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Anti-cheat</span><span class="badge badge-yellow">Integrity Score</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--green-bg)">🎮</div>
+        <div><h3 style="margin-bottom:0.375rem">Skill Games</h3><p>Tech Flashcards, Quiz Blitz, Bug Hunt, Term Sprint — gamified learning that makes preparation addictive.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Fun</span><span class="badge badge-blue">+XP</span><span class="badge badge-purple">4 Games</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--accent-bg)">🏅</div>
+        <div><h3 style="margin-bottom:0.375rem">Weekly Competitions</h3><p>Live coding contests and quiz battles every week. Top rankers earn badge multipliers and Champion titles.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">🟢 Live Now</span><span class="badge badge-purple">Exclusive Badges</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--red-bg)">🔥</div>
+        <div><h3 style="margin-bottom:0.375rem">Streaks &amp; Badges</h3><p>Daily login streaks with automatic tracking. Milestone badges at 3, 7, 14, 30, 60, 100 days. 12 unlockable achievements.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-yellow">🔥 Streak</span><span class="badge badge-blue">12 Badges</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--yellow-bg)">💼</div>
+        <div><h3 style="margin-bottom:0.375rem">Live Job Board</h3><p>12 curated listings from Google, Amazon, Meta, Flipkart, Razorpay and more — linked directly to official career pages.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-purple">Internships</span><span class="badge badge-blue">Full-Time</span><span class="badge badge-green">12 Listings</span></div>
+      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
+        <div class="feature-icon" style="background:var(--purple-bg)">🏆</div>
+        <div><h3 style="margin-bottom:0.375rem">Live Leaderboard &amp; XP</h3><p>Compete with real registered users. 6-tier XP progression: Novice → Grandmaster. Your rank updates with every answer.</p></div>
+        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Real Users</span><span class="badge badge-yellow">6 Levels</span><span class="badge badge-red">Live Rank</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem max(1rem,4vw);text-align:center">
+    <h2 style="font-size:1.5rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.75rem">Ready to get hired?</h2>
+    <p style="color:var(--text2);margin-bottom:1.75rem;font-size:0.875rem">Join thousands of students preparing smarter.</p>
+    <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary btn-lg" onclick="showPage('login')" style="background:var(--red);border-color:var(--red)">Sign In →</button>
+      <button class="btn btn-ghost btn-lg" onclick="showPage('register')">Register</button>
+    </div>
+  </div>
+  <footer style="padding:2rem max(1rem,4vw);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--border)">
+    <div style="display:flex;align-items:center;gap:9px;font-size:0.875rem;font-weight:600"><div class="nav-logo" style="width:24px;height:24px;font-size:11px"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+    <p style="font-size:0.75rem;color:var(--text3)">© 2026 InterviewForge. Built for students.</p>
+    <div style="display:flex;gap:1.5rem;font-size:0.78rem;color:var(--text3)"><a onclick="showPage('login')" style="cursor:pointer">Login</a><a onclick="showPage('register')" style="cursor:pointer">Sign Up</a></div>
+  </footer>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="page-login" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage('landing')">← Home</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-login">🌙</button></div>
+      <div class="auth-logo" style="margin-top:2.5rem"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-sub">Sign in to continue your prep journey.</p>
+      <div class="input-group"><label class="input-label">Email</label><input class="input" type="email" id="login-email" placeholder="you@gmail.com"></div>
+      <div class="input-group"><label class="input-label">Password</label><input class="input" type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')emailLogin()"></div>
+      <button class="btn btn-primary btn-full" style="margin-top:0.25rem;background:var(--red);border-color:var(--red)" onclick="emailLogin()">Sign In</button>
+      <p style="text-align:center;margin-top:1rem;font-size:0.8125rem;color:var(--text2)"><a style="color:var(--accent);cursor:pointer" onclick="showPage('forgot')">Forgot Password?</a></p>
+      <p style="text-align:center;margin-top:0.5rem;font-size:0.8125rem;color:var(--text2)">No account? <a style="color:var(--accent);cursor:pointer" onclick="showPage('register')">Create one free</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD PAGE -->
+<div id="page-forgot" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage('login')">← Back</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-forgot">🌙</button></div>
+      <div class="auth-logo" style="margin-top:2.5rem"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Reset Password</h1>
+      <p class="auth-sub">Enter your email to receive a reset code.</p>
+      <div class="input-group"><label class="input-label">Email Address</label><input class="input" type="email" id="forgot-email" placeholder="you@gmail.com"></div>
+      <button class="btn btn-primary btn-full" style="background:var(--red);border-color:var(--red)" onclick="sendResetCode()">Send Reset Code →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESET PASSWORD PAGE -->
+<div id="page-reset" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage('login')">← Back</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-reset">🌙</button></div>
+      <div class="auth-logo" style="margin-top:2.5rem"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Create New Password</h1>
+      <p class="auth-sub" id="reset-email-display"></p>
+      <div class="input-group"><label class="input-label">Reset Code</label><input class="input" type="text" id="reset-code" placeholder="Enter 6-digit code" maxlength="6"></div>
+      <div class="input-group"><label class="input-label">New Password</label><input class="input" type="password" id="reset-new-pass" placeholder="Min 8 chars, 1 number, 1 special char"></div>
+      <div class="input-group"><label class="input-label">Confirm Password</label><input class="input" type="password" id="reset-confirm-pass" placeholder="Re-enter password"></div>
+      <button class="btn btn-primary btn-full" style="background:var(--red);border-color:var(--red)" onclick="resetPassword()">Reset Password →</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER PAGE -->
+<div id="page-register" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <div style="position:absolute;top:1rem;left:1rem"><button class="back-btn" onclick="showPage('landing')">← Home</button></div>
+      <div style="position:absolute;top:1rem;right:1rem"><button class="theme-btn" onclick="cycleTheme()" id="theme-btn-reg">🌙</button></div>
+      <div class="auth-logo" style="margin-top:2.5rem"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+      <h1 class="auth-title">Create account</h1>
+      <p class="auth-sub">Start your interview prep journey today. Free forever.</p>
+      <div class="two-col" style="gap:0.75rem">
+        <div class="input-group" style="margin:0"><label class="input-label">First Name</label><input class="input" id="reg-fname" placeholder="Your first name"></div>
+        <div class="input-group" style="margin:0"><label class="input-label">Last Name</label><input class="input" id="reg-lname" placeholder="Your last name"></div>
+      </div>
+      <div class="input-group" style="margin-top:0.75rem"><label class="input-label">Email</label><input class="input" type="email" id="reg-email" placeholder="you@gmail.com"></div>
+      <div class="input-group"><label class="input-label">Password</label><input class="input" type="password" id="reg-pass" placeholder="Min 8 chars, 1 number, 1 special char"></div>
+      <div class="input-group"><label class="input-label">Confirm Password</label><input class="input" type="password" id="reg-confirm" placeholder="Re-enter password"></div>
+      <div class="input-group"><label class="input-label">Student Type</label>
+        <select class="input" id="reg-role">
+          <option value="">Select student type...</option>
+          <option value="High School">High School Student</option>
+          <option value="Diploma">Diploma Student</option>
+          <option value="Undergraduate">Undergraduate (B.Tech / B.E. / BCA / B.Sc)</option>
+          <option value="Postgraduate">Postgraduate (M.Tech / MCA / M.Sc / MBA)</option>
+          <option value="PhD">PhD / Research Scholar</option>
+          <option value="Bootcamp">Bootcamp / Self-taught</option>
+          <option value="Working Professional">Working Professional (Upskilling)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="emailRegister()" style="background:var(--red);border-color:var(--red)">Create Account →</button>
+      <p style="text-align:center;margin-top:1.25rem;font-size:0.8125rem;color:var(--text2)">Already have one? <a style="color:var(--accent);cursor:pointer" onclick="showPage('login')">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="page-app" class="page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-inner"><div class="nav-logo"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9.5 1L4 9h5l-2.5 6L14 7H9L11.5 1z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg></div>InterviewForge</div>
+        <div style="display:flex;gap:5px;align-items:center">
+          <button class="theme-btn" onclick="showPage('landing')" title="Home" style="font-size:13px">🏠</button>
+          <button class="theme-btn" onclick="cycleTheme()" id="theme-btn-app" title="Theme">🌙</button>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Main</div>
+          <div class="sidebar-item" onclick="navigateTo('dashboard')" id="nav-dashboard"><span class="s-icon">⊞</span> Dashboard</div>
+          <div class="sidebar-item" onclick="navigateTo('practice')" id="nav-practice"><span class="s-icon">💬</span> Practice</div>
+          <div class="sidebar-item" onclick="navigateTo('coding')" id="nav-coding"><span class="s-icon">💻</span> Coding Challenges <span class="sidebar-badge">Hot</span></div>
+          <div class="sidebar-item" onclick="navigateTo('tests')" id="nav-tests"><span class="s-icon">📝</span> Topic Tests</div>
+          <div class="sidebar-item" onclick="navigateTo('mock')" id="nav-mock"><span class="s-icon">🎯</span> Mock Interview</div>
+          <div class="sidebar-item" onclick="navigateTo('exam')" id="nav-exam"><span class="s-icon">🔒</span> Proctored Exam</div>
+          <div class="sidebar-item" onclick="navigateTo('games')" id="nav-games"><span class="s-icon">🎮</span> Games</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Compete</div>
+          <div class="sidebar-item" onclick="navigateTo('competitions')" id="nav-competitions"><span class="s-icon">🏅</span> Competitions <span class="sidebar-badge" style="background:var(--purple)">Live</span></div>
+          <div class="sidebar-item" onclick="navigateTo('leaderboard')" id="nav-leaderboard"><span class="s-icon">🏆</span> Leaderboard</div>
+          <div class="sidebar-item" onclick="navigateTo('streaks')" id="nav-streaks"><span class="s-icon">🔥</span> Streaks &amp; Badges</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Explore</div>
+          <div class="sidebar-item" onclick="navigateTo('jobs')" id="nav-jobs"><span class="s-icon">💼</span> Jobs &amp; Internships</div>
+          <div class="sidebar-item" onclick="navigateTo('roadmap')" id="nav-roadmap"><span class="s-icon">🗺</span> Roadmap</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-label">Account</div>
+          <div class="sidebar-item" onclick="navigateTo('profile')" id="nav-profile"><span class="s-icon">👤</span> Profile</div>
+          <div class="sidebar-item" onclick="navigateTo('settings')" id="nav-settings"><span class="s-icon">⚙</span> Settings</div>
+          <div class="sidebar-item" onclick="logout()" style="color:var(--red)"><span class="s-icon">↩</span> Sign Out</div>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar" id="sidebar-avatar">?</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebar-name">User</div>
+            <div class="sidebar-user-level" id="sidebar-level">⭐ Novice</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <div class="main-content" id="app-main"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ========== BACKEND CONFIGURATION ==========
+const API_BASE = 'http://localhost:3000/api';
+
+// ========== GLOBAL STATE ==========
+let currentUser = null;
+let authToken = null;
+
+// Load session from localStorage
+try {
+  const saved = localStorage.getItem('if_session');
+  if (saved) {
+    const sess = JSON.parse(saved);
+    currentUser = sess.user;
+    authToken = sess.token;
+  }
+} catch(e) { localStorage.removeItem('if_session'); }
+
+// ========== THEME (your existing theme code) ==========
+const THEMES = ['dark','light','system'];
+const THEME_ICONS = {dark:'🌙',light:'☀️',system:'💻'};
+let themeIdx = THEMES.indexOf(localStorage.getItem('theme') || 'dark');
+if (themeIdx < 0) themeIdx = 0;
+
+function applyTheme(t) {
+  const resolved = t === 'system' ? (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light') : t;
+  document.documentElement.setAttribute('data-theme', resolved);
+  const icon = THEME_ICONS[t] || '🌙';
+  ['theme-btn-landing','theme-btn-login','theme-btn-reg','theme-btn-app','theme-btn-forgot','theme-btn-reset'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = icon;
+  });
+  localStorage.setItem('theme', t);
+}
+function cycleTheme() {
+  themeIdx = (themeIdx + 1) % THEMES.length;
+  applyTheme(THEMES[themeIdx]);
+  toast('Theme: ' + THEMES[themeIdx], 'info');
+}
+applyTheme(localStorage.getItem('theme') || 'dark');
+
+// ========== HELPER FUNCTIONS ==========
+function toast(msg, type='info') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-' + page);
+  if (pg) pg.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showSection(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+}
+
+function updateSidebar() {
+  if (!currentUser) return;
+  document.getElementById('sidebar-name').textContent = currentUser.name;
+  document.getElementById('sidebar-level').textContent = `⭐ ${currentUser.level || 'Novice'}`;
+  document.getElementById('sidebar-avatar').textContent = currentUser.initial || currentUser.name[0].toUpperCase();
+}
+
+// ========== BACKEND API CALLS ==========
+async function apiRequest(endpoint, method, body = null, needAuth = false) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (needAuth && authToken) headers['Authorization'] = `Bearer ${authToken}`;
+  const res = await fetch(`${API_BASE}${endpoint}`, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+
+// ========== REGISTER ==========
+window.emailRegister = async function() {
+  console.log('Register function called');
+  
+  const fname = document.getElementById('reg-fname').value.trim();
+  const lname = document.getElementById('reg-lname').value.trim();
+  const email = document.getElementById('reg-email').value.trim().toLowerCase();
+  const password = document.getElementById('reg-pass').value;
+  const confirm = document.getElementById('reg-confirm').value;
+  const role = document.getElementById('reg-role').value;
+
+  console.log('Email:', email);
+
+  if (!fname || !email || !password) {
+    toast('Please fill required fields', 'error');
+    return;
+  }
+  if (password !== confirm) {
+    toast('Passwords do not match', 'error');
+    return;
+  }
+
+  try {
+    console.log('Sending to:', API_BASE + '/register');
+    
+    const response = await fetch(API_BASE + '/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: `${fname} ${lname}`.trim(),
+        email: email,
+        password: password,
+        role: role || 'Undergraduate'
+      })
+    });
+
+    console.log('Response status:', response.status);
+    const data = await response.json();
+    console.log('Response data:', data);
+
+    if (!response.ok) {
+      toast(data.error || 'Registration failed', 'error');
+      return;
+    }
+
+    localStorage.setItem('if_token', data.token);
+    localStorage.setItem('if_session', JSON.stringify(data.user));
+    
+    toast('Registration successful! Please login.', 'success');
+    setTimeout(() => showPage('login'), 1500);
+    
+  } catch (error) {
+    console.error('Fetch error:', error);
+    toast('Cannot connect to backend. Make sure server is running on port 3000', 'error');
+  }
+};
+// ========== LOGIN ==========
+window.emailLogin = async function() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const password = document.getElementById('login-pass').value;
+  if (!email || !password) { toast('Please fill all fields', 'error'); return; }
+  
+  try {
+    const data = await apiRequest('/login', 'POST', { email, password }, false);
+    authToken = data.token;
+    currentUser = data.user;
+    currentUser.initial = currentUser.name[0].toUpperCase();
+    localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
+    updateSidebar();
+    showPage('app');
+    navigateTo('dashboard');
+    toast(`Welcome back, ${currentUser.name}!`, 'success');
+  } catch (err) {
+    toast(err.message, 'error');
+  }
+};
+
+// ========== AWARD XP ==========
+window.awardXP = async function(pts, reason = 'practice') {
+  if (!currentUser) return;
+  try {
+    const data = await apiRequest('/xp', 'POST', { amount: pts, reason, questions_delta: 1 }, true);
+    currentUser.xp = data.xp;
+    currentUser.level = data.level;
+    localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
+    updateSidebar();
+    toast(`+${pts} XP earned! 🎉`, 'success');
+  } catch (err) {
+    console.warn('XP sync failed:', err);
+    toast(`+${pts} XP (saved locally only)`, 'warning');
+  }
+};
+
+// ========== LOGOUT ==========
+window.logout = function() {
+  authToken = null;
+  currentUser = null;
+  localStorage.removeItem('if_session');
+  showPage('landing');
+  toast('Signed out', 'info');
+};
+
+// ========== LEADERBOARD ==========
+let leaderboardCache = [];
+window.getLeaderboardData = () => leaderboardCache;
+
+async function refreshLeaderboard() {
+  try {
+    leaderboardCache = await apiRequest('/leaderboard?limit=50', 'GET', null, false);
+  } catch (err) {
+    console.warn('Leaderboard fetch failed', err);
+    leaderboardCache = [];
+  }
+}
+
+// ========== NAVIGATION ==========
+function navigateTo(section) {
+  if (!currentUser && section !== 'jobs') { showPage('login'); return; }
+  // Your existing navigation logic here
+  const main = document.getElementById('app-main');
+  main.innerHTML = `<div class="card"><p>Loading ${section}...</p></div>`;
+  // For now, show a simple dashboard
+  if (section === 'dashboard') {
+    main.innerHTML = `
+      <div class="dash-header">
+        <div><div class="dash-greeting">Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${currentUser?.name?.split(' ')[0] || 'there'} 👋</div></div>
+        <button class="btn btn-primary" onclick="navigateTo('practice')" style="background:var(--red)">+ Start Practice</button>
+      </div>
+      <div class="xp-card">
+        <div class="xp-top"><span class="xp-name">${currentUser?.name || 'User'}</span><span class="xp-level">${currentUser?.level || 'Novice'}</span></div>
+        <div class="xp-nums"><span>${currentUser?.xp || 0} XP total</span></div>
+        <div class="progress"><div class="progress-fill" style="width:${Math.min(100, ((currentUser?.xp || 0) % 500) / 500 * 100)}%"></div></div>
+      </div>
+      <div class="quick-grid">
+        <div class="quick-btn" onclick="navigateTo('practice')"><div class="quick-icon">📚</div><div class="quick-title">Practice</div></div>
+        <div class="quick-btn" onclick="navigateTo('games')"><div class="quick-icon">🎮</div><div class="quick-title">Games</div></div>
+        <div class="quick-btn" onclick="navigateTo('leaderboard')"><div class="quick-icon">🏆</div><div class="quick-title">Leaderboard</div></div>
+      </div>
+    `;
+  }
+}
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  if (currentUser) {
+    updateSidebar();
+    showPage('app');
+    navigateTo('dashboard');
+  } else {
+    showPage('landing');
+  }
+});
+
+// Counter animation for landing page
+function startCounters() {
+  const counters = [
+    { id: 'ctr-q', target: 1000, suffix: '+' },
+    { id: 'ctr-c', target: 42, suffix: '+' },
+    { id: 'ctr-g', target: 8, suffix: '' }
+  ];
+  counters.forEach(({ id, target, suffix }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let start = 0;
+    const duration = 1200;
+    const stepTime = 20;
+    const steps = duration / stepTime;
+    const increment = target / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        el.textContent = target + suffix;
+        clearInterval(timer);
+      } else {
+        el.textContent = Math.floor(current) + suffix;
+      }
+    }, stepTime);
+  });
+}
+startCounters();
+
+// Forgot password (demo)
+window.sendResetCode = function() { toast('Reset code sent (demo)', 'info'); };
+window.resetPassword = function() { toast('Password reset (demo)', 'success'); showPage('login'); };
+</script>
+</body>
+</html>
