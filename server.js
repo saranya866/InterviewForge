@@ -125,6 +125,35 @@ app.post('/api/xp', async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+// Get all questions
+app.get('/api/questions', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM questions ORDER BY id');
+    res.json(rows);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get coding problems
+app.get('/api/coding', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM coding_problems ORDER BY id');
+    res.json(rows);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Get games
+app.get('/api/games', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM games ORDER BY id');
+    res.json(rows);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
