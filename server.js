@@ -116,12 +116,42 @@ app.get('/api/leaderboard', async (req, res) => {
 });
 
 // ========== ADD XP ==========
-app.post('/api/xp', async (req, res) => {
+app.post('/api/xp', authenticateToken, async (req, res) => {
   try {
-    const { userId, amount } = req.body;
-    await pool.query('UPDATE users SET xp = xp + ? WHERE id = ?', [amount, userId]);
-    res.json({ success: true });
+    const { amount, reason, questions_delta } = req.body;
+    
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ error: 'Invalid XP amount' });
+    }
+    
+    // Get current user data
+    const [user] = await pool.query('SELECT xp, questions_answered FROM users WHERE id = ?', [req.user.id]);
+    
+    if (user.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Calculate new values
+    const newXp = (user[0].xp || 0) + amount;
+    const newLevel = getLevel(newXp);
+    const newQs = (user[0].questions_answered || 0) + (questions_delta || 0);
+    
+    // Update database
+    await pool.query(
+      'UPDATE users SET xp = ?, level = ?, questions_answered = ? WHERE id = ?',
+      [newXp, newLevel, newQs, req.user.id]
+    );
+    
+    // Log XP event
+    await pool.query(
+      'INSERT INTO xp_events (user_id, amount, reason) VALUES (?, ?, ?)',
+      [req.user.id, amount, reason || 'practice']
+    );
+    
+    res.json({ xp: newXp, level: newLevel });
+    
   } catch (e) {
+    console.error('XP endpoint error:', e);
     res.status(500).json({ error: e.message });
   }
 });
