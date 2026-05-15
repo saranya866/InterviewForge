@@ -251,6 +251,7 @@ AceCast/
 6. Click on your service → **"Connection Information"** tab
 7. Copy: `host`, `port`, `user`, `password`, `database name`
 8. In the **"Databases"** tab, run `schema.sql` via the query console or a MySQL client
+9. SERVICES NEED TO BE TURNED ON WHEN USED 
 
 ---
 
