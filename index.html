@@ -568,6 +568,221 @@ ul{list-style:none}
 // ========== BACKEND CONFIGURATION ==========
 const API_BASE = 'http://localhost:3000/api';
 
+  // ========== DATA ==========
+const QUESTIONS = [
+  {id:1,text:"What is the difference between JDK, JRE, and JVM?",cat:"Java",diff:"Easy",pts:5,answer:"JVM executes bytecode. JRE = JVM + class libraries. JDK = JRE + development tools.",type:"text"},
+  {id:2,text:"Explain Java streams and their main advantages.",cat:"Java",diff:"Medium",pts:10,answer:"Streams provide a functional-style API for processing collections with lazy evaluation.",type:"text"},
+  {id:3,text:"What is HashMap's time complexity for get/put?",cat:"DSA",diff:"Easy",pts:5,options:["O(n)","O(1) average","O(log n)","O(n²)"],correct:1,type:"mcq"},
+  {id:4,text:"Which sorting algorithm guarantees O(n log n) in all cases?",cat:"Algorithms",diff:"Medium",pts:10,options:["Quick Sort","Bubble Sort","Merge Sort","Insertion Sort"],correct:2,type:"mcq"},
+  {id:5,text:"Design a URL shortening service like bit.ly.",cat:"System Design",diff:"Hard",pts:20,answer:"Hash function + Database + Cache + Load balancer",type:"text"},
+  {id:6,text:"What are ACID properties?",cat:"SQL",diff:"Easy",pts:5,options:["Atomicity,Consistency,Isolation,Durability","Other"],correct:0,type:"mcq"},
+  {id:7,text:"Explain the difference between process and thread.",cat:"OS",diff:"Medium",pts:10,answer:"Process has own memory, thread shares memory.",type:"text"},
+  {id:8,text:"What is dependency injection in Spring?",cat:"Spring Boot",diff:"Medium",pts:10,answer:"Object receives dependencies from external source.",type:"text"},
+  {id:9,text:"What does CAP theorem state?",cat:"System Design",diff:"Hard",pts:20,options:["2 of Consistency,Availability,Partition Tolerance","All three"],correct:0,type:"mcq"},
+  {id:10,text:"Tell me about yourself using STAR framework.",cat:"Behavioral",diff:"Easy",pts:5,answer:"Situation, Task, Action, Result",type:"text"},
+];
+
+const CODING_PROBLEMS = [
+  {id:'c1',title:'Two Sum',diff:'Easy',tags:['Array','Hash Map'],xp:20,desc:'Find two numbers that add up to target.',example:'Input: [2,7,11,15], target=9 → Output: [0,1]',hint:'Use a hash map',solution:'function twoSum(nums, target) { const map = {}; for(let i=0;i<nums.length;i++){ const comp = target - nums[i]; if(map[comp] !== undefined) return [map[comp], i]; map[nums[i]] = i; } }'},
+  {id:'c2',title:'Reverse Linked List',diff:'Easy',tags:['Linked List'],xp:20,desc:'Reverse a singly linked list.',example:'Input: 1→2→3→4→5 → Output: 5→4→3→2→1',hint:'Use three pointers',solution:'function reverseList(head) { let prev = null, curr = head; while(curr) { const next = curr.next; curr.next = prev; prev = curr; curr = next; } return prev; }'},
+];
+
+const GAMES = [
+  {id:'flashcard',title:'Tech Flashcards',desc:'Flip through 50 key CS concepts.',icon:'🃏',xp:15},
+  {id:'quiz-blitz',title:'Quiz Blitz',desc:'30 MCQs in 5 minutes.',icon:'⚡',xp:30},
+  {id:'bug-hunt',title:'Bug Hunt',desc:'Find and fix bugs.',icon:'🐛',xp:50},
+  {id:'word-sprint',title:'Term Sprint',desc:'Match terms to definitions.',icon:'📚',xp:20},
+];
+
+// ========== RENDER FUNCTIONS ==========
+
+function renderPractice(container) {
+  container.innerHTML = `
+    <div class="page-title">Practice Questions</div>
+    <p class="page-sub">Click a question to answer. Earn XP for every attempt.</p>
+    <div class="q-filters">
+      <button class="q-filter-btn active" onclick="filterQuestions('All')">All</button>
+      <button class="q-filter-btn" onclick="filterQuestions('Java')">Java</button>
+      <button class="q-filter-btn" onclick="filterQuestions('DSA')">DSA</button>
+      <button class="q-filter-btn" onclick="filterQuestions('SQL')">SQL</button>
+      <button class="q-filter-btn" onclick="filterQuestions('System Design')">System Design</button>
+    </div>
+    <div id="questions-list"></div>
+  `;
+  renderQuestionsList('All');
+}
+
+function renderQuestionsList(category) {
+  const filtered = category === 'All' ? QUESTIONS : QUESTIONS.filter(q => q.cat === category);
+  const html = filtered.map(q => `
+    <div class="q-card" onclick="toggleAnswer(${q.id})">
+      <div class="q-card-header">
+        <div class="q-text">${q.text}</div>
+        <span style="color:var(--text3)">+${q.pts} XP</span>
+      </div>
+      <div class="q-meta">
+        <span class="badge badge-${q.diff === 'Easy' ? 'green' : q.diff === 'Medium' ? 'yellow' : 'red'}">${q.diff}</span>
+        <span class="badge badge-gray">${q.cat}</span>
+      </div>
+      <div id="answer-${q.id}" style="display:none; margin-top:1rem; padding:1rem; background:var(--bg2); border-radius:8px;">
+        <strong>Model Answer:</strong><br>${q.answer}
+        <button class="btn btn-primary btn-sm" style="margin-top:0.5rem" onclick="event.stopPropagation(); awardXP(${q.pts})">Earn +${q.pts} XP</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('questions-list').innerHTML = html;
+}
+
+function toggleAnswer(id) {
+  const el = document.getElementById(`answer-${id}`);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function filterQuestions(cat) {
+  renderQuestionsList(cat);
+  document.querySelectorAll('.q-filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.textContent === cat) btn.classList.add('active');
+  });
+}
+
+function renderCoding(container) {
+  container.innerHTML = `
+    <div class="page-title">💻 Coding Challenges</div>
+    <p class="page-sub">Solve problems and earn XP.</p>
+    <div id="coding-list"></div>
+  `;
+  const solved = JSON.parse(localStorage.getItem('solved_coding') || '{}');
+  const html = CODING_PROBLEMS.map(p => `
+    <div class="card" style="margin-bottom:1rem">
+      <div style="display:flex; justify-content:space-between; align-items:start">
+        <div>
+          <h3>${p.title} <span class="badge badge-${p.diff === 'Easy' ? 'green' : 'yellow'}">${p.diff}</span></h3>
+          <p>${p.desc}</p>
+          <p><strong>Example:</strong> ${p.example}</p>
+          <button class="btn btn-ghost btn-sm" onclick="alert('Hint: ${p.hint}')">💡 Hint</button>
+          <button class="btn btn-ghost btn-sm" onclick="alert('Solution: ${p.solution}')">📖 Solution</button>
+        </div>
+        <div>
+          ${!solved[p.id] ? `<button class="btn btn-primary" onclick="markSolved('${p.id}', ${p.xp})">✓ Mark Solved (+${p.xp} XP)</button>` : '<span class="badge badge-green">✓ Solved!</span>'}
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('coding-list').innerHTML = html;
+}
+
+function markSolved(id, xp) {
+  const solved = JSON.parse(localStorage.getItem('solved_coding') || '{}');
+  if (!solved[id]) {
+    solved[id] = true;
+    localStorage.setItem('solved_coding', JSON.stringify(solved));
+    awardXP(xp);
+    renderCoding(document.getElementById('app-main'));
+  }
+}
+
+function renderGames(container) {
+  container.innerHTML = `
+    <div class="page-title">🎮 Skill Games</div>
+    <p class="page-sub">Play games and earn XP.</p>
+    <div class="game-grid">
+      ${GAMES.map(g => `
+        <div class="game-card" onclick="playGame('${g.id}')">
+          <div class="game-thumb" style="font-size:3rem; padding:2rem; text-align:center">${g.icon}</div>
+          <div class="game-info">
+            <h3>${g.title}</h3>
+            <p>${g.desc}</p>
+            <span class="badge badge-blue">+${g.xp} XP</span>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div id="game-area"></div>
+  `;
+}
+
+function playGame(gameId) {
+  const area = document.getElementById('game-area');
+  if (gameId === 'flashcard') {
+    area.innerHTML = `<div class="card"><p>🃏 Flashcard Game - Click to earn XP</p><button class="btn btn-primary" onclick="awardXP(15); document.getElementById('game-area').innerHTML='<p>✅ +15 XP earned!</p>'">Start Game</button></div>`;
+  } else if (gameId === 'quiz-blitz') {
+    area.innerHTML = `<div class="card"><p>⚡ Quiz Blitz - 10 questions</p><button class="btn btn-primary" onclick="awardXP(30); document.getElementById('game-area').innerHTML='<p>✅ +30 XP earned!</p>'">Start Quiz</button></div>`;
+  } else if (gameId === 'bug-hunt') {
+    area.innerHTML = `<div class="card"><p>🐛 Bug Hunt - Find the bug</p><button class="btn btn-primary" onclick="awardXP(50); document.getElementById('game-area').innerHTML='<p>✅ +50 XP earned!</p>'">Start Hunt</button></div>`;
+  } else if (gameId === 'word-sprint') {
+    area.innerHTML = `<div class="card"><p>📚 Term Sprint - Match terms</p><button class="btn btn-primary" onclick="awardXP(20); document.getElementById('game-area').innerHTML='<p>✅ +20 XP earned!</p>'">Start Sprint</button></div>`;
+  }
+}
+
+function renderLeaderboard(container) {
+  container.innerHTML = `
+    <div class="page-title">🏆 Leaderboard</div>
+    <p class="page-sub">Top performers by XP</p>
+    <div id="leaderboard-list" class="card">Loading...</div>
+  `;
+  fetch(API_BASE + '/leaderboard')
+    .then(res => res.json())
+    .then(data => {
+      const html = data.map((u, i) => `
+        <div style="display:flex; justify-content:space-between; padding:0.5rem; border-bottom:1px solid var(--border)">
+          <span>${i+1}. ${u.name}</span>
+          <span style="color:var(--accent)">${u.xp} XP</span>
+        </div>
+      `).join('');
+      document.getElementById('leaderboard-list').innerHTML = html || '<p>No users yet. Be the first!</p>';
+    })
+    .catch(() => {
+      document.getElementById('leaderboard-list').innerHTML = '<p>Leaderboard unavailable</p>';
+    });
+}
+
+function renderDashboard(container) {
+  const user = JSON.parse(localStorage.getItem('if_session') || '{}');
+  container.innerHTML = `
+    <div class="dash-header">
+      <div><h2>Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${user.name || 'there'}! 👋</h2></div>
+      <button class="btn btn-primary" onclick="navigateTo('practice')">Start Practice →</button>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val">${user.xp || 0}</div><div class="stat-label">Total XP</div></div>
+      <div class="stat-card"><div class="stat-val">${user.streak || 0}</div><div class="stat-label">Day Streak</div></div>
+      <div class="stat-card"><div class="stat-val">${user.level || 'Novice'}</div><div class="stat-label">Level</div></div>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-btn" onclick="navigateTo('practice')">📚 Practice</div>
+      <div class="quick-btn" onclick="navigateTo('coding')">💻 Code</div>
+      <div class="quick-btn" onclick="navigateTo('games')">🎮 Games</div>
+      <div class="quick-btn" onclick="navigateTo('leaderboard')">🏆 Leaderboard</div>
+      <div class="quick-btn" onclick="navigateTo('mock')">🎯 Mock Interview</div>
+      <div class="quick-btn" onclick="navigateTo('exam')">🔒 Proctored Exam</div>
+    </div>
+  `;
+}
+
+// Make sure navigateTo works
+window.navigateTo = function(section) {
+  const main = document.getElementById('app-main');
+  const renderers = {
+    dashboard: renderDashboard,
+    practice: renderPractice,
+    coding: renderCoding,
+    games: renderGames,
+    leaderboard: renderLeaderboard,
+    mock: renderMock,
+    exam: renderExam
+  };
+  if (renderers[section]) renderers[section](main);
+};
+
+// Placeholder for mock/exam (simple versions)
+function renderMock(container) {
+  container.innerHTML = `<div class="card"><h3>Mock Interview</h3><p>Simulated interview with 10 questions.</p><button class="btn btn-primary" onclick="awardXP(100)">Start Mock (+100 XP)</button></div>`;
+}
+function renderExam(container) {
+  container.innerHTML = `<div class="card"><h3>Proctored Exam</h3><p>Anti-cheat exam simulation.</p><button class="btn btn-primary" onclick="awardXP(200)">Start Exam (+200 XP)</button></div>`;
+}
+
 // ========== GLOBAL STATE ==========
 let currentUser = null;
 let authToken = null;
