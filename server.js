@@ -155,6 +155,11 @@ app.get('/api/games', async (req, res) => {
   }
 });
 
+app.get('/api/competitions', async (req, res) => {
+  const [rows] = await pool.query('SELECT * FROM competitions WHERE status = "live" ORDER BY start_time');
+  res.json(rows);
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
