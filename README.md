@@ -1,12 +1,12 @@
-# 🔥 InterviewForge — AI-Powered Interview Preparation Platform
-
+ 🎯 ACECAST - Next-Gen Career Launchpad 
+         (Ace It. Cast It. Own It.)
 <div align="center">
 
 *"Your Future Starts with the Next Question"*
 
 A full-stack interview training platform with real MySQL database, JWT authentication, live leaderboard, and proctored exam simulator.
 
-![InterviewForge](https://img.shields.io/badge/InterviewForge-v2.0-red?style=flat-square)
+![AceCast](https://img.shields.io/badge/AceCast-v2.0-red?style=flat-square)
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?style=flat-square)
 ![Express](https://img.shields.io/badge/Express-4.x-lightgrey?style=flat-square)
@@ -22,7 +22,7 @@ A full-stack interview training platform with real MySQL database, JWT authentic
 
 ## 🚀 Live Demo
 
-🌐 **[https://interviewforgebysaranyak.netlify.app](https://interviewforgebysk.netlify.app/)**
+🌐 **(https://acecastbysaranyakit.netlify.app/)**
  
 > 🔐 **Test Credentials:** Email: `test@example.com` | Password: `Test@123456`
 
@@ -30,7 +30,7 @@ A full-stack interview training platform with real MySQL database, JWT authentic
 
 ## 📋 Table of Contents
 
-1. [What is InterviewForge?](#-what-is-interviewforge)
+1. [What is AceCast?](#-what-is-AceCast)
 2. [Features](#-features)
 3. [Tech Stack](#-tech-stack)
 4. [How to Use](#-how-to-use)
@@ -45,9 +45,9 @@ A full-stack interview training platform with real MySQL database, JWT authentic
 
 ---
 
-## 💡 What is InterviewForge?
+## 💡 What is AceCast?
 
-**InterviewForge** is a production-grade, full-stack web application built for interview preparation. Unlike static frontend-only platforms, InterviewForge features persistent cloud storage, real authentication, and a live competitive leaderboard.
+**AceCast** is a production-grade, full-stack web application built for interview preparation. Unlike static frontend-only platforms, AceCast features persistent cloud storage, real authentication, and a live competitive leaderboard.
  
 | Feature | Description |
 |---------|-------------|
@@ -59,10 +59,8 @@ A full-stack interview training platform with real MySQL database, JWT authentic
 | ☁️ **Cloud Deployment** | Frontend on Netlify, Backend on Render, Database on Aiven |
 
 ### Who is it for?
-
-### Who is it for?
  
-| Audience | Pain Point | How InterviewForge Helps |
+| Audience | Pain Point | How AceCast Helps |
 |----------|------------|--------------------------|
 | 🎓 **B.Tech / BCA / MCA Students** | Campus placements are competitive, syllabus is vast | Topic-wise tests, DSA coding challenges, and a 10-week structured roadmap to cover everything before D-Day |
 | 💼 **Freshers & Job Seekers** | Don't know what FAANG actually asks | 1000+ curated real-world questions, mock interviews with model answers, and a proctored exam simulator |
@@ -197,9 +195,9 @@ Daily login streaks with milestone XP rewards. 12 unlockable achievement badges 
 
 ## 🚀 How to Use
 
-### For Users (No Setup Required)
+###No Setup Required
 
-1. Open the live site: [https://interviewforgebysaranyak.netlify.app](https://interviewforgebysaranyak.netlify.app)
+1. Open the live site: [https://AceCastbysaranyak.netlify.app](https://acecastbysaranyakit.netlify.app/)
 2. Click **Get Started** → Create your account
 3. Login and start practicing
 4. Your XP, streaks, and leaderboard rank are saved in the cloud — access from any device
@@ -209,14 +207,13 @@ Daily login streaks with milestone XP rewards. 12 unlockable achievement badges 
 ## 📁 Project Structure
 
 ```
-InterviewForge/
+AceCast/
 ├── index.html              # Complete frontend (HTML + CSS + JS, single file)
 ├── server.js               # Express backend with all API routes
 ├── package.json            # Node.js dependencies
 ├── package-lock.json       # Dependency lock file
 ├── schema.sql              # MySQL database schema & seed data
 ├── fix-db.js               # Database reset / repair utility
-├── .env                    # Environment variables (NOT committed to git)
 └── README.md               # This file
 ```
 
@@ -261,7 +258,7 @@ InterviewForge/
 
 1. Go to [https://render.com](https://render.com) and sign in with GitHub
 2. Click **"New +"** → **"Web Service"**
-3. Connect your GitHub repo: `saranya866/InterviewForge`
+3. Connect your GitHub repo: `saranya866/AceCast`
 4. Configure:
 
 | Setting | Value |
@@ -272,7 +269,7 @@ InterviewForge/
 
 5. Add all Environment Variables (see section below)
 6. Click **"Create Web Service"**
-7. Copy your Render URL: `https://interviewforge-4lvh.onrender.com`
+7. Copy your Render URL: `https://AceCast-4lvh.onrender.com`
 
 ---
 
@@ -280,7 +277,7 @@ InterviewForge/
 
 1. Go to [https://netlify.com](https://netlify.com) and sign in with GitHub
 2. Click **"Add new site"** → **"Import an existing project"**
-3. Connect your GitHub repo: `saranya866/InterviewForge`
+3. Connect your GitHub repo: `saranya866/AceCast`
 4. Configure:
 
 | Setting | Value |
@@ -293,93 +290,7 @@ InterviewForge/
 
 ---
 
-## 🔌 API Endpoints
-
-### Authentication
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/auth/register` | Register a new user |
-| `POST` | `/api/auth/login` | Login and receive JWT token |
-| `GET` | `/api/auth/me` | Get current user profile (auth required) |
-
-### User Data
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/user/stats` | Get XP, streaks, level, badges |
-| `POST` | `/api/user/xp` | Award XP to current user |
-| `POST` | `/api/user/streak` | Update daily streak |
-
-### Leaderboard
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/leaderboard` | Get top 50 users by XP |
-| `GET` | `/api/leaderboard/rank` | Get current user's rank |
-
-### Health
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/health` | Server + database health check |
-
-> 🔐 All `/api/user/*` routes require `Authorization: Bearer <token>` header.
-
----
-
-## 🗄️ Database Schema
-
-```sql
--- Users table
-CREATE TABLE users (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  name        VARCHAR(100)        NOT NULL,
-  email       VARCHAR(150) UNIQUE NOT NULL,
-  password    VARCHAR(255)        NOT NULL,  -- bcrypt hashed
-  xp          INT     DEFAULT 0,
-  level       VARCHAR(50) DEFAULT 'Novice',
-  streak      INT     DEFAULT 0,
-  last_login  DATE,
-  badges      JSON,
-  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Leaderboard view
-CREATE VIEW leaderboard AS
-  SELECT id, name, xp, level, streak
-  FROM users
-  ORDER BY xp DESC
-  LIMIT 50;
-```
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-# Server
-PORT=5000
-NODE_ENV=production
-
-# MySQL Database (Aiven)
-DB_HOST=your-aiven-host.aivencloud.com
-DB_PORT=your-port
-DB_USER=your-db-user
-DB_PASSWORD=your-db-password
-DB_NAME=defaultdb
-DB_SSL=true
-
-# JWT
-JWT_SECRET=your-super-secret-jwt-key-change-this
-
-# Frontend URL (for CORS)
-FRONTEND_URL=https://interviewforgebysaranyak.netlify.app
-```
-
-> ⚠️ **Never commit your `.env` file.** It is already listed in `.gitignore`.
-
----
-
-## 🗺️ Roadmap
+## 🗺️ Roadmap (Future Implementations)
 
 - [ ] AI-generated feedback on open-ended answers (GPT integration)
 - [ ] Resume builder with ATS scoring
@@ -419,10 +330,10 @@ without explicit written permission from the author.
 
 ## 👩‍💻 Contact
 
-**Saranya K**
+**Saranya Kit**
 
-[![GitHub](https://img.shields.io/badge/GitHub-saranya866-black?style=flat-square&logo=github)](https://github.com/saranya866)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin)](https://in.linkedin.com/in/saranya-kit-6a6360324)
+[![GitHub](https://github.com/saranya866)
+[![LinkedIn](https://in.linkedin.com/in/saranya-kit-6a6360324)
 
 > Built with ❤️ for every student who ever panicked before an interview.
 
@@ -432,6 +343,7 @@ without explicit written permission from the author.
 
 ⭐ **If this project helped you, please star the repo!** ⭐
 
-[🌐 Live Demo](https://interviewforgebysaranyak.netlify.app) · [🐛 Report Bug](https://github.com/saranya866/InterviewForge/issues) · [💡 Request Feature](https://github.com/saranya866/InterviewForge/issues)
+[🌐 Live Demo](https://AceCastbysaranyak.netlify.app) · [🐛 Report Bug](https://github.com/saranya866/AceCast/issues) · [💡 Request Feature](https://github.com/saranya866/AceCast/issues)
+
 
 </div>
