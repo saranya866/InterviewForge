@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>InterviewForge — AI Mock Interview Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -133,7 +135,7 @@ ul{list-style:none}
 .nav-brand{display:flex;align-items:center;gap:9px;font-size:0.9375rem;font-weight:700}
 .nav-logo{width:30px;height:30px;background:linear-gradient(135deg,#ef4444,#f97316);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(239,68,68,0.4)}
 .nav-links{display:flex;align-items:center;gap:0.125rem}
-.nav-links a{padding:0.4rem 0.75rem;border-radius:7px;font-size:0.8125rem;color:var(--text2);transition:all var(--transition)}
+.nav-links a{padding:0.4rem 0.75rem;border-radius:7px;font-size:0.8125rem;color:var(--text2);transition:all var(--transition);cursor:pointer}
 .nav-links a:hover{color:var(--text);background:var(--bg2)}
 .nav-right{display:flex;align-items:center;gap:0.5rem}
 .theme-btn{width:32px;height:32px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);color:var(--text2)}
@@ -357,56 +359,16 @@ ul{list-style:none}
       <p style="color:var(--text2);font-size:0.9375rem;max-width:480px;margin:0 auto">One platform to practice, compete, track, and land your dream role.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1200px;margin:0 auto">
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--accent-bg)">🧠</div>
-        <div><h3 style="margin-bottom:0.375rem">1000+ Interview Questions</h3><p>Curated Q&A across Java, DSA, System Design, SQL, OS, Python, Behavioral and 40+ categories.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Java</span><span class="badge badge-green">DSA</span><span class="badge badge-purple">SQL</span><span class="badge badge-yellow">+40 more</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--purple-bg)">💻</div>
-        <div><h3 style="margin-bottom:0.375rem">Coding Challenges</h3><p>8 real LeetCode-style problems — Two Sum, LRU Cache, Merge Intervals and more. Hints, editorial solutions, +XP on solve.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Easy</span><span class="badge badge-yellow">Medium</span><span class="badge badge-red">Hard</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--green-bg)">📝</div>
-        <div><h3 style="margin-bottom:0.375rem">Topic-wise Tests</h3><p>Timed tests on Java, DSA, SQL, OS, Networking, System Design. Auto-graded A+–D with XP proportional to your score.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Timed</span><span class="badge badge-green">Graded</span><span class="badge badge-yellow">+XP</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--red-bg)">🎯</div>
-        <div><h3 style="margin-bottom:0.375rem">Mock Interview</h3><p>Simulate a real interview — configurable category, difficulty, and question count. Timed, scored, with model answers.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Timed</span><span class="badge badge-blue">AI Scored</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--yellow-bg)">🔒</div>
-        <div><h3 style="margin-bottom:0.375rem">Proctored Exam</h3><p>Anti-cheat suite: tab detection, copy-paste block, fullscreen enforcement, keyboard lock, integrity score report.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Anti-cheat</span><span class="badge badge-yellow">Integrity Score</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--green-bg)">🎮</div>
-        <div><h3 style="margin-bottom:0.375rem">Skill Games</h3><p>Tech Flashcards, Quiz Blitz, Bug Hunt, Term Sprint — gamified learning that makes preparation addictive.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Fun</span><span class="badge badge-blue">+XP</span><span class="badge badge-purple">4 Games</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--accent-bg)">🏅</div>
-        <div><h3 style="margin-bottom:0.375rem">Weekly Competitions</h3><p>Live coding contests and quiz battles every week. Top rankers earn badge multipliers and Champion titles.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">🟢 Live Now</span><span class="badge badge-purple">Exclusive Badges</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--red-bg)">🔥</div>
-        <div><h3 style="margin-bottom:0.375rem">Streaks &amp; Badges</h3><p>Daily login streaks with automatic tracking. Milestone badges at 3, 7, 14, 30, 60, 100 days. 12 unlockable achievements.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-yellow">🔥 Streak</span><span class="badge badge-blue">12 Badges</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--yellow-bg)">💼</div>
-        <div><h3 style="margin-bottom:0.375rem">Live Job Board</h3><p>12 curated listings from Google, Amazon, Meta, Flipkart, Razorpay and more — linked directly to official career pages.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-purple">Internships</span><span class="badge badge-blue">Full-Time</span><span class="badge badge-green">12 Listings</span></div>
-      </div>
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px">
-        <div class="feature-icon" style="background:var(--purple-bg)">🏆</div>
-        <div><h3 style="margin-bottom:0.375rem">Live Leaderboard &amp; XP</h3><p>Compete with real registered users. 6-tier XP progression: Novice → Grandmaster. Your rank updates with every answer.</p></div>
-        <div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Real Users</span><span class="badge badge-yellow">6 Levels</span><span class="badge badge-red">Live Rank</span></div>
-      </div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--accent-bg)">🧠</div><div><h3 style="margin-bottom:0.375rem">1000+ Interview Questions</h3><p>Curated Q&A across Java, DSA, System Design, SQL, OS, Python, Behavioral and 40+ categories.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Java</span><span class="badge badge-green">DSA</span><span class="badge badge-purple">SQL</span><span class="badge badge-yellow">+40 more</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--purple-bg)">💻</div><div><h3 style="margin-bottom:0.375rem">Coding Challenges</h3><p>8 real LeetCode-style problems — Two Sum, LRU Cache, Merge Intervals and more. Hints, editorial solutions, +XP on solve.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Easy</span><span class="badge badge-yellow">Medium</span><span class="badge badge-red">Hard</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--green-bg)">📝</div><div><h3 style="margin-bottom:0.375rem">Topic-wise Tests</h3><p>Timed tests on Java, DSA, SQL, OS, Networking, System Design. Auto-graded A+–D with XP proportional to your score.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Timed</span><span class="badge badge-green">Graded</span><span class="badge badge-yellow">+XP</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--red-bg)">🎯</div><div><h3 style="margin-bottom:0.375rem">Mock Interview</h3><p>Simulate a real interview — configurable category, difficulty, and question count. Timed, scored, with model answers.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Timed</span><span class="badge badge-blue">AI Scored</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--yellow-bg)">🔒</div><div><h3 style="margin-bottom:0.375rem">Proctored Exam</h3><p>Anti-cheat suite: tab detection, copy-paste block, fullscreen enforcement, keyboard lock, integrity score report.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Anti-cheat</span><span class="badge badge-yellow">Integrity Score</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--green-bg)">🎮</div><div><h3 style="margin-bottom:0.375rem">Skill Games</h3><p>Tech Flashcards, Quiz Blitz, Bug Hunt, Term Sprint — gamified learning that makes preparation addictive.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Fun</span><span class="badge badge-blue">+XP</span><span class="badge badge-purple">4 Games</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--accent-bg)">🏅</div><div><h3 style="margin-bottom:0.375rem">Weekly Competitions</h3><p>Live coding contests and quiz battles every week. Top rankers earn badge multipliers and Champion titles.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">🟢 Live Now</span><span class="badge badge-purple">Exclusive Badges</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--red-bg)">🔥</div><div><h3 style="margin-bottom:0.375rem">Streaks &amp; Badges</h3><p>Daily login streaks with automatic tracking. Milestone badges at 3, 7, 14, 30, 60, 100 days. 12 unlockable achievements.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-yellow">🔥 Streak</span><span class="badge badge-blue">12 Badges</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--yellow-bg)">💼</div><div><h3 style="margin-bottom:0.375rem">Live Job Board</h3><p>12 curated listings from Google, Amazon, Meta, Flipkart, Razorpay and more — linked directly to official career pages.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-purple">Internships</span><span class="badge badge-blue">Full-Time</span><span class="badge badge-green">12 Listings</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--purple-bg)">🏆</div><div><h3 style="margin-bottom:0.375rem">Live Leaderboard &amp; XP</h3><p>Compete with real registered users. 6-tier XP progression: Novice → Grandmaster. Your rank updates with every answer.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Real Users</span><span class="badge badge-yellow">6 Levels</span><span class="badge badge-red">Live Rank</span></div></div>
     </div>
   </div>
   <div style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem max(1rem,4vw);text-align:center">
@@ -567,250 +529,13 @@ ul{list-style:none}
 
 // ========== BACKEND CONFIGURATION ==========
 const API_BASE = 'https://interviewforge-4lvh.onrender.com/api';
-  
-// ========== FETCH FROM BACKEND ==========
-let QUESTIONS = [];
-let CODING_PROBLEMS = [];
-let GAMES = [];
-
-async function loadData() {
-  try {
-    const [questionsRes, codingRes, gamesRes] = await Promise.all([
-      fetch(API_BASE + '/questions'),
-      fetch(API_BASE + '/coding'),
-      fetch(API_BASE + '/games')
-    ]);
-    
-    QUESTIONS = await questionsRes.json();
-    CODING_PROBLEMS = await codingRes.json();
-    GAMES = await gamesRes.json();
-    
-    console.log(`✅ Loaded ${QUESTIONS.length} questions, ${CODING_PROBLEMS.length} coding problems, ${GAMES.length} games`);
-  } catch (err) {
-    console.error('Failed to load data:', err);
-  }
-}
-
-// Call this after login
-loadData();
-  // ========== DATA ==========
-const QUESTIONS = [
-  {id:1,text:"What is the difference between JDK, JRE, and JVM?",cat:"Java",diff:"Easy",pts:5,answer:"JVM executes bytecode. JRE = JVM + class libraries. JDK = JRE + development tools.",type:"text"},
-  {id:2,text:"Explain Java streams and their main advantages.",cat:"Java",diff:"Medium",pts:10,answer:"Streams provide a functional-style API for processing collections with lazy evaluation.",type:"text"},
-  {id:3,text:"What is HashMap's time complexity for get/put?",cat:"DSA",diff:"Easy",pts:5,options:["O(n)","O(1) average","O(log n)","O(n²)"],correct:1,type:"mcq"},
-  {id:4,text:"Which sorting algorithm guarantees O(n log n) in all cases?",cat:"Algorithms",diff:"Medium",pts:10,options:["Quick Sort","Bubble Sort","Merge Sort","Insertion Sort"],correct:2,type:"mcq"},
-  {id:5,text:"Design a URL shortening service like bit.ly.",cat:"System Design",diff:"Hard",pts:20,answer:"Hash function + Database + Cache + Load balancer",type:"text"},
-  {id:6,text:"What are ACID properties?",cat:"SQL",diff:"Easy",pts:5,options:["Atomicity,Consistency,Isolation,Durability","Other"],correct:0,type:"mcq"},
-  {id:7,text:"Explain the difference between process and thread.",cat:"OS",diff:"Medium",pts:10,answer:"Process has own memory, thread shares memory.",type:"text"},
-  {id:8,text:"What is dependency injection in Spring?",cat:"Spring Boot",diff:"Medium",pts:10,answer:"Object receives dependencies from external source.",type:"text"},
-  {id:9,text:"What does CAP theorem state?",cat:"System Design",diff:"Hard",pts:20,options:["2 of Consistency,Availability,Partition Tolerance","All three"],correct:0,type:"mcq"},
-  {id:10,text:"Tell me about yourself using STAR framework.",cat:"Behavioral",diff:"Easy",pts:5,answer:"Situation, Task, Action, Result",type:"text"},
-];
-
-const CODING_PROBLEMS = [
-  {id:'c1',title:'Two Sum',diff:'Easy',tags:['Array','Hash Map'],xp:20,desc:'Find two numbers that add up to target.',example:'Input: [2,7,11,15], target=9 → Output: [0,1]',hint:'Use a hash map',solution:'function twoSum(nums, target) { const map = {}; for(let i=0;i<nums.length;i++){ const comp = target - nums[i]; if(map[comp] !== undefined) return [map[comp], i]; map[nums[i]] = i; } }'},
-  {id:'c2',title:'Reverse Linked List',diff:'Easy',tags:['Linked List'],xp:20,desc:'Reverse a singly linked list.',example:'Input: 1→2→3→4→5 → Output: 5→4→3→2→1',hint:'Use three pointers',solution:'function reverseList(head) { let prev = null, curr = head; while(curr) { const next = curr.next; curr.next = prev; prev = curr; curr = next; } return prev; }'},
-];
-
-const GAMES = [
-  {id:'flashcard',title:'Tech Flashcards',desc:'Flip through 50 key CS concepts.',icon:'🃏',xp:15},
-  {id:'quiz-blitz',title:'Quiz Blitz',desc:'30 MCQs in 5 minutes.',icon:'⚡',xp:30},
-  {id:'bug-hunt',title:'Bug Hunt',desc:'Find and fix bugs.',icon:'🐛',xp:50},
-  {id:'word-sprint',title:'Term Sprint',desc:'Match terms to definitions.',icon:'📚',xp:20},
-];
-
-// ========== RENDER FUNCTIONS ==========
-
-function renderPractice(container) {
-  container.innerHTML = `
-    <div class="page-title">Practice Questions</div>
-    <p class="page-sub">Click a question to answer. Earn XP for every attempt.</p>
-    <div class="q-filters">
-      <button class="q-filter-btn active" onclick="filterQuestions('All')">All</button>
-      <button class="q-filter-btn" onclick="filterQuestions('Java')">Java</button>
-      <button class="q-filter-btn" onclick="filterQuestions('DSA')">DSA</button>
-      <button class="q-filter-btn" onclick="filterQuestions('SQL')">SQL</button>
-      <button class="q-filter-btn" onclick="filterQuestions('System Design')">System Design</button>
-    </div>
-    <div id="questions-list"></div>
-  `;
-  renderQuestionsList('All');
-}
-
-function renderQuestionsList(category) {
-  const filtered = category === 'All' ? QUESTIONS : QUESTIONS.filter(q => q.cat === category);
-  const html = filtered.map(q => `
-    <div class="q-card" onclick="toggleAnswer(${q.id})">
-      <div class="q-card-header">
-        <div class="q-text">${q.text}</div>
-        <span style="color:var(--text3)">+${q.pts} XP</span>
-      </div>
-      <div class="q-meta">
-        <span class="badge badge-${q.diff === 'Easy' ? 'green' : q.diff === 'Medium' ? 'yellow' : 'red'}">${q.diff}</span>
-        <span class="badge badge-gray">${q.cat}</span>
-      </div>
-      <div id="answer-${q.id}" style="display:none; margin-top:1rem; padding:1rem; background:var(--bg2); border-radius:8px;">
-        <strong>Model Answer:</strong><br>${q.answer}
-        <button class="btn btn-primary btn-sm" style="margin-top:0.5rem" onclick="event.stopPropagation(); awardXP(${q.pts})">Earn +${q.pts} XP</button>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('questions-list').innerHTML = html;
-}
-
-function toggleAnswer(id) {
-  const el = document.getElementById(`answer-${id}`);
-  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
-
-function filterQuestions(cat) {
-  renderQuestionsList(cat);
-  document.querySelectorAll('.q-filter-btn').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.textContent === cat) btn.classList.add('active');
-  });
-}
-
-function renderCoding(container) {
-  container.innerHTML = `
-    <div class="page-title">💻 Coding Challenges</div>
-    <p class="page-sub">Solve problems and earn XP.</p>
-    <div id="coding-list"></div>
-  `;
-  const solved = JSON.parse(localStorage.getItem('solved_coding') || '{}');
-  const html = CODING_PROBLEMS.map(p => `
-    <div class="card" style="margin-bottom:1rem">
-      <div style="display:flex; justify-content:space-between; align-items:start">
-        <div>
-          <h3>${p.title} <span class="badge badge-${p.diff === 'Easy' ? 'green' : 'yellow'}">${p.diff}</span></h3>
-          <p>${p.desc}</p>
-          <p><strong>Example:</strong> ${p.example}</p>
-          <button class="btn btn-ghost btn-sm" onclick="alert('Hint: ${p.hint}')">💡 Hint</button>
-          <button class="btn btn-ghost btn-sm" onclick="alert('Solution: ${p.solution}')">📖 Solution</button>
-        </div>
-        <div>
-          ${!solved[p.id] ? `<button class="btn btn-primary" onclick="markSolved('${p.id}', ${p.xp})">✓ Mark Solved (+${p.xp} XP)</button>` : '<span class="badge badge-green">✓ Solved!</span>'}
-        </div>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('coding-list').innerHTML = html;
-}
-
-function markSolved(id, xp) {
-  const solved = JSON.parse(localStorage.getItem('solved_coding') || '{}');
-  if (!solved[id]) {
-    solved[id] = true;
-    localStorage.setItem('solved_coding', JSON.stringify(solved));
-    awardXP(xp);
-    renderCoding(document.getElementById('app-main'));
-  }
-}
-
-function renderGames(container) {
-  container.innerHTML = `
-    <div class="page-title">🎮 Skill Games</div>
-    <p class="page-sub">Play games and earn XP.</p>
-    <div class="game-grid">
-      ${GAMES.map(g => `
-        <div class="game-card" onclick="playGame('${g.id}')">
-          <div class="game-thumb" style="font-size:3rem; padding:2rem; text-align:center">${g.icon}</div>
-          <div class="game-info">
-            <h3>${g.title}</h3>
-            <p>${g.desc}</p>
-            <span class="badge badge-blue">+${g.xp} XP</span>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-    <div id="game-area"></div>
-  `;
-}
-
-function playGame(gameId) {
-  const area = document.getElementById('game-area');
-  if (gameId === 'flashcard') {
-    area.innerHTML = `<div class="card"><p>🃏 Flashcard Game - Click to earn XP</p><button class="btn btn-primary" onclick="awardXP(15); document.getElementById('game-area').innerHTML='<p>✅ +15 XP earned!</p>'">Start Game</button></div>`;
-  } else if (gameId === 'quiz-blitz') {
-    area.innerHTML = `<div class="card"><p>⚡ Quiz Blitz - 10 questions</p><button class="btn btn-primary" onclick="awardXP(30); document.getElementById('game-area').innerHTML='<p>✅ +30 XP earned!</p>'">Start Quiz</button></div>`;
-  } else if (gameId === 'bug-hunt') {
-    area.innerHTML = `<div class="card"><p>🐛 Bug Hunt - Find the bug</p><button class="btn btn-primary" onclick="awardXP(50); document.getElementById('game-area').innerHTML='<p>✅ +50 XP earned!</p>'">Start Hunt</button></div>`;
-  } else if (gameId === 'word-sprint') {
-    area.innerHTML = `<div class="card"><p>📚 Term Sprint - Match terms</p><button class="btn btn-primary" onclick="awardXP(20); document.getElementById('game-area').innerHTML='<p>✅ +20 XP earned!</p>'">Start Sprint</button></div>`;
-  }
-}
-
-function renderLeaderboard(container) {
-  container.innerHTML = `
-    <div class="page-title">🏆 Leaderboard</div>
-    <p class="page-sub">Top performers by XP</p>
-    <div id="leaderboard-list" class="card">Loading...</div>
-  `;
-  fetch(API_BASE + '/leaderboard')
-    .then(res => res.json())
-    .then(data => {
-      const html = data.map((u, i) => `
-        <div style="display:flex; justify-content:space-between; padding:0.5rem; border-bottom:1px solid var(--border)">
-          <span>${i+1}. ${u.name}</span>
-          <span style="color:var(--accent)">${u.xp} XP</span>
-        </div>
-      `).join('');
-      document.getElementById('leaderboard-list').innerHTML = html || '<p>No users yet. Be the first!</p>';
-    })
-    .catch(() => {
-      document.getElementById('leaderboard-list').innerHTML = '<p>Leaderboard unavailable</p>';
-    });
-}
-
-function renderDashboard(container) {
-  const user = JSON.parse(localStorage.getItem('if_session') || '{}');
-  container.innerHTML = `
-    <div class="dash-header">
-      <div><h2>Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${user.name || 'there'}! 👋</h2></div>
-      <button class="btn btn-primary" onclick="navigateTo('practice')">Start Practice →</button>
-    </div>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">${user.xp || 0}</div><div class="stat-label">Total XP</div></div>
-      <div class="stat-card"><div class="stat-val">${user.streak || 0}</div><div class="stat-label">Day Streak</div></div>
-      <div class="stat-card"><div class="stat-val">${user.level || 'Novice'}</div><div class="stat-label">Level</div></div>
-    </div>
-    <div class="quick-grid">
-      <div class="quick-btn" onclick="navigateTo('practice')">📚 Practice</div>
-      <div class="quick-btn" onclick="navigateTo('coding')">💻 Code</div>
-      <div class="quick-btn" onclick="navigateTo('games')">🎮 Games</div>
-      <div class="quick-btn" onclick="navigateTo('leaderboard')">🏆 Leaderboard</div>
-      <div class="quick-btn" onclick="navigateTo('mock')">🎯 Mock Interview</div>
-      <div class="quick-btn" onclick="navigateTo('exam')">🔒 Proctored Exam</div>
-    </div>
-  `;
-}
-
-// Make sure navigateTo works
-window.navigateTo = function(section) {
-  const main = document.getElementById('app-main');
-  const renderers = {
-    dashboard: renderDashboard,
-    practice: renderPractice,
-    coding: renderCoding,
-    games: renderGames,
-    leaderboard: renderLeaderboard,
-    mock: renderMock,
-    exam: renderExam
-  };
-  if (renderers[section]) renderers[section](main);
-};
-
-// Placeholder for mock/exam (simple versions)
-function renderMock(container) {
-  container.innerHTML = `<div class="card"><h3>Mock Interview</h3><p>Simulated interview with 10 questions.</p><button class="btn btn-primary" onclick="awardXP(100)">Start Mock (+100 XP)</button></div>`;
-}
-function renderExam(container) {
-  container.innerHTML = `<div class="card"><h3>Proctored Exam</h3><p>Anti-cheat exam simulation.</p><button class="btn btn-primary" onclick="awardXP(200)">Start Exam (+200 XP)</button></div>`;
-}
 
 // ========== GLOBAL STATE ==========
 let currentUser = null;
 let authToken = null;
+let QUESTIONS = [];
+let CODING_PROBLEMS = [];
+let GAMES = [];
 
 // Load session from localStorage
 try {
@@ -822,7 +547,7 @@ try {
   }
 } catch(e) { localStorage.removeItem('if_session'); }
 
-// ========== THEME (your existing theme code) ==========
+// ========== THEME ==========
 const THEMES = ['dark','light','system'];
 const THEME_ICONS = {dark:'🌙',light:'☀️',system:'💻'};
 let themeIdx = THEMES.indexOf(localStorage.getItem('theme') || 'dark');
@@ -871,7 +596,24 @@ function updateSidebar() {
   document.getElementById('sidebar-avatar').textContent = currentUser.initial || currentUser.name[0].toUpperCase();
 }
 
-// ========== BACKEND API CALLS ==========
+// ========== LOAD DATA FROM BACKEND ==========
+async function loadData() {
+  try {
+    const [qRes, cRes, gRes] = await Promise.all([
+      fetch(API_BASE + '/questions'),
+      fetch(API_BASE + '/coding'),
+      fetch(API_BASE + '/games')
+    ]);
+    if (qRes.ok) QUESTIONS = await qRes.json();
+    if (cRes.ok) CODING_PROBLEMS = await cRes.json();
+    if (gRes.ok) GAMES = await gRes.json();
+    console.log(`Loaded ${QUESTIONS.length} questions, ${CODING_PROBLEMS.length} coding, ${GAMES.length} games`);
+  } catch (err) {
+    console.error('Load data failed:', err);
+  }
+}
+
+// ========== API REQUESTS ==========
 async function apiRequest(endpoint, method, body = null, needAuth = false) {
   const headers = { 'Content-Type': 'application/json' };
   if (needAuth && authToken) headers['Authorization'] = `Bearer ${authToken}`;
@@ -887,16 +629,12 @@ async function apiRequest(endpoint, method, body = null, needAuth = false) {
 
 // ========== REGISTER ==========
 window.emailRegister = async function() {
-  console.log('Register function called');
-  
   const fname = document.getElementById('reg-fname').value.trim();
   const lname = document.getElementById('reg-lname').value.trim();
   const email = document.getElementById('reg-email').value.trim().toLowerCase();
   const password = document.getElementById('reg-pass').value;
   const confirm = document.getElementById('reg-confirm').value;
   const role = document.getElementById('reg-role').value;
-
-  console.log('Email:', email);
 
   if (!fname || !email || !password) {
     toast('Please fill required fields', 'error');
@@ -908,8 +646,6 @@ window.emailRegister = async function() {
   }
 
   try {
-    console.log('Sending to:', API_BASE + '/register');
-    
     const response = await fetch(API_BASE + '/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -921,26 +657,23 @@ window.emailRegister = async function() {
       })
     });
 
-    console.log('Response status:', response.status);
     const data = await response.json();
-    console.log('Response data:', data);
-
-    if (!response.ok) {
-      toast(data.error || 'Registration failed', 'error');
-      return;
-    }
+    if (!response.ok) throw new Error(data.error || 'Registration failed');
 
     localStorage.setItem('if_token', data.token);
     localStorage.setItem('if_session', JSON.stringify(data.user));
-    
-    toast('Registration successful! Please login.', 'success');
-    setTimeout(() => showPage('login'), 1500);
-    
+    currentUser = data.user;
+    authToken = data.token;
+    await loadData();
+    updateSidebar();
+    showPage('app');
+    navigateTo('dashboard');
+    toast('Registration successful!', 'success');
   } catch (error) {
-    console.error('Fetch error:', error);
-    toast('Cannot connect to backend. Make sure server is running on port 3000', 'error');
+    toast(error.message, 'error');
   }
 };
+
 // ========== LOGIN ==========
 window.emailLogin = async function() {
   const email = document.getElementById('login-email').value.trim().toLowerCase();
@@ -953,6 +686,7 @@ window.emailLogin = async function() {
     currentUser = data.user;
     currentUser.initial = currentUser.name[0].toUpperCase();
     localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
+    await loadData();
     updateSidebar();
     showPage('app');
     navigateTo('dashboard');
@@ -1000,81 +734,262 @@ async function refreshLeaderboard() {
   }
 }
 
-// ========== NAVIGATION ==========
-// ========== NAVIGATION ==========
-const SECTIONS = ['dashboard', 'practice', 'coding', 'tests', 'mock', 'exam', 'games', 'competitions', 'leaderboard', 'streaks', 'jobs', 'roadmap', 'profile', 'settings'];
-let navHistory = [];
+// ========== RENDER FUNCTIONS ==========
+function renderDashboard(container) {
+  const u = currentUser || {};
+  let level = 'Novice';
+  if (u.xp >= 15000) level = 'Grandmaster';
+  else if (u.xp >= 7500) level = 'Master';
+  else if (u.xp >= 3500) level = 'Expert';
+  else if (u.xp >= 1500) level = 'Practitioner';
+  else if (u.xp >= 500) level = 'Apprentice';
+  
+  container.innerHTML = `
+    <div class="dash-header">
+      <div><div class="dash-greeting">Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${u.name?.split(' ')[0] || 'there'}! 👋</div>
+      <div class="dash-sub">Keep practicing to maintain your streak!</div></div>
+      <button class="btn btn-primary" onclick="navigateTo('practice')" style="background:var(--red)">+ Start Practice</button>
+    </div>
+    <div class="xp-card">
+      <div class="xp-top"><span class="xp-name">${u.name || 'User'}</span><span class="xp-level">${level}</span></div>
+      <div class="xp-nums"><span>${u.xp || 0} XP total</span><span>${level === 'Novice' ? 500 - (u.xp || 0) : level === 'Apprentice' ? 1500 - (u.xp || 0) : level === 'Practitioner' ? 3500 - (u.xp || 0) : level === 'Expert' ? 7500 - (u.xp || 0) : level === 'Master' ? 15000 - (u.xp || 0) : 0} XP to next level</span></div>
+      <div class="progress"><div class="progress-fill" style="width:${Math.min(100, ((u.xp || 0) % 500) / 5)}%; background:var(--red)"></div></div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val">${u.questions_answered || 0}</div><div class="stat-label">Questions</div></div>
+      <div class="stat-card"><div class="stat-val">${u.average_score || 0}%</div><div class="stat-label">Avg Score</div></div>
+      <div class="stat-card"><div class="stat-val">🔥 ${u.streak || 0}</div><div class="stat-label">Day Streak</div></div>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-btn" onclick="navigateTo('practice')"><div class="quick-icon">📚</div><div class="quick-title">Practice</div><div class="quick-desc">By topic</div></div>
+      <div class="quick-btn" onclick="navigateTo('coding')"><div class="quick-icon">💻</div><div class="quick-title">Coding</div><div class="quick-desc">Challenges</div></div>
+      <div class="quick-btn" onclick="navigateTo('games')"><div class="quick-icon">🎮</div><div class="quick-title">Games</div><div class="quick-desc">Earn XP</div></div>
+      <div class="quick-btn" onclick="navigateTo('leaderboard')"><div class="quick-icon">🏆</div><div class="quick-title">Rank</div><div class="quick-desc">Leaderboard</div></div>
+    </div>
+  `;
+}
 
-function navigateTo(section) {
-  if (!STATE.user && section !== 'jobs') { 
-    showPage('login'); 
-    return; 
-  }
-  
-  // Store history
-  if (STATE.currentSection && STATE.currentSection !== section) {
-    navHistory.push(STATE.currentSection);
-    if (navHistory.length > 10) navHistory.shift();
-  }
-  
-  STATE.currentSection = section;
-  
-  // Update active sidebar item
-  SECTIONS.forEach(s => {
-    const el = document.getElementById('nav-' + s);
-    if (el) el.classList.toggle('active', s === section);
-  });
-  
-  const main = document.getElementById('app-main');
-  
-  // Show loading if data not ready for practice/coding/games
-  if ((section === 'practice' && QUESTIONS.length === 0) ||
-      (section === 'coding' && CODING_PROBLEMS.length === 0) ||
-      (section === 'games' && GAMES.length === 0)) {
-    main.innerHTML = '<div class="card" style="text-align:center; padding:3rem;">📡 Loading data from server...</div>';
-    // Retry after 1 second
-    setTimeout(() => navigateTo(section), 1000);
+function renderPractice(container) {
+  if (!QUESTIONS.length) {
+    container.innerHTML = '<div class="card">Loading questions from database...</div>';
+    setTimeout(() => renderPractice(container), 1000);
     return;
   }
   
-  // Render based on section
+  const categories = ['All', ...new Set(QUESTIONS.map(q => q.category))];
+  
+  container.innerHTML = `
+    <button class="page-back" onclick="goBack()">← Dashboard</button>
+    <div class="page-title">Practice Questions</div>
+    <p class="page-sub">Click a question to answer. Earn XP for every attempt.</p>
+    <div class="q-filters" id="practice-filters">
+      ${categories.map(cat => `<button class="q-filter-btn ${cat === 'All' ? 'active' : ''}" onclick="filterPractice('${cat}')">${cat}</button>`).join('')}
+    </div>
+    <div id="questions-list"></div>
+  `;
+  renderQuestionsList('All');
+}
+
+function renderQuestionsList(category) {
+  const filtered = category === 'All' ? QUESTIONS : QUESTIONS.filter(q => q.category === category);
+  const html = filtered.map(q => `
+    <div class="q-card" onclick="this.querySelector('.answer').style.display='block'">
+      <div class="q-card-header">
+        <div class="q-text">${q.text}</div>
+        <span style="color:var(--text3)">+${q.xp_reward} XP</span>
+      </div>
+      <div class="q-meta">
+        <span class="badge badge-${q.difficulty === 'Easy' ? 'green' : q.difficulty === 'Medium' ? 'yellow' : 'red'}">${q.difficulty}</span>
+        <span class="badge badge-gray">${q.category}</span>
+      </div>
+      <div class="answer" style="display:none; margin-top:0.75rem; padding:0.75rem; background:var(--bg2); border-radius:8px">
+        <strong>📖 Model Answer:</strong><br>${q.model_answer || 'No answer provided.'}
+        <button class="btn btn-primary btn-sm" style="margin-top:0.5rem" onclick="event.stopPropagation(); awardXP(${q.xp_reward})">✅ Earn +${q.xp_reward} XP</button>
+      </div>
+    </div>
+  `).join('');
+  const listEl = document.getElementById('questions-list');
+  if (listEl) listEl.innerHTML = html;
+}
+
+window.filterPractice = function(category) {
+  renderQuestionsList(category);
+  document.querySelectorAll('#practice-filters .q-filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.textContent === category) btn.classList.add('active');
+  });
+};
+
+function renderCoding(container) {
+  if (!CODING_PROBLEMS.length) {
+    container.innerHTML = '<div class="card">Loading coding problems from database...</div>';
+    setTimeout(() => renderCoding(container), 1000);
+    return;
+  }
+  const solved = JSON.parse(localStorage.getItem('solved_coding') || '{}');
+  
+  container.innerHTML = `
+    <button class="page-back" onclick="goBack()">← Dashboard</button>
+    <div class="page-title">💻 Coding Challenges</div>
+    <p class="page-sub">Solve problems and earn XP. Each solved problem earns XP.</p>
+    <div id="coding-list"></div>
+  `;
+  
+  const html = CODING_PROBLEMS.map(p => `
+    <div class="card" style="margin-bottom:1rem">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem">
+        <div style="flex:1">
+          <h3>${p.title} <span class="badge badge-${p.difficulty === 'Easy' ? 'green' : p.difficulty === 'Medium' ? 'yellow' : 'red'}">${p.difficulty}</span></h3>
+          <p>${p.description}</p>
+          <p><strong>Example:</strong> ${p.example}</p>
+          <button class="btn btn-ghost btn-sm" onclick="alert('💡 Hint: ${p.hint}')">💡 Hint</button>
+          <button class="btn btn-ghost btn-sm" onclick="alert('📖 Solution:\\n\\n${p.solution}')">📖 Solution</button>
+        </div>
+        <div>
+          ${!solved[p.id] ? `<button class="btn btn-primary" onclick="markSolved('${p.id}', ${p.xp_reward})">✓ Mark Solved (+${p.xp_reward} XP)</button>` : '<span class="badge badge-green">✓ Solved!</span>'}
+        </div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('coding-list').innerHTML = html;
+}
+
+function markSolved(id, xp) {
+  const solved = JSON.parse(localStorage.getItem('solved_coding') || '{}');
+  if (!solved[id]) {
+    solved[id] = true;
+    localStorage.setItem('solved_coding', JSON.stringify(solved));
+    awardXP(xp);
+    renderCoding(document.getElementById('app-main'));
+  }
+}
+
+function renderGames(container) {
+  if (!GAMES.length) {
+    container.innerHTML = '<div class="card">Loading games from database...</div>';
+    setTimeout(() => renderGames(container), 1000);
+    return;
+  }
+  
+  container.innerHTML = `
+    <button class="page-back" onclick="goBack()">← Dashboard</button>
+    <div class="page-title">🎮 Skill Games</div>
+    <p class="page-sub">Play games and earn XP. Each game rewards XP upon completion.</p>
+    <div class="game-grid" id="games-grid"></div>
+    <div id="game-area" style="margin-top:1.5rem"></div>
+  `;
+  
+  const html = GAMES.map(g => `
+    <div class="game-card" onclick="playGame('${g.id}', ${g.xp_reward})">
+      <div class="game-thumb" style="font-size:3rem; padding:2rem; text-align:center; background:var(--bg2)">${g.icon}</div>
+      <div class="game-info">
+        <h3>${g.title}</h3>
+        <p>${g.description}</p>
+        <span class="badge badge-blue">+${g.xp_reward} XP</span>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('games-grid').innerHTML = html;
+}
+
+function playGame(gameId, xp) {
+  const area = document.getElementById('game-area');
+  area.innerHTML = `
+    <div class="card" style="text-align:center">
+      <button class="btn btn-primary" style="background:var(--green)" onclick="completeGame(${xp})">▶ Start Game →</button>
+    </div>
+  `;
+}
+
+function completeGame(xp) {
+  awardXP(xp);
+  document.getElementById('game-area').innerHTML = `<div class="card" style="text-align:center"><span style="color:var(--green)">✅ Great job! You earned +${xp} XP!</span><br><button class="btn btn-ghost btn-sm" style="margin-top:1rem" onclick="navigateTo('games')">← Play More Games</button></div>`;
+}
+
+function renderLeaderboard(container) {
+  container.innerHTML = `
+    <button class="page-back" onclick="goBack()">← Dashboard</button>
+    <div class="page-title">🏆 Leaderboard</div>
+    <p class="page-sub">Top performers by XP</p>
+    <div id="leaderboard-list" class="card" style="text-align:center">Loading...</div>
+  `;
+  
+  fetch(API_BASE + '/leaderboard')
+    .then(res => res.json())
+    .then(data => {
+      if (!data || data.length === 0) {
+        document.getElementById('leaderboard-list').innerHTML = '<p>No users yet. Be the first!</p>';
+        return;
+      }
+      const html = data.map((u, i) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:0.75rem; border-bottom:1px solid var(--border)">
+          <div style="display:flex; align-items:center; gap:1rem">
+            <span style="font-weight:bold; width:30px">${i+1}.</span>
+            <span>${u.name}</span>
+          </div>
+          <div style="display:flex; gap:1rem">
+            <span style="color:var(--yellow)">🔥 ${u.streak}</span>
+            <span style="color:var(--accent); font-weight:bold">${u.xp} XP</span>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('leaderboard-list').innerHTML = html;
+    })
+    .catch(() => {
+      document.getElementById('leaderboard-list').innerHTML = '<p>Leaderboard unavailable</p>';
+    });
+}
+
+// Simple placeholder functions for other sections
+function renderTests(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">📝 Topic Tests</div><div class="card">Coming soon: Topic-wise timed tests!</div>`; }
+function renderMock(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">🎯 Mock Interview</div><div class="card"><p>Simulated interview with 10 questions.</p><button class="btn btn-primary" onclick="awardXP(100)">Start Mock (+100 XP)</button></div>`; }
+function renderExam(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">🔒 Proctored Exam</div><div class="card"><p>Anti-cheat exam simulation.</p><button class="btn btn-primary" onclick="awardXP(200)">Start Exam (+200 XP)</button></div>`; }
+function renderCompetitions(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">🏅 Competitions</div><div class="card">Weekly coding contests coming soon!</div>`; }
+function renderStreaks(container) { const streak = currentUser?.streak || 0; container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">🔥 Streaks & Badges</div><div class="card"><div style="font-size:3rem; text-align:center">🔥 ${streak}</div><div style="text-align:center">Day Streak</div><p style="margin-top:1rem">Practice daily to build your streak!</p></div>`; }
+function renderJobs(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">💼 Jobs & Internships</div><div class="card">Job board coming soon!</div>`; }
+function renderRoadmap(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">🗺 Learning Roadmap</div><div class="card">10-week interview preparation plan coming soon!</div>`; }
+function renderProfile(container) { const u = currentUser || {}; container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">👤 Profile</div><div class="card"><p><strong>Name:</strong> ${u.name}</p><p><strong>Email:</strong> ${u.email}</p><p><strong>XP:</strong> ${u.xp || 0}</p><p><strong>Level:</strong> ${u.level || 'Novice'}</p><p><strong>Streak:</strong> ${u.streak || 0} days</p><button class="btn btn-danger" onclick="logout()">Sign Out</button></div>`; }
+function renderSettings(container) { container.innerHTML = `<button class="page-back" onclick="goBack()">← Dashboard</button><div class="page-title">⚙ Settings</div><div class="card"><button class="btn btn-primary" onclick="cycleTheme()">Toggle Theme</button><button class="btn btn-danger" style="margin-left:1rem" onclick="logout()">Sign Out</button></div>`; }
+
+// ========== NAVIGATION ==========
+function navigateTo(section) {
+  if (!currentUser && section !== 'jobs') { showPage('login'); return; }
+  
+  const main = document.getElementById('app-main');
+  
   const renderers = {
-    dashboard: () => renderDashboard(main),
-    practice: () => renderPractice(main),
-    coding: () => renderCoding(main),
-    tests: () => renderTests(main),
-    mock: () => renderMock(main),
-    exam: () => renderExam(main),
-    games: () => renderGames(main),
-    competitions: () => renderCompetitions(main),
-    leaderboard: () => renderLeaderboard(main),
-    streaks: () => renderStreaks(main),
-    jobs: () => renderJobs(main),
-    roadmap: () => renderRoadmap(main),
-    profile: () => renderProfile(main),
-    settings: () => renderSettings(main)
+    dashboard: renderDashboard,
+    practice: renderPractice,
+    coding: renderCoding,
+    tests: renderTests,
+    mock: renderMock,
+    exam: renderExam,
+    games: renderGames,
+    competitions: renderCompetitions,
+    leaderboard: renderLeaderboard,
+    streaks: renderStreaks,
+    jobs: renderJobs,
+    roadmap: renderRoadmap,
+    profile: renderProfile,
+    settings: renderSettings
   };
   
   if (renderers[section]) {
-    renderers[section]();
+    renderers[section](main);
   } else {
     main.innerHTML = '<div class="card">Coming soon...</div>';
   }
-  
-  main.scrollTop = 0;
 }
 
 function goBack() {
-  if (navHistory.length > 0) {
-    navigateTo(navHistory.pop());
-  } else {
-    navigateTo('dashboard');
-  }
+  navigateTo('dashboard');
 }
 
 // ========== INIT ==========
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  startCounters();
   if (currentUser) {
+    await loadData();
     updateSidebar();
     showPage('app');
     navigateTo('dashboard');
@@ -1110,7 +1025,6 @@ function startCounters() {
     }, stepTime);
   });
 }
-startCounters();
 
 // Forgot password (demo)
 window.sendResetCode = function() { toast('Reset code sent (demo)', 'info'); };
