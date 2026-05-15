@@ -48,8 +48,9 @@ app.post('/api/register', async (req, res) => {
     }
     
     const hash = await bcrypt.hash(password, 10);
+    // Updated INSERT to match all required columns
     const [result] = await pool.query(
-      'INSERT INTO users (name, email, password_hash, role, xp, streak, level) VALUES (?, ?, ?, ?, 50, 1, "Novice")',
+      'INSERT INTO users (name, email, password_hash, role, xp, streak, questions_answered, average_score, level) VALUES (?, ?, ?, ?, 50, 1, 0, 0.00, "Novice")',
       [name, email.toLowerCase(), hash, role || 'Undergraduate']
     );
     
@@ -61,7 +62,8 @@ app.post('/api/register', async (req, res) => {
       xp: 50,
       streak: 1,
       level: 'Novice',
-      questions_answered: 0
+      questions_answered: 0,
+      average_score: 0.00
     };
     
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
@@ -79,7 +81,7 @@ app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const [users] = await pool.query(
-      'SELECT id, name, email, role, xp, streak, level, questions_answered, password_hash FROM users WHERE email = ?',
+      'SELECT id, name, email, role, xp, streak, level, questions_answered, average_score, password_hash FROM users WHERE email = ?',
       [email.toLowerCase()]
     );
     
