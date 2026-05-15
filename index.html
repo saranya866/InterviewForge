@@ -566,8 +566,33 @@ ul{list-style:none}
 'use strict';
 
 // ========== BACKEND CONFIGURATION ==========
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'https://interviewforge-4lvh.onrender.com/api';
+  
+// ========== FETCH FROM BACKEND ==========
+let QUESTIONS = [];
+let CODING_PROBLEMS = [];
+let GAMES = [];
 
+async function loadData() {
+  try {
+    const [questionsRes, codingRes, gamesRes] = await Promise.all([
+      fetch(API_BASE + '/questions'),
+      fetch(API_BASE + '/coding'),
+      fetch(API_BASE + '/games')
+    ]);
+    
+    QUESTIONS = await questionsRes.json();
+    CODING_PROBLEMS = await codingRes.json();
+    GAMES = await gamesRes.json();
+    
+    console.log(`✅ Loaded ${QUESTIONS.length} questions, ${CODING_PROBLEMS.length} coding problems, ${GAMES.length} games`);
+  } catch (err) {
+    console.error('Failed to load data:', err);
+  }
+}
+
+// Call this after login
+loadData();
   // ========== DATA ==========
 const QUESTIONS = [
   {id:1,text:"What is the difference between JDK, JRE, and JVM?",cat:"Java",diff:"Easy",pts:5,answer:"JVM executes bytecode. JRE = JVM + class libraries. JDK = JRE + development tools.",type:"text"},
@@ -976,29 +1001,74 @@ async function refreshLeaderboard() {
 }
 
 // ========== NAVIGATION ==========
+// ========== NAVIGATION ==========
+const SECTIONS = ['dashboard', 'practice', 'coding', 'tests', 'mock', 'exam', 'games', 'competitions', 'leaderboard', 'streaks', 'jobs', 'roadmap', 'profile', 'settings'];
+let navHistory = [];
+
 function navigateTo(section) {
-  if (!currentUser && section !== 'jobs') { showPage('login'); return; }
-  // Your existing navigation logic here
+  if (!STATE.user && section !== 'jobs') { 
+    showPage('login'); 
+    return; 
+  }
+  
+  // Store history
+  if (STATE.currentSection && STATE.currentSection !== section) {
+    navHistory.push(STATE.currentSection);
+    if (navHistory.length > 10) navHistory.shift();
+  }
+  
+  STATE.currentSection = section;
+  
+  // Update active sidebar item
+  SECTIONS.forEach(s => {
+    const el = document.getElementById('nav-' + s);
+    if (el) el.classList.toggle('active', s === section);
+  });
+  
   const main = document.getElementById('app-main');
-  main.innerHTML = `<div class="card"><p>Loading ${section}...</p></div>`;
-  // For now, show a simple dashboard
-  if (section === 'dashboard') {
-    main.innerHTML = `
-      <div class="dash-header">
-        <div><div class="dash-greeting">Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${currentUser?.name?.split(' ')[0] || 'there'} 👋</div></div>
-        <button class="btn btn-primary" onclick="navigateTo('practice')" style="background:var(--red)">+ Start Practice</button>
-      </div>
-      <div class="xp-card">
-        <div class="xp-top"><span class="xp-name">${currentUser?.name || 'User'}</span><span class="xp-level">${currentUser?.level || 'Novice'}</span></div>
-        <div class="xp-nums"><span>${currentUser?.xp || 0} XP total</span></div>
-        <div class="progress"><div class="progress-fill" style="width:${Math.min(100, ((currentUser?.xp || 0) % 500) / 500 * 100)}%"></div></div>
-      </div>
-      <div class="quick-grid">
-        <div class="quick-btn" onclick="navigateTo('practice')"><div class="quick-icon">📚</div><div class="quick-title">Practice</div></div>
-        <div class="quick-btn" onclick="navigateTo('games')"><div class="quick-icon">🎮</div><div class="quick-title">Games</div></div>
-        <div class="quick-btn" onclick="navigateTo('leaderboard')"><div class="quick-icon">🏆</div><div class="quick-title">Leaderboard</div></div>
-      </div>
-    `;
+  
+  // Show loading if data not ready for practice/coding/games
+  if ((section === 'practice' && QUESTIONS.length === 0) ||
+      (section === 'coding' && CODING_PROBLEMS.length === 0) ||
+      (section === 'games' && GAMES.length === 0)) {
+    main.innerHTML = '<div class="card" style="text-align:center; padding:3rem;">📡 Loading data from server...</div>';
+    // Retry after 1 second
+    setTimeout(() => navigateTo(section), 1000);
+    return;
+  }
+  
+  // Render based on section
+  const renderers = {
+    dashboard: () => renderDashboard(main),
+    practice: () => renderPractice(main),
+    coding: () => renderCoding(main),
+    tests: () => renderTests(main),
+    mock: () => renderMock(main),
+    exam: () => renderExam(main),
+    games: () => renderGames(main),
+    competitions: () => renderCompetitions(main),
+    leaderboard: () => renderLeaderboard(main),
+    streaks: () => renderStreaks(main),
+    jobs: () => renderJobs(main),
+    roadmap: () => renderRoadmap(main),
+    profile: () => renderProfile(main),
+    settings: () => renderSettings(main)
+  };
+  
+  if (renderers[section]) {
+    renderers[section]();
+  } else {
+    main.innerHTML = '<div class="card">Coming soon...</div>';
+  }
+  
+  main.scrollTop = 0;
+}
+
+function goBack() {
+  if (navHistory.length > 0) {
+    navigateTo(navHistory.pop());
+  } else {
+    navigateTo('dashboard');
   }
 }
 
