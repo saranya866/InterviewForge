@@ -265,7 +265,8 @@ AceCast/
 
 5. Add all Environment Variables (see section below)
 6. Click **"Create Web Service"**
-7. Copy your Render URL: `https://AceCast-4lvh.onrender.com`
+7. Copy your Render URL: `(https://interviewforge-4lvh.onrender.com/)`
+8. `THE PROJECT WAS ORIGINALLY NAMED AS InterviewForge AND LATER RENAMED AS AceCast`
 
 ---
 
@@ -308,12 +309,25 @@ AceCast/
 - No third-party trackers or analytics on user data
 - User data is stored only in your own Aiven MySQL instance
 
+## 🔐 Authentication
+
+- **Technology:** JWT (JSON Web Token) + bcryptjs
+- **Implementation:** Custom code in `server.js`
+- **Password Storage:** bcrypt hashes in Aiven MySQL
+- **Token Storage:** Browser localStorage (expires in 7 days)
+
+### How It Works
+
+1. User registers → Password hashed with bcrypt → Saved to database
+2. User logs in → Password verified → JWT token generated
+3. Token stored in browser → Sent with every API request
+4. Backend verifies token → Grants access to protected routes
 ---
 
 ## 📄 License
 
 ```
-© 2024 SARANYA KIT.
+© 2026 SARANYA KIT.
  All Rights Reserved.
 
 This project and its source code are proprietary.
