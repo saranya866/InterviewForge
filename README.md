@@ -178,18 +178,14 @@ Daily login streaks with milestone XP rewards. 12 unlockable achievement badges 
 ---
 
 ## 🛠️ Tech Stack
- 
-| Layer | Technology | Link |
-|-------|-----------|------|
-| **Frontend** | HTML5, CSS3, JavaScript (ES6+) — single file SPA | [MDN Web Docs](https://developer.mozilla.org) |
-| **Backend** | Node.js 18+, Express 4 | [nodejs.org](https://nodejs.org) · [expressjs.com](https://expressjs.com) |
-| **Database** | MySQL 8+ | [mysql.com](https://www.mysql.com) |
-| **Authentication** | JWT + bcryptjs (12 salt rounds) | [jwt.io](https://jwt.io) · [npmjs: bcryptjs](https://www.npmjs.com/package/bcryptjs) |
-| **Frontend Hosting** | Netlify | [netlify.com](https://www.netlify.com) |
-| **Backend Hosting** | Render | [render.com](https://render.com) |
-| **Database Hosting** | Aiven (MySQL Cloud) | [aiven.io](https://aiven.io) |
-| **Fonts** | Geist, Geist Mono | [Google Fonts](https://fonts.google.com) |
-| **Theming** | CSS Custom Properties — Dark / Light / System | [MDN: CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) |
+
+| Component | Technology | Built/Developed | Hosted On |
+|-----------|------------|-----------------|-----------|
+| **Frontend** | HTML5, CSS3, JavaScript | VS Code | Netlify |
+| **Backend** | Node.js, Express | VS Code | Render |
+| **Database** | MySQL 8.0 | MySQL Workbench | Aiven |
+| **Authentication** | JWT + bcryptjs | Implemented in server.js | — |
+
  
 ---
 
@@ -213,7 +209,7 @@ AceCast/
 ├── package.json            # Node.js dependencies
 ├── package-lock.json       # Dependency lock file
 ├── schema.sql              # MySQL database schema & seed data
-├── fix-db.js               # Database reset / repair utility
+├── fix-db.js               # Database reset / repair
 └── README.md               # This file
 ```
 
