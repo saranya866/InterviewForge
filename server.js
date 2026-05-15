@@ -22,6 +22,28 @@ const pool = mysql.createPool({
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_key_change_me';
 
+// ========== HELPER FUNCTIONS ==========
+
+function getLevel(xp) {
+  if (xp >= 15000) return 'Grandmaster';
+  if (xp >= 7500) return 'Master';
+  if (xp >= 3500) return 'Expert';
+  if (xp >= 1500) return 'Practitioner';
+  if (xp >= 500) return 'Apprentice';
+  return 'Novice';
+}
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Missing token' });
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ error: 'Invalid token' });
+    req.user = user;
+    next();
+  });
+}
+
 // ========== HEALTH CHECK ==========
 app.get('/api/health', async (req, res) => {
   try {
