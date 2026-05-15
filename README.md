@@ -1,5 +1,9 @@
- 🎯 ACECAST - Next-Gen Career Launchpad 
-         (Ace It. Cast It. Own It.)
+<div align="center">
+
+# 🎯 <span style="font-size: 3rem; font-weight: 900;">ACECAST - 🚀 Next-Gen Career Launchpad </span>
+ <span style="font-size: 1.2rem; font-weight: 500;">Ace It. Cast It. Own It.</span>
+
+</div>
 <div align="center">
 
 *"Your Future Starts with the Next Question"*
@@ -353,7 +357,7 @@ without explicit written permission from the author.
 
 ⭐ **If this project helped you, please star the repo!** ⭐
 
-[🌐 Live Demo](https://AceCastbysaranyak.netlify.app) · [🐛 Report Bug](https://github.com/saranya866/AceCast/issues) · [💡 Request Feature](https://github.com/saranya866/AceCast/issues)
+[🌐 Live Demo](https://acecastbysaranyakit.netlify.app/) · [🐛 Report Bug](https://github.com/saranya866/AceCast/issues) · [💡 Request Feature](https://github.com/saranya866/AceCast/issues)
 
 
 </div>
