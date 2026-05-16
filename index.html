@@ -131,10 +131,11 @@ ul{list-style:none}
 .bar{flex:1;background:var(--accent);border-radius:4px 4px 0 0;opacity:0.6;transition:opacity var(--transition);min-height:4px;cursor:default;position:relative}
 .bar:hover{opacity:1}
 .bar-label{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:0.6rem;color:var(--text3);white-space:nowrap}
+/* FIX 4: Quick grid icons use SVG-based approach */
 .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem}
 .quick-btn{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;cursor:pointer;transition:all var(--transition);text-align:left}
 .quick-btn:hover{background:var(--bg3);border-color:var(--border2);transform:translateY(-1px)}
-.quick-icon{font-size:1.25rem;margin-bottom:0.5rem}
+.quick-icon{font-size:1.5rem;margin-bottom:0.5rem;line-height:1;display:block;font-style:normal}
 .quick-title{font-size:0.8125rem;font-weight:600;margin-bottom:0.2rem}
 .quick-desc{font-size:0.72rem;color:var(--text3)}
 .q-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
@@ -249,7 +250,7 @@ ul{list-style:none}
 .q-map-dot.answered{background:var(--accent-bg);border-color:rgba(59,130,246,0.3);color:var(--accent)}
 .q-map-dot.current{background:var(--accent);border-color:var(--accent);color:#fff}
 .q-map-dot.flagged{background:var(--yellow-bg);border-color:var(--yellow);color:var(--yellow)}
-.violation-badge{background:var(--red-bg);border:1px solid var(--red-bg);border-radius:6px;padding:0.375rem 0.75rem;font-size:0.72rem;font-weight:600;color:var(--red)}
+.violation-badge{background:var(--red-bg);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:0.25rem 0.625rem;font-size:0.72rem;font-weight:700;color:var(--red);font-family:var(--mono)}
 .roadmap-phase{background:var(--bg1);border:1px solid var(--border);border-radius:12px;margin-bottom:1rem;overflow:hidden}
 .roadmap-phase-header{padding:1.25rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:background var(--transition)}
 .roadmap-phase-header:hover{background:var(--bg2)}
@@ -282,6 +283,12 @@ ul{list-style:none}
 .result-circle{width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:4px solid var(--green)}
 .result-pct{font-size:2rem;font-weight:800;line-height:1}
 .result-grade{font-size:1rem;font-weight:600;color:var(--green)}
+/* FIX 1: Detailed answer styles */
+.answer-section{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:0.75rem}
+.answer-section-title{font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:0.5rem;display:flex;align-items:center;gap:6px}
+.answer-key-point{display:flex;align-items:flex-start;gap:8px;padding:0.375rem 0;font-size:0.8125rem;color:var(--text2);line-height:1.6;border-bottom:1px solid var(--border)}
+.answer-key-point:last-child{border:none}
+.answer-key-point::before{content:'▸';color:var(--accent);flex-shrink:0;margin-top:2px}
 </style>
 </head>
 <body>
@@ -325,7 +332,7 @@ ul{list-style:none}
       <p style="color:var(--text2);font-size:0.9375rem;max-width:480px;margin:0 auto">One platform to practice, compete, track, and land your dream role.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1200px;margin:0 auto">
-      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--accent-bg)">🧠</div><div><h3 style="margin-bottom:0.375rem">1000+ Interview Questions</h3><p>Curated Q&A across Java, DSA, System Design, SQL, OS, Python, Behavioral and 40+ categories.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Java</span><span class="badge badge-green">DSA</span><span class="badge badge-purple">SQL</span><span class="badge badge-yellow">+40 more</span></div></div>
+      <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--accent-bg)">🧠</div><div><h3 style="margin-bottom:0.375rem">1000+ Interview Questions</h3><p>Curated Q&amp;A across Java, DSA, System Design, SQL, OS, Python, Behavioral and 40+ categories.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Java</span><span class="badge badge-green">DSA</span><span class="badge badge-purple">SQL</span><span class="badge badge-yellow">+40 more</span></div></div>
       <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--purple-bg)">💻</div><div><h3 style="margin-bottom:0.375rem">Coding Challenges</h3><p>8 real LeetCode-style problems — Two Sum, LRU Cache, Merge Intervals and more. Hints, editorial solutions, +XP on solve.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-green">Easy</span><span class="badge badge-yellow">Medium</span><span class="badge badge-red">Hard</span></div></div>
       <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--green-bg)">📝</div><div><h3 style="margin-bottom:0.375rem">Topic-wise Tests</h3><p>Timed tests on Java, DSA, SQL, OS, Networking, System Design. Auto-graded A+–D with XP proportional to your score.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-blue">Timed</span><span class="badge badge-green">Graded</span><span class="badge badge-yellow">+XP</span></div></div>
       <div class="feature-item" style="display:flex;flex-direction:column;gap:0.75rem;background:var(--bg1);border:1px solid var(--border);border-radius:12px"><div class="feature-icon" style="background:var(--red-bg)">🎯</div><div><h3 style="margin-bottom:0.375rem">Mock Interview</h3><p>Simulate a real interview — configurable category, difficulty, and question count. Timed, scored, with model answers.</p></div><div style="margin-top:auto;display:flex;gap:0.375rem;flex-wrap:wrap"><span class="badge badge-red">Timed</span><span class="badge badge-blue">AI Scored</span></div></div>
@@ -491,6 +498,7 @@ ul{list-style:none}
 </div>
 
 <script>
+  
 'use strict';
 
 // ========== BACKEND CONFIGURATION ==========
@@ -503,6 +511,7 @@ let QUESTIONS = [];
 let CODING_PROBLEMS = [];
 let GAMES = [];
 let proctorState = null;
+let STATE = { currentSection: 'dashboard' }; 
 
 // Load session from localStorage
 try {
@@ -639,6 +648,8 @@ window.emailRegister = async function() {
     localStorage.setItem('if_session', JSON.stringify({ user: data.user, token: data.token }));
     currentUser = data.user;
     authToken = data.token;
+    // FIX 3: Save user to local leaderboard cache on register
+    saveUserToLocalLB(data.user);
     await loadData();
     updateSidebar();
     showPage('app');
@@ -658,6 +669,8 @@ window.emailLogin = async function() {
     currentUser = data.user;
     currentUser.initial = currentUser.name[0].toUpperCase();
     localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
+    // FIX 3: Save user to local leaderboard cache on login
+    saveUserToLocalLB(currentUser);
     await loadData();
     updateSidebar();
     showPage('app');
@@ -666,26 +679,112 @@ window.emailLogin = async function() {
   } catch (err) { toast(err.message, 'error'); }
 };
 
-// ========== AWARD XP ==========
-window.awardXP = async function(pts, reason = 'practice') {
+// ========== FIX 3: LOCAL LEADERBOARD HELPERS ==========
+function saveUserToLocalLB(user) {
+  try {
+    const lb = JSON.parse(localStorage.getItem('local_lb') || '[]');
+    const idx = lb.findIndex(u => u.email === user.email);
+    const entry = {
+      name: user.name,
+      email: user.email,
+      role: user.role || 'Student',
+      xp: user.xp || 0,
+      streak: user.streak || 0,
+      level: getLevel(user.xp || 0)
+    };
+    if (idx >= 0) lb[idx] = entry;
+    else lb.push(entry);
+    localStorage.setItem('local_lb', JSON.stringify(lb));
+  } catch(e) {}
+}
+
+function updateLocalLBXP() {
   if (!currentUser) return;
   try {
-    const data = await apiRequest('/xp', 'POST', { amount: pts, reason, questions_delta: 1 }, true);
+    const lb = JSON.parse(localStorage.getItem('local_lb') || '[]');
+    const idx = lb.findIndex(u => u.email === currentUser.email);
+    if (idx >= 0) {
+      lb[idx].xp = currentUser.xp || 0;
+      lb[idx].streak = currentUser.streak || 0;
+      lb[idx].level = getLevel(currentUser.xp || 0);
+    } else {
+      lb.push({
+        name: currentUser.name,
+        email: currentUser.email,
+        role: currentUser.role || 'Student',
+        xp: currentUser.xp || 0,
+        streak: currentUser.streak || 0,
+        level: getLevel(currentUser.xp || 0)
+      });
+    }
+    localStorage.setItem('local_lb', JSON.stringify(lb));
+  } catch(e) {}
+}
+
+function getLocalLB() {
+  try {
+    const lb = JSON.parse(localStorage.getItem('local_lb') || '[]');
+    return lb.sort((a,b) => (b.xp||0) - (a.xp||0));
+  } catch(e) { return []; }
+}
+
+// ========== AWARD XP ==========
+
+window.awardXP = async function(pts, reason = 'practice') {
+  if (!currentUser) {
+    console.log('No user logged in');
+    toast('Please login first', 'error');
+    return;
+  }
+  
+  console.log(`Awarding ${pts} XP for: ${reason}`);
+  
+  try {
+    // Send XP to backend
+    const response = await fetch(API_BASE + '/xp', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify({ 
+        amount: pts, 
+        reason: reason, 
+        questions_delta: 1 
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (!response.ok) throw new Error(data.error || 'XP update failed');
+    
+    // Update local user with data from backend
     currentUser.xp = data.xp;
     currentUser.level = data.level;
+    
+    // Update questions_answered
+    if (!currentUser.questions_answered) currentUser.questions_answered = 0;
+    currentUser.questions_answered += 1;
+    
+    // Save to localStorage
     localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
+    
+    // Update sidebar
     updateSidebar();
+    
     toast(`+${pts} XP earned! 🎉`, 'success');
+    
+    // Refresh dashboard if open (check by currentSection variable or just refresh)
+    const main = document.getElementById('app-main');
+    if (main && main.innerHTML.includes('Start Practice')) {
+      renderDashboard(main);
+    }
+    
   } catch (err) {
-    if (!currentUser.xp) currentUser.xp = 0;
-    currentUser.xp += pts;
-    currentUser.level = getLevel(currentUser.xp);
-    localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
-    updateSidebar();
-    toast(`+${pts} XP earned! 🎉`, 'success');
+    console.error('XP save error:', err);
+    toast(`Failed to save XP: ${err.message}`, 'error');
   }
 };
-
 // ========== LOGOUT ==========
 window.logout = function() {
   authToken = null; currentUser = null;
@@ -694,44 +793,163 @@ window.logout = function() {
   toast('Signed out', 'info');
 };
 
-// ========== DASHBOARD ==========
+// ========== FIX 4: DASHBOARD - Fixed quick access icons ==========
 function renderDashboard(container) {
-  const u = currentUser || {};
-  const xp = u.xp || 0;
-  const level = getLevel(xp);
-  const nextXP = getNextLevelXP(xp);
-  const pct = getProgressPct(xp);
-  container.innerHTML = `
-    <div class="dash-header">
-      <div>
-        <div class="dash-greeting">Good ${new Date().getHours()<12?'morning':'afternoon'}, ${u.name?.split(' ')[0]||'there'}! 👋</div>
-        <div class="dash-sub">Keep practicing to maintain your streak!</div>
+  if (!currentUser) {
+    container.innerHTML = '<div class="card">Please login to view dashboard.</div>';
+    return;
+  }
+  
+  // Fetch latest user data from backend to ensure accuracy
+  fetch(API_BASE + '/leaderboard')
+    .then(res => res.json())
+    .then(leaderboard => {
+      const userFromLB = leaderboard.find(u => u.email === currentUser.email);
+      if (userFromLB && userFromLB.xp !== currentUser.xp) {
+        currentUser.xp = userFromLB.xp;
+        currentUser.level = userFromLB.level || getLevel(userFromLB.xp);
+        currentUser.streak = userFromLB.streak;
+        currentUser.questions_answered = userFromLB.questions_answered || 0;
+        localStorage.setItem('if_session', JSON.stringify({ user: currentUser, token: authToken }));
+        updateSidebar();
+      }
+      renderDashboardContent(container);
+    })
+    .catch(() => renderDashboardContent(container));
+  
+  function renderDashboardContent(container) {
+    const u = currentUser;
+    const xp = u.xp || 0;
+    const level = getLevel(xp);
+    const nextXP = getNextLevelXP(xp);
+    const pct = getProgressPct(xp);
+    
+    container.innerHTML = `
+      <div class="dash-header">
+        <div>
+          <div class="dash-greeting">Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${u.name?.split(' ')[0] || 'there'}! 👋</div>
+          <div class="dash-sub">Keep practicing to maintain your streak!</div>
+        </div>
+        <button class="btn btn-primary" onclick="navigateTo('practice')" style="background:var(--red)">+ Start Practice</button>
       </div>
-      <button class="btn btn-primary" onclick="navigateTo('practice')" style="background:var(--red)">+ Start Practice</button>
-    </div>
-    <div class="xp-card">
-      <div class="xp-top"><span class="xp-name">${u.name||'User'}</span><span class="xp-level">${level}</span></div>
-      <div class="xp-nums"><span>${xp} XP total</span><span>${nextXP > 0 ? nextXP+' XP to next level' : '🏆 Max Level!'}</span></div>
-      <div class="progress"><div class="progress-fill" style="width:${pct}%;background:var(--red)"></div></div>
-    </div>
-    <div class="stats-grid">
-      <div class="stat-card"><div class="stat-val">${u.questions_answered||0}</div><div class="stat-label">Questions Answered</div></div>
-      <div class="stat-card"><div class="stat-val">${u.average_score||0}%</div><div class="stat-label">Avg Score</div></div>
-      <div class="stat-card"><div class="stat-val">🔥 ${u.streak||0}</div><div class="stat-label">Day Streak</div></div>
-      <div class="stat-card"><div class="stat-val">${xp}</div><div class="stat-label">Total XP</div></div>
-    </div>
-    <div style="margin-bottom:1rem"><div class="card-title" style="margin-bottom:0.75rem">Quick Access</div>
-    <div class="quick-grid">
-      <div class="quick-btn" onclick="navigateTo('practice')"><div class="quick-icon">📚</div><div class="quick-title">Practice Q&A</div><div class="quick-desc">1000+ questions</div></div>
-      <div class="quick-btn" onclick="navigateTo('coding')"><div class="quick-icon">💻</div><div class="quick-title">Coding</div><div class="quick-desc">8 challenges</div></div>
-      <div class="quick-btn" onclick="navigateTo('tests')"><div class="quick-icon">📝</div><div class="quick-title">Topic Tests</div><div class="quick-desc">Timed & graded</div></div>
-      <div class="quick-btn" onclick="navigateTo('mock')"><div class="quick-icon">🎯</div><div class="quick-title">Mock Interview</div><div class="quick-desc">Simulate real interview</div></div>
-      <div class="quick-btn" onclick="navigateTo('games')"><div class="quick-icon">🎮</div><div class="quick-title">Games</div><div class="quick-desc">4 skill games</div></div>
-      <div class="quick-btn" onclick="navigateTo('leaderboard')"><div class="quick-icon">🏆</div><div class="quick-title">Leaderboard</div><div class="quick-desc">Your rank</div></div>
-    </div></div>`;
+      
+      <div class="xp-card">
+        <div class="xp-top">
+          <span class="xp-name">${u.name || 'User'}</span>
+          <span class="xp-level">${level}</span>
+        </div>
+        <div class="xp-nums">
+          <span>${xp} XP total</span>
+          <span>${nextXP > 0 ? nextXP + ' XP to next level' : '🏆 Max Level!'}</span>
+        </div>
+        <div class="progress">
+          <div class="progress-fill" style="width:${pct}%; background:var(--red)"></div>
+        </div>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-val">${u.questions_answered || 0}</div><div class="stat-label">Questions Answered</div></div>
+        <div class="stat-card"><div class="stat-val">${u.average_score || 0}%</div><div class="stat-label">Avg Score</div></div>
+        <div class="stat-card"><div class="stat-val">🔥 ${u.streak || 0}</div><div class="stat-label">Day Streak</div></div>
+        <div class="stat-card"><div class="stat-val">${xp}</div><div class="stat-label">Total XP</div></div>
+      </div>
+      
+      <div class="quick-grid">
+        <div class="quick-btn" onclick="navigateTo('practice')"><span class="quick-icon">📚</span><div class="quick-title">Practice Q&A</div><div class="quick-desc">1000+ questions</div></div>
+        <div class="quick-btn" onclick="navigateTo('coding')"><span class="quick-icon">💻</span><div class="quick-title">Coding</div><div class="quick-desc">8 challenges</div></div>
+        <div class="quick-btn" onclick="navigateTo('tests')"><span class="quick-icon">📝</span><div class="quick-title">Topic Tests</div><div class="quick-desc">Timed & graded</div></div>
+        <div class="quick-btn" onclick="navigateTo('mock')"><span class="quick-icon">🎯</span><div class="quick-title">Mock Interview</div><div class="quick-desc">Simulate real interview</div></div>
+        <div class="quick-btn" onclick="navigateTo('games')"><span class="quick-icon">🎮</span><div class="quick-title">Games</div><div class="quick-desc">4 skill games</div></div>
+        <div class="quick-btn" onclick="navigateTo('leaderboard')"><span class="quick-icon">🏆</span><div class="quick-title">Leaderboard</div><div class="quick-desc">Your rank</div></div>
+      </div>
+    `;
+  }
+}
+  
+  
+// ========== FIX 1: PRACTICE - Detailed Answers ==========
+// Extended local detailed answers for common questions when API answer is short
+const DETAILED_ANSWERS = {
+  'What is the difference between == and .equals() in Java?': {
+    summary: '== compares object references (memory addresses). .equals() compares the actual content/value of objects.',
+    points: [
+      '== is an operator that checks if two references point to the exact same object in memory (reference equality).',
+      '.equals() is a method defined in Object class that compares the logical content/value — overridden in String, Integer, etc.',
+      'For primitives (int, char, double), == compares values directly since they are not objects.',
+      'Example: String a = new String("hi"); String b = new String("hi"); — a==b is FALSE but a.equals(b) is TRUE.',
+      'String literals share the string pool, so "hello" == "hello" may be TRUE, but this is unreliable — always use .equals() for strings.',
+      'Best practice: Always use .equals() (or Objects.equals() to avoid NullPointerException) when comparing object content.'
+    ]
+  },
+  'What is a deadlock?': {
+    summary: 'A deadlock is when two or more processes wait indefinitely for resources held by each other, forming a circular dependency where none can proceed.',
+    points: [
+      'Four necessary conditions (Coffman conditions): Mutual Exclusion, Hold and Wait, No Preemption, Circular Wait.',
+      'Example: Thread A holds Lock 1 and waits for Lock 2. Thread B holds Lock 2 and waits for Lock 1 — both wait forever.',
+      'Prevention: Impose a strict ordering on lock acquisition (always acquire Lock 1 before Lock 2).',
+      'Detection: Use a resource allocation graph and detect cycles.',
+      'Recovery: Kill one of the deadlocked processes or forcibly preempt a resource.',
+      'Avoidance: Banker\'s Algorithm checks if granting a resource will lead to a safe state before granting it.'
+    ]
+  },
+  'What is Big O notation?': {
+    summary: 'Big O notation describes the worst-case time or space complexity of an algorithm as input size n grows, ignoring constants and lower-order terms.',
+    points: [
+      'O(1) — Constant: accessing an array element by index. Does not change with input size.',
+      'O(log n) — Logarithmic: binary search. Input is halved each step.',
+      'O(n) — Linear: single loop through n elements.',
+      'O(n log n) — Log-linear: efficient sorts like MergeSort, HeapSort.',
+      'O(n²) — Quadratic: nested loops (bubble sort). Doubles input → 4x time.',
+      'O(2ⁿ) — Exponential: recursive fibonacci without memoization. Extremely slow for large n.',
+      'Constants and lower-order terms are dropped: O(3n + 5) simplifies to O(n).',
+      'Space complexity works the same way — measures extra memory used by the algorithm.'
+    ]
+  }
+};
+
+function getDetailedAnswer(question, modelAnswer) {
+  // Check if we have a pre-built detailed answer
+  for (const key of Object.keys(DETAILED_ANSWERS)) {
+    if (question.toLowerCase().includes(key.toLowerCase().substring(0, 20))) {
+      const d = DETAILED_ANSWERS[key];
+      return buildDetailedHTML(d.summary, d.points, modelAnswer);
+    }
+  }
+  // Otherwise build a structured answer from the model_answer
+  return buildDetailedFromModelAnswer(modelAnswer, question);
 }
 
-// ========== PRACTICE ==========
+function buildDetailedHTML(summary, points, raw) {
+  return `
+    <div class="answer-section">
+      <div class="answer-section-title">📖 Summary</div>
+      <p style="font-size:0.875rem;color:var(--text2);line-height:1.7;margin-bottom:0.875rem">${summary}</p>
+      <div class="answer-section-title">🔑 Key Points</div>
+      ${points.map(p => `<div class="answer-key-point">${p}</div>`).join('')}
+      ${raw && raw.length > 10 ? `<div class="answer-section-title" style="margin-top:0.875rem">📌 Quick Answer</div><p style="font-size:0.8125rem;color:var(--text3);line-height:1.6;font-style:italic">${raw}</p>` : ''}
+    </div>`;
+}
+
+function buildDetailedFromModelAnswer(answer, question) {
+  if (!answer || answer.trim().length < 5) {
+    return `<div class="answer-section"><div class="answer-section-title">📖 Model Answer</div><p style="font-size:0.875rem;color:var(--text2);line-height:1.7">No detailed answer available for this question yet.</p></div>`;
+  }
+  // Split by sentences to create structured points
+  const sentences = answer.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 10);
+  const summary = sentences[0] || answer;
+  const points = sentences.slice(1);
+  
+  return `
+    <div class="answer-section">
+      <div class="answer-section-title">📖 Model Answer</div>
+      <p style="font-size:0.875rem;color:var(--text2);line-height:1.7;margin-bottom:${points.length ? '0.875rem' : '0'}">${summary}</p>
+      ${points.length > 0 ? `
+        <div class="answer-section-title">🔑 Details</div>
+        ${points.map(p => `<div class="answer-key-point">${p.trim()}</div>`).join('')}
+      ` : ''}
+    </div>`;
+}
+
 function renderPractice(container) {
   if (!QUESTIONS.length) {
     container.innerHTML = '<button class="page-back" onclick="goBack()">← Dashboard</button><div class="card">Loading questions from database...</div>';
@@ -741,7 +959,7 @@ function renderPractice(container) {
   container.innerHTML = `
     <button class="page-back" onclick="goBack()">← Dashboard</button>
     <div class="page-title">Practice Questions</div>
-    <p class="page-sub">Click a question to expand the answer. Earn XP for every attempt.</p>
+    <p class="page-sub">Click a question to expand the detailed answer. Earn XP for every attempt.</p>
     <div class="q-filters" id="practice-filters">
       ${categories.map(cat => `<button class="q-filter-btn ${cat==='All'?'active':''}" onclick="filterPractice('${cat}')">${cat}</button>`).join('')}
     </div>
@@ -751,30 +969,44 @@ function renderPractice(container) {
 
 function renderQuestionsList(category) {
   const filtered = category === 'All' ? QUESTIONS : QUESTIONS.filter(q => q.category === category);
-  const html = filtered.map(q => `
-    <div class="q-card" onclick="toggleAnswer(this, ${q.id||0}, ${q.xp_reward||10})">
+  const html = filtered.map((q,i) => `
+    <div class="q-card" id="qcard-${i}" onclick="toggleAnswer(this, ${q.id||0}, ${q.xp_reward||10}, '${(q.text||'').replace(/'/g,"\\'").replace(/"/g,'&quot;')}', '${(q.model_answer||'').replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/\n/g,' ')}')">
       <div class="q-card-header">
         <div class="q-text">${q.text}</div>
-        <span style="color:var(--text3);white-space:nowrap">+${q.xp_reward||10} XP</span>
+        <span style="color:var(--text3);white-space:nowrap;font-size:0.8rem">+${q.xp_reward||10} XP</span>
       </div>
       <div class="q-meta">
         <span class="badge badge-${q.difficulty==='Easy'?'green':q.difficulty==='Medium'?'yellow':'red'}">${q.difficulty||'Medium'}</span>
         <span class="badge badge-gray">${q.category||'General'}</span>
+        <span style="font-size:0.72rem;color:var(--text3);margin-left:auto">Click to expand answer ▼</span>
       </div>
-      <div class="q-expand" style="display:none;margin-top:0.75rem;padding:1rem;background:var(--bg2);border-radius:8px;border:1px solid var(--border)">
-        <div style="font-size:0.75rem;font-weight:600;color:var(--text3);margin-bottom:0.5rem">📖 MODEL ANSWER</div>
-        <div style="font-size:0.875rem;line-height:1.7;color:var(--text2)">${q.model_answer||'No answer provided.'}</div>
-        <button class="btn btn-green btn-sm" style="margin-top:0.75rem" onclick="event.stopPropagation(); earnQXP(this, ${q.xp_reward||10})">✅ Mark Answered · +${q.xp_reward||10} XP</button>
-      </div>
+      <div class="q-expand-body" style="display:none;margin-top:0.75rem"></div>
     </div>`).join('');
   const listEl = document.getElementById('questions-list');
   if (listEl) listEl.innerHTML = html || '<div class="card">No questions in this category yet.</div>';
 }
 
-window.toggleAnswer = function(card, id, xp) {
-  const expand = card.querySelector('.q-expand');
-  expand.style.display = expand.style.display === 'none' ? 'block' : 'none';
+window.toggleAnswer = function(card, id, xp, questionText, modelAnswer) {
+  const expand = card.querySelector('.q-expand-body');
+  const meta = card.querySelector('.q-meta span:last-child');
+  if (expand.style.display === 'none' || expand.style.display === '') {
+    expand.style.display = 'block';
+    if (meta) meta.textContent = 'Click to collapse ▲';
+    // Build detailed answer if not already built
+    if (!expand.dataset.built) {
+      expand.innerHTML = getDetailedAnswer(questionText, modelAnswer) +
+        `<div style="margin-top:0.875rem;display:flex;gap:0.5rem;align-items:center">
+          <button class="btn btn-green btn-sm" onclick="event.stopPropagation(); earnQXP(this, ${xp})">✅ Mark Answered · +${xp} XP</button>
+          <span style="font-size:0.72rem;color:var(--text3)">Click to earn XP for this question</span>
+        </div>`;
+      expand.dataset.built = '1';
+    }
+  } else {
+    expand.style.display = 'none';
+    if (meta) meta.textContent = 'Click to expand answer ▼';
+  }
 };
+
 window.earnQXP = function(btn, xp) {
   btn.disabled = true;
   btn.textContent = '✓ Done!';
@@ -857,76 +1089,76 @@ function showModal(title, body) {
 // ========== TOPIC TESTS ==========
 const TEST_QUESTIONS = {
   Java: [
-    {q:"What is the difference between == and .equals() in Java?",opts:["== checks reference, .equals() checks value","== checks value, .equals() checks reference","Both check value","Both check reference"],ans:0,exp:"== compares object references in memory. .equals() compares the actual content/value."},
-    {q:"Which keyword is used to prevent method overriding in Java?",opts:["static","abstract","final","private"],ans:2,exp:"The 'final' keyword prevents a method from being overridden in subclasses."},
-    {q:"What is autoboxing in Java?",opts:["Converting int to Integer automatically","Converting String to int","Casting a class","None of above"],ans:0,exp:"Autoboxing is the automatic conversion of primitive types (int) to their wrapper class (Integer)."},
-    {q:"Which collection allows duplicate elements and maintains insertion order?",opts:["HashSet","TreeSet","ArrayList","HashMap"],ans:2,exp:"ArrayList allows duplicates and maintains insertion order."},
-    {q:"What does the 'volatile' keyword do?",opts:["Prevents garbage collection","Makes variable thread-safe for visibility","Locks a method","Prevents modification"],ans:1,exp:"volatile ensures a variable's value is always read from main memory, not CPU cache."},
-    {q:"What is the output of: System.out.println(10/3)?",opts:["3.33","3","4","Error"],ans:1,exp:"Integer division in Java truncates the decimal, so 10/3 = 3."},
-    {q:"Which interface does HashMap implement?",opts:["List","Set","Map","Queue"],ans:2,exp:"HashMap implements the Map interface."},
-    {q:"What is a Java interface?",opts:["A class with only static methods","A blueprint with abstract method contracts","A concrete class","A primitive type"],ans:1,exp:"An interface defines abstract methods that implementing classes must override."},
-    {q:"What is the purpose of the 'transient' keyword?",opts:["Thread synchronization","Skip serialization of a field","Mark a method final","Prevent inheritance"],ans:1,exp:"transient fields are excluded from Java serialization."},
-    {q:"What is method overloading?",opts:["Same method name, different parameters","Same method name, different return type only","Overriding parent method","Using static methods"],ans:0,exp:"Method overloading means same method name but different number/type of parameters."}
+    {q:"What is the difference between == and .equals() in Java?",opts:["== checks reference, .equals() checks value","== checks value, .equals() checks reference","Both check value","Both check reference"],ans:0,exp:"== compares object references in memory. .equals() compares the actual content/value. Always use .equals() for String comparison to avoid bugs."},
+    {q:"Which keyword is used to prevent method overriding in Java?",opts:["static","abstract","final","private"],ans:2,exp:"The 'final' keyword prevents a method from being overridden in subclasses. A final class cannot be subclassed at all."},
+    {q:"What is autoboxing in Java?",opts:["Converting int to Integer automatically","Converting String to int","Casting a class","None of above"],ans:0,exp:"Autoboxing is the automatic conversion of primitive types (int) to their wrapper class (Integer). Unboxing is the reverse. Introduced in Java 5."},
+    {q:"Which collection allows duplicate elements and maintains insertion order?",opts:["HashSet","TreeSet","ArrayList","HashMap"],ans:2,exp:"ArrayList allows duplicates and maintains insertion order. It is backed by a resizable array and provides O(1) access by index."},
+    {q:"What does the 'volatile' keyword do?",opts:["Prevents garbage collection","Makes variable thread-safe for visibility","Locks a method","Prevents modification"],ans:1,exp:"volatile ensures a variable's value is always read from main memory, not CPU cache. It guarantees visibility but NOT atomicity."},
+    {q:"What is the output of: System.out.println(10/3)?",opts:["3.33","3","4","Error"],ans:1,exp:"Integer division in Java truncates the decimal, so 10/3 = 3. For decimal result use 10.0/3 or (double)10/3."},
+    {q:"Which interface does HashMap implement?",opts:["List","Set","Map","Queue"],ans:2,exp:"HashMap implements the Map interface. It stores key-value pairs, allows one null key, and provides O(1) average get/put."},
+    {q:"What is a Java interface?",opts:["A class with only static methods","A blueprint with abstract method contracts","A concrete class","A primitive type"],ans:1,exp:"An interface defines abstract methods that implementing classes must override. Since Java 8, interfaces can also have default and static methods."},
+    {q:"What is the purpose of the 'transient' keyword?",opts:["Thread synchronization","Skip serialization of a field","Mark a method final","Prevent inheritance"],ans:1,exp:"transient fields are excluded from Java serialization. Useful for passwords, cached values, or non-serializable objects."},
+    {q:"What is method overloading?",opts:["Same method name, different parameters","Same method name, different return type only","Overriding parent method","Using static methods"],ans:0,exp:"Method overloading means same method name but different number/type/order of parameters. Return type alone cannot distinguish overloads."}
   ],
   DSA: [
-    {q:"What is the time complexity of binary search?",opts:["O(n)","O(n²)","O(log n)","O(1)"],ans:2,exp:"Binary search halves the search space each iteration, giving O(log n) complexity."},
-    {q:"Which data structure uses LIFO?",opts:["Queue","Stack","Linked List","Heap"],ans:1,exp:"Stack uses Last-In-First-Out (LIFO) order."},
-    {q:"What is the worst-case time complexity of QuickSort?",opts:["O(n log n)","O(n)","O(n²)","O(log n)"],ans:2,exp:"QuickSort's worst case is O(n²) when pivot is always the smallest or largest element."},
-    {q:"Which traversal visits left, root, right?",opts:["Preorder","Postorder","Inorder","Level order"],ans:2,exp:"Inorder traversal: Left → Root → Right. It gives sorted output for BST."},
-    {q:"What is the space complexity of Merge Sort?",opts:["O(1)","O(log n)","O(n)","O(n²)"],ans:2,exp:"Merge Sort needs O(n) extra space for the temporary arrays during merging."},
+    {q:"What is the time complexity of binary search?",opts:["O(n)","O(n²)","O(log n)","O(1)"],ans:2,exp:"Binary search halves the search space each iteration, giving O(log n) complexity. Requires a sorted array to work correctly."},
+    {q:"Which data structure uses LIFO?",opts:["Queue","Stack","Linked List","Heap"],ans:1,exp:"Stack uses Last-In-First-Out (LIFO) order. Used for function call stack, undo operations, expression parsing."},
+    {q:"What is the worst-case time complexity of QuickSort?",opts:["O(n log n)","O(n)","O(n²)","O(log n)"],ans:2,exp:"QuickSort's worst case is O(n²) when pivot is always the smallest or largest element. Average case is O(n log n). Randomized pivot avoids this."},
+    {q:"Which traversal visits left, root, right?",opts:["Preorder","Postorder","Inorder","Level order"],ans:2,exp:"Inorder traversal: Left → Root → Right. It gives sorted output for BST. Preorder: Root→Left→Right. Postorder: Left→Right→Root."},
+    {q:"What is the space complexity of Merge Sort?",opts:["O(1)","O(log n)","O(n)","O(n²)"],ans:2,exp:"Merge Sort needs O(n) extra space for the temporary arrays during merging. It is stable but uses more memory than QuickSort."},
     {q:"A complete binary tree with n nodes has how many leaf nodes?",opts:["n/2","⌈n/2⌉","n-1","n"],ans:1,exp:"A complete binary tree with n nodes has ⌈n/2⌉ leaf nodes."},
-    {q:"Which algorithm is used to find shortest path in weighted graph?",opts:["BFS","DFS","Dijkstra's","Floyd-Warshall only"],ans:2,exp:"Dijkstra's algorithm finds shortest paths in weighted graphs with non-negative weights."},
-    {q:"What is a HashMap's average-case get() complexity?",opts:["O(n)","O(log n)","O(1)","O(n log n)"],ans:2,exp:"HashMap provides O(1) average-case for get/put due to hash-based indexing."},
-    {q:"Dynamic programming solves problems by:",opts:["Brute force","Storing solutions to subproblems","Random selection","Divide only"],ans:1,exp:"DP solves each subproblem once and stores results (memoization/tabulation)."},
-    {q:"What data structure is used in BFS?",opts:["Stack","Queue","Heap","Tree"],ans:1,exp:"BFS uses a Queue (FIFO) to explore nodes level by level."}
+    {q:"Which algorithm is used to find shortest path in weighted graph?",opts:["BFS","DFS","Dijkstra's","Floyd-Warshall only"],ans:2,exp:"Dijkstra's algorithm finds shortest paths in weighted graphs with non-negative weights using a priority queue (O(E log V))."},
+    {q:"What is a HashMap's average-case get() complexity?",opts:["O(n)","O(log n)","O(1)","O(n log n)"],ans:2,exp:"HashMap provides O(1) average-case for get/put due to hash-based indexing. Worst case is O(n) due to hash collisions."},
+    {q:"Dynamic programming solves problems by:",opts:["Brute force","Storing solutions to subproblems","Random selection","Divide only"],ans:1,exp:"DP solves each subproblem once and stores results (memoization/tabulation). Avoids redundant computation in recursive problems."},
+    {q:"What data structure is used in BFS?",opts:["Stack","Queue","Heap","Tree"],ans:1,exp:"BFS uses a Queue (FIFO) to explore nodes level by level. DFS uses a Stack (or recursion)."}
   ],
   SQL: [
-    {q:"Which SQL clause filters groups?",opts:["WHERE","GROUP BY","HAVING","ORDER BY"],ans:2,exp:"HAVING filters after GROUP BY. WHERE filters individual rows before grouping."},
-    {q:"What does DISTINCT do?",opts:["Removes null values","Returns unique rows","Sorts results","Joins tables"],ans:1,exp:"SELECT DISTINCT returns only unique (non-duplicate) rows."},
-    {q:"Which JOIN returns all rows from both tables?",opts:["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL OUTER JOIN"],ans:3,exp:"FULL OUTER JOIN returns all rows from both tables, with NULLs where no match exists."},
-    {q:"What is a PRIMARY KEY?",opts:["Any indexed column","A unique, non-null identifier for each row","A foreign key reference","A computed column"],ans:1,exp:"PRIMARY KEY uniquely identifies each row and cannot be NULL."},
-    {q:"Which function returns the number of rows?",opts:["SUM()","MAX()","COUNT()","AVG()"],ans:2,exp:"COUNT() returns the number of rows matching a condition."},
-    {q:"What does COALESCE() do?",opts:["Concatenates strings","Returns first non-NULL value","Converts data types","Groups results"],ans:1,exp:"COALESCE(a,b,c) returns the first non-NULL value among its arguments."},
-    {q:"What is normalization?",opts:["Speeding up queries","Organizing data to reduce redundancy","Adding indexes","Backing up data"],ans:1,exp:"Normalization organizes tables to reduce data redundancy and improve data integrity."},
-    {q:"Which SQL command removes all rows without logging?",opts:["DELETE","DROP","TRUNCATE","REMOVE"],ans:2,exp:"TRUNCATE removes all rows quickly without logging individual row deletions."},
-    {q:"What is an INDEX used for?",opts:["Restricting access","Speeding up data retrieval","Joining tables","Encrypting data"],ans:1,exp:"Indexes speed up SELECT queries by allowing the DB to find rows without scanning all data."},
-    {q:"What does GROUP BY do?",opts:["Sorts output","Filters rows","Groups rows sharing a value for aggregate functions","Joins tables"],ans:2,exp:"GROUP BY groups rows with the same values so aggregate functions (SUM, COUNT) apply per group."}
+    {q:"Which SQL clause filters groups?",opts:["WHERE","GROUP BY","HAVING","ORDER BY"],ans:2,exp:"HAVING filters after GROUP BY. WHERE filters individual rows before grouping. HAVING can use aggregate functions; WHERE cannot."},
+    {q:"What does DISTINCT do?",opts:["Removes null values","Returns unique rows","Sorts results","Joins tables"],ans:1,exp:"SELECT DISTINCT returns only unique (non-duplicate) rows. It applies to the combination of all selected columns."},
+    {q:"Which JOIN returns all rows from both tables?",opts:["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL OUTER JOIN"],ans:3,exp:"FULL OUTER JOIN returns all rows from both tables, with NULLs where no match exists. Not supported in MySQL (use UNION of LEFT and RIGHT JOIN)."},
+    {q:"What is a PRIMARY KEY?",opts:["Any indexed column","A unique, non-null identifier for each row","A foreign key reference","A computed column"],ans:1,exp:"PRIMARY KEY uniquely identifies each row and cannot be NULL. A table can have only one primary key but it can span multiple columns (composite key)."},
+    {q:"Which function returns the number of rows?",opts:["SUM()","MAX()","COUNT()","AVG()"],ans:2,exp:"COUNT() returns the number of rows matching a condition. COUNT(*) counts all rows; COUNT(col) skips NULLs."},
+    {q:"What does COALESCE() do?",opts:["Concatenates strings","Returns first non-NULL value","Converts data types","Groups results"],ans:1,exp:"COALESCE(a,b,c) returns the first non-NULL value among its arguments. Useful for providing default values."},
+    {q:"What is normalization?",opts:["Speeding up queries","Organizing data to reduce redundancy","Adding indexes","Backing up data"],ans:1,exp:"Normalization organizes tables to reduce data redundancy and improve data integrity through normal forms (1NF, 2NF, 3NF, BCNF)."},
+    {q:"Which SQL command removes all rows without logging?",opts:["DELETE","DROP","TRUNCATE","REMOVE"],ans:2,exp:"TRUNCATE removes all rows quickly without logging individual row deletions. Cannot be rolled back in most DBs. DROP removes the table itself."},
+    {q:"What is an INDEX used for?",opts:["Restricting access","Speeding up data retrieval","Joining tables","Encrypting data"],ans:1,exp:"Indexes speed up SELECT queries by allowing the DB to find rows without scanning all data. They slow down INSERT/UPDATE/DELETE slightly."},
+    {q:"What does GROUP BY do?",opts:["Sorts output","Filters rows","Groups rows sharing a value for aggregate functions","Joins tables"],ans:2,exp:"GROUP BY groups rows with the same values so aggregate functions (SUM, COUNT, AVG) apply per group, not the whole table."}
   ],
   OS: [
-    {q:"What is a deadlock?",opts:["Memory overflow","Two processes waiting for each other's resources indefinitely","CPU overload","A crashed process"],ans:1,exp:"Deadlock: processes circularly wait for resources held by each other — none can proceed."},
-    {q:"Which scheduling algorithm gives CPU to shortest job first?",opts:["FCFS","Round Robin","SJF","Priority"],ans:2,exp:"Shortest Job First (SJF) selects the process with the smallest burst time."},
-    {q:"What is virtual memory?",opts:["RAM extension using disk","CPU cache","GPU memory","Physical RAM"],ans:0,exp:"Virtual memory uses disk space to extend apparent RAM, allowing larger programs to run."},
-    {q:"What is a semaphore used for?",opts:["File management","Process synchronization","Memory allocation","CPU scheduling"],ans:1,exp:"Semaphores are synchronization primitives to control access to shared resources."},
-    {q:"Which is NOT a valid process state?",opts:["Running","Ready","Sleeping","Compiling"],ans:3,exp:"Valid states: Running, Ready, Blocked/Waiting. 'Compiling' is not a process state."},
-    {q:"What is thrashing?",opts:["High CPU usage","Excessive paging causing low CPU utilization","Memory leak","Disk fragmentation"],ans:1,exp:"Thrashing occurs when a system spends more time paging than executing processes."},
-    {q:"What is a context switch?",opts:["Switching keyboard input","Saving/restoring CPU state when switching processes","Changing OS","Swapping memory"],ans:1,exp:"Context switch saves the current process state and loads another process's saved state."},
-    {q:"Mutex vs Semaphore: Mutex is used when?",opts:["Counting resources","Only one thread should access a resource","Multiple readers","Broadcast signaling"],ans:1,exp:"Mutex (Mutual Exclusion) ensures only one thread/process accesses a critical section at a time."},
-    {q:"What does the page table store?",opts:["Physical memory addresses for virtual page numbers","Running processes","File locations","CPU registers"],ans:0,exp:"Page table maps virtual page numbers to physical frame addresses in RAM."},
-    {q:"Which is a non-preemptive scheduling algorithm?",opts:["Round Robin","SRTF","FCFS","Priority (preemptive)"],ans:2,exp:"FCFS (First Come First Served) is non-preemptive — once a process runs, it can't be interrupted."}
+    {q:"What is a deadlock?",opts:["Memory overflow","Two processes waiting for each other's resources indefinitely","CPU overload","A crashed process"],ans:1,exp:"Deadlock: processes circularly wait for resources held by each other. Four conditions: Mutual Exclusion, Hold & Wait, No Preemption, Circular Wait."},
+    {q:"Which scheduling algorithm gives CPU to shortest job first?",opts:["FCFS","Round Robin","SJF","Priority"],ans:2,exp:"Shortest Job First (SJF) selects the process with the smallest burst time. Minimizes average waiting time but can starve long processes."},
+    {q:"What is virtual memory?",opts:["RAM extension using disk","CPU cache","GPU memory","Physical RAM"],ans:0,exp:"Virtual memory uses disk space (swap/page file) to extend apparent RAM. Allows programs larger than physical RAM to run via paging."},
+    {q:"What is a semaphore used for?",opts:["File management","Process synchronization","Memory allocation","CPU scheduling"],ans:1,exp:"Semaphores are synchronization primitives to control access to shared resources. Binary semaphore = mutex. Counting semaphore manages N resources."},
+    {q:"Which is NOT a valid process state?",opts:["Running","Ready","Sleeping","Compiling"],ans:3,exp:"Valid states: New, Ready, Running, Blocked/Waiting, Terminated. 'Compiling' is not a process state — it's a developer activity."},
+    {q:"What is thrashing?",opts:["High CPU usage","Excessive paging causing low CPU utilization","Memory leak","Disk fragmentation"],ans:1,exp:"Thrashing occurs when a system spends more time paging (swapping pages in/out) than executing processes. Fixed by reducing multiprogramming degree."},
+    {q:"What is a context switch?",opts:["Switching keyboard input","Saving/restoring CPU state when switching processes","Changing OS","Swapping memory"],ans:1,exp:"Context switch saves the current process's CPU registers/state (PCB) and loads another process's saved state. Has overhead — reduces CPU efficiency."},
+    {q:"Mutex vs Semaphore: Mutex is used when?",opts:["Counting resources","Only one thread should access a resource","Multiple readers","Broadcast signaling"],ans:1,exp:"Mutex (Mutual Exclusion) ensures only one thread/process accesses a critical section at a time. It has ownership — only the locker can unlock it."},
+    {q:"What does the page table store?",opts:["Physical memory addresses for virtual page numbers","Running processes","File locations","CPU registers"],ans:0,exp:"Page table maps virtual page numbers to physical frame addresses in RAM. Each process has its own page table managed by the OS/MMU."},
+    {q:"Which is a non-preemptive scheduling algorithm?",opts:["Round Robin","SRTF","FCFS","Priority (preemptive)"],ans:2,exp:"FCFS (First Come First Served) is non-preemptive — once a process runs, it holds CPU until done or blocks. Simple but can cause convoy effect."}
   ],
   Networking: [
-    {q:"What does DNS stand for?",opts:["Domain Name System","Data Network Service","Direct Network Switch","Digital Name Server"],ans:0,exp:"DNS (Domain Name System) translates human-readable domain names to IP addresses."},
-    {q:"Which protocol is used for secure HTTP?",opts:["FTP","SSH","HTTPS","SMTP"],ans:2,exp:"HTTPS uses TLS/SSL to encrypt HTTP communication."},
-    {q:"What is the default port for HTTP?",opts:["21","443","80","22"],ans:2,exp:"HTTP uses port 80. HTTPS uses port 443."},
-    {q:"Which layer of OSI handles routing?",opts:["Layer 2","Layer 3","Layer 4","Layer 7"],ans:1,exp:"Layer 3 (Network layer) handles routing using IP addresses."},
-    {q:"What does TCP guarantee that UDP doesn't?",opts:["Speed","Multicast","Reliable, ordered delivery","Low latency"],ans:2,exp:"TCP provides reliable, ordered, error-checked delivery. UDP is faster but unreliable."},
-    {q:"What is ARP used for?",opts:["Resolving domain names","Mapping IP to MAC address","Encrypting data","Routing packets"],ans:1,exp:"ARP (Address Resolution Protocol) maps an IP address to a physical MAC address."},
-    {q:"What is the subnet mask for a /24 network?",opts:["255.0.0.0","255.255.0.0","255.255.255.0","255.255.255.128"],ans:2,exp:"/24 means 24 bits for network, so subnet mask is 255.255.255.0."},
-    {q:"Which protocol sends email?",opts:["POP3","IMAP","SMTP","FTP"],ans:2,exp:"SMTP (Simple Mail Transfer Protocol) is used to send emails."},
-    {q:"What is a firewall?",opts:["Antivirus","Network security device filtering traffic","Data storage","DNS server"],ans:1,exp:"A firewall monitors and controls incoming/outgoing network traffic based on rules."},
-    {q:"What does CDN stand for?",opts:["Central Data Node","Content Delivery Network","Compressed Data Network","Core DNS Node"],ans:1,exp:"CDN (Content Delivery Network) serves content from geographically distributed servers for speed."}
+    {q:"What does DNS stand for?",opts:["Domain Name System","Data Network Service","Direct Network Switch","Digital Name Server"],ans:0,exp:"DNS (Domain Name System) translates human-readable domain names (google.com) to IP addresses. Uses UDP port 53. Hierarchical and distributed."},
+    {q:"Which protocol is used for secure HTTP?",opts:["FTP","SSH","HTTPS","SMTP"],ans:2,exp:"HTTPS uses TLS/SSL to encrypt HTTP communication. Uses port 443. Provides confidentiality, integrity, and authentication via certificates."},
+    {q:"What is the default port for HTTP?",opts:["21","443","80","22"],ans:2,exp:"HTTP uses port 80. HTTPS uses port 443. FTP: 21. SSH: 22. SMTP: 25. DNS: 53."},
+    {q:"Which layer of OSI handles routing?",opts:["Layer 2","Layer 3","Layer 4","Layer 7"],ans:1,exp:"Layer 3 (Network layer) handles routing using IP addresses. Layer 2 (Data Link) handles MAC addresses. Layer 4 (Transport) handles TCP/UDP."},
+    {q:"What does TCP guarantee that UDP doesn't?",opts:["Speed","Multicast","Reliable, ordered delivery","Low latency"],ans:2,exp:"TCP provides reliable, ordered, error-checked delivery with acknowledgments. UDP is faster but unreliable — used for video, DNS, gaming."},
+    {q:"What is ARP used for?",opts:["Resolving domain names","Mapping IP to MAC address","Encrypting data","Routing packets"],ans:1,exp:"ARP (Address Resolution Protocol) maps an IP address to a physical MAC address within a local network. Results are cached in the ARP table."},
+    {q:"What is the subnet mask for a /24 network?",opts:["255.0.0.0","255.255.0.0","255.255.255.0","255.255.255.128"],ans:2,exp:"/24 means 24 bits for network, 8 bits for hosts. Subnet mask: 255.255.255.0. Supports 254 usable host addresses."},
+    {q:"Which protocol sends email?",opts:["POP3","IMAP","SMTP","FTP"],ans:2,exp:"SMTP (Simple Mail Transfer Protocol) sends emails (port 25/587). POP3 downloads emails. IMAP syncs emails across devices (keeps on server)."},
+    {q:"What is a firewall?",opts:["Antivirus","Network security device filtering traffic","Data storage","DNS server"],ans:1,exp:"A firewall monitors and controls incoming/outgoing network traffic based on security rules. Can be stateless (packet filter) or stateful."},
+    {q:"What does CDN stand for?",opts:["Central Data Node","Content Delivery Network","Compressed Data Network","Core DNS Node"],ans:1,exp:"CDN (Content Delivery Network) serves content from geographically distributed edge servers close to users, reducing latency and load on origin."}
   ],
   'System Design': [
-    {q:"What is horizontal scaling?",opts:["Adding more CPU/RAM to one server","Adding more servers","Upgrading database","Adding cache"],ans:1,exp:"Horizontal scaling (scale-out) adds more machines. Vertical scaling (scale-up) upgrades one machine."},
-    {q:"What is a load balancer?",opts:["Database optimizer","Distributes traffic across multiple servers","Code compiler","Firewall"],ans:1,exp:"A load balancer distributes incoming requests across multiple servers to prevent overload."},
-    {q:"What does CAP theorem state?",opts:["Speed, Accuracy, Price tradeoff","Consistency, Availability, Partition tolerance — pick 2","CPU, API, Process","None"],ans:1,exp:"CAP theorem: a distributed system can guarantee at most 2 of: Consistency, Availability, Partition tolerance."},
-    {q:"What is a CDN primarily used for?",opts:["Database replication","Delivering static assets from edge servers close to users","Load balancing APIs","Authentication"],ans:1,exp:"CDN serves static content (images, JS, CSS) from servers near the user to reduce latency."},
-    {q:"Which database is better for flexible schemas?",opts:["MySQL","PostgreSQL","MongoDB","Oracle"],ans:2,exp:"MongoDB (NoSQL, document store) allows flexible, schema-less JSON documents."},
-    {q:"What is database sharding?",opts:["Replication across regions","Partitioning data across multiple databases","Encrypting data","Indexing strategy"],ans:1,exp:"Sharding splits data across multiple database instances (shards) for horizontal scalability."},
-    {q:"What is eventual consistency?",opts:["All nodes always agree","Data may temporarily differ but will converge","No consistency guarantee","ACID guarantee"],ans:1,exp:"Eventual consistency: given no new updates, all replicas will eventually converge to the same value."},
-    {q:"What is Redis typically used for?",opts:["Primary database","In-memory cache and message broker","File storage","Full-text search"],ans:1,exp:"Redis is an in-memory data store used for caching, sessions, pub/sub, and queues."},
-    {q:"What is a microservices architecture?",opts:["Single large application","Application split into small, independently deployable services","Monolithic API","Only for mobile apps"],ans:1,exp:"Microservices break an app into small services that communicate via APIs, enabling independent deployment."},
-    {q:"What is a message queue used for?",opts:["Direct database access","Async communication between services, decoupling producers and consumers","UI rendering","DNS resolution"],ans:1,exp:"Message queues (Kafka, RabbitMQ) enable asynchronous, decoupled communication between services."}
+    {q:"What is horizontal scaling?",opts:["Adding more CPU/RAM to one server","Adding more servers","Upgrading database","Adding cache"],ans:1,exp:"Horizontal scaling (scale-out) adds more machines. Vertical scaling (scale-up) upgrades one machine. Horizontal is preferred for high availability."},
+    {q:"What is a load balancer?",opts:["Database optimizer","Distributes traffic across multiple servers","Code compiler","Firewall"],ans:1,exp:"A load balancer distributes incoming requests across multiple servers. Algorithms: Round Robin, Least Connections, IP Hash. Prevents overload."},
+    {q:"What does CAP theorem state?",opts:["Speed, Accuracy, Price tradeoff","Consistency, Availability, Partition tolerance — pick 2","CPU, API, Process","None"],ans:1,exp:"CAP theorem: a distributed system can guarantee at most 2 of: Consistency (all nodes see same data), Availability (always responds), Partition tolerance (survives network splits)."},
+    {q:"What is a CDN primarily used for?",opts:["Database replication","Delivering static assets from edge servers close to users","Load balancing APIs","Authentication"],ans:1,exp:"CDN serves static content (images, JS, CSS, videos) from servers near the user to reduce latency. Examples: Cloudflare, Akamai, AWS CloudFront."},
+    {q:"Which database is better for flexible schemas?",opts:["MySQL","PostgreSQL","MongoDB","Oracle"],ans:2,exp:"MongoDB (NoSQL, document store) allows flexible, schema-less JSON documents. Great for rapidly changing data structures and horizontal scaling."},
+    {q:"What is database sharding?",opts:["Replication across regions","Partitioning data across multiple databases","Encrypting data","Indexing strategy"],ans:1,exp:"Sharding splits data across multiple database instances (shards) based on a shard key (e.g., user_id % N). Enables horizontal scalability."},
+    {q:"What is eventual consistency?",opts:["All nodes always agree","Data may temporarily differ but will converge","No consistency guarantee","ACID guarantee"],ans:1,exp:"Eventual consistency: given no new updates, all replicas will eventually converge to the same value. Used in DynamoDB, Cassandra."},
+    {q:"What is Redis typically used for?",opts:["Primary database","In-memory cache and message broker","File storage","Full-text search"],ans:1,exp:"Redis is an in-memory data store used for caching, session management, pub/sub messaging, rate limiting, and leaderboards."},
+    {q:"What is a microservices architecture?",opts:["Single large application","Application split into small, independently deployable services","Monolithic API","Only for mobile apps"],ans:1,exp:"Microservices break an app into small services that communicate via APIs (REST/gRPC/messages), enabling independent deployment and scaling."},
+    {q:"What is a message queue used for?",opts:["Direct database access","Async communication between services, decoupling producers and consumers","UI rendering","DNS resolution"],ans:1,exp:"Message queues (Kafka, RabbitMQ, SQS) enable asynchronous, decoupled communication. Producers write; consumers read at their own pace."}
   ]
 };
 
@@ -940,21 +1172,52 @@ function renderTests(container) {
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem" id="test-topic-grid">
       ${Object.keys(TEST_QUESTIONS).map(topic => {
         const hist = JSON.parse(localStorage.getItem('test_hist_'+topic)||'null');
-        return `<div class="card" style="cursor:pointer;transition:all 0.2s" onmouseenter="this.style.borderColor='var(--accent)'" onmouseleave="this.style.borderColor=''" onclick="startTest('${topic}')">
-          <div style="font-size:2rem;margin-bottom:0.75rem">${{Java:'☕',DSA:'🔗',SQL:'🗄️',OS:'🖥️',Networking:'🌐','System Design':'🏗️'}[topic]||'📚'}</div>
-          <div style="font-weight:600;margin-bottom:0.25rem">${topic}</div>
-          <div style="font-size:0.75rem;color:var(--text3);margin-bottom:0.75rem">10 questions · 10 min</div>
-          ${hist ? `<div class="badge badge-${hist.grade==='A+'||hist.grade==='A'?'green':hist.grade==='B'?'blue':'yellow'}">${hist.grade} · ${hist.score}%</div>` : '<div class="badge badge-gray">Not attempted</div>'}
-          <button class="btn btn-primary btn-sm" style="margin-top:0.75rem;width:100%;justify-content:center;background:var(--red);border-color:var(--red)">${hist?'Retake':'Start Test'}</button>
-        </div>`;
+        return `
+          <div class="card test-card" data-topic="${topic}" style="cursor:pointer;transition:all 0.2s">
+            <div style="font-size:2rem;margin-bottom:0.75rem">${{Java:'☕',DSA:'🔗',SQL:'🗄️',OS:'🖥️',Networking:'🌐','System Design':'🏗️'}[topic]||'📚'}</div>
+            <div style="font-weight:600;margin-bottom:0.25rem">${topic}</div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-bottom:0.75rem">10 questions · 10 min</div>
+            ${hist ? `<div class="badge badge-${hist.grade==='A+'||hist.grade==='A'?'green':hist.grade==='B'?'blue':'yellow'}">${hist.grade} · ${hist.score}%</div>` : '<div class="badge badge-gray">Not attempted</div>'}
+            <button class="btn btn-primary btn-sm start-test-btn" data-topic="${topic}" style="margin-top:0.75rem;width:100%;justify-content:center;background:var(--red);border-color:var(--red)">${hist?'Retake':'Start Test'}</button>
+          </div>
+        `;
       }).join('')}
-    </div>`;
+    </div>
+  `;
+  
+  // Add event listeners for test cards
+  document.querySelectorAll('.test-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Don't trigger if clicking the button (button has its own handler)
+      if (e.target.classList.contains('start-test-btn')) return;
+      const topic = card.dataset.topic;
+      if (topic) startTest(topic);
+    });
+  });
+  
+  document.querySelectorAll('.start-test-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const topic = btn.dataset.topic;
+      if (topic) startTest(topic);
+    });
+  });
 }
-
 window.startTest = function(topic) {
   const qs = TEST_QUESTIONS[topic];
-  if (!qs) return;
-  activeTest = { topic, qs, current:0, answers:[], startTime:Date.now(), duration:600, timerInterval:null };
+  if (!qs) {
+    toast('Test questions not found', 'error');
+    return;
+  }
+  activeTest = { 
+    topic, 
+    qs, 
+    current: 0, 
+    answers: [], 
+    startTime: Date.now(), 
+    duration: 600, 
+    timerInterval: null 
+  };
   renderTestQuestion();
 };
 
@@ -1129,7 +1392,6 @@ window.startMockInterview = function() {
   const count = parseInt(document.getElementById('mock-count').value);
   const timePerQ = parseInt(document.getElementById('mock-time').value);
   
-  // Build question pool
   let pool = [];
   if (category === 'Mixed') {
     Object.values(TEST_QUESTIONS).forEach(arr => pool.push(...arr));
@@ -1137,7 +1399,6 @@ window.startMockInterview = function() {
     pool = TEST_QUESTIONS[category] || [];
   }
   
-  // Supplement with QUESTIONS from API
   const apiQs = QUESTIONS.filter(q => {
     const catMatch = category === 'Mixed' || q.category === category;
     const diffMatch = difficulty === 'All' || q.difficulty === difficulty;
@@ -1333,7 +1594,6 @@ function renderExam(container) {
 
 window.beginProctorExam = function() {
   const count = parseInt(document.getElementById('exam-count').value);
-  // Build question pool from test questions
   let pool = [];
   Object.values(TEST_QUESTIONS).forEach(arr => pool.push(...arr.filter(q=>q.opts)));
   pool = pool.sort(()=>Math.random()-0.5).slice(0,count);
@@ -1341,10 +1601,8 @@ window.beginProctorExam = function() {
   proctorAnswers = {};
   proctorCurrent = 0;
   proctorViolations = { tabSwitches:0, fullscreenExits:0, pasteAttempts:0, rightClicks:0 };
-  proctorTimeLeft = count * 120; // 2 min per question
+  proctorTimeLeft = count * 120;
   setupProctorListeners();
-  
-  // Request fullscreen
   document.documentElement.requestFullscreen?.().catch(()=>{});
   renderProctorExam();
 };
@@ -1398,14 +1656,29 @@ function handleFullscreenChange() {
     setTimeout(() => document.documentElement.requestFullscreen?.().catch(()=>{}), 1000);
   }
 }
+
+// ========== FIX 2: VIOLATIONS - Update both header badges AND sidebar detail panel ==========
 function updateViolationDisplay() {
-  const el = document.getElementById('proctor-violations');
-  if (el) {
-    el.innerHTML = `<span class="violation-badge">Tab: ${proctorViolations.tabSwitches}</span>
+  // Update header badges
+  const headerEl = document.getElementById('proctor-violations');
+  if (headerEl) {
+    headerEl.innerHTML = `
+      <span class="violation-badge">Tab: ${proctorViolations.tabSwitches}</span>
       <span class="violation-badge">FS: ${proctorViolations.fullscreenExits}</span>
       <span class="violation-badge">Paste: ${proctorViolations.pasteAttempts}</span>`;
   }
+  // Update sidebar detail panel
+  const detailEl = document.getElementById('proctor-v-detail');
+  if (detailEl) {
+    const labels = {tabSwitches:'Tab Switches', fullscreenExits:'Fullscreen Exits', pasteAttempts:'Paste Attempts', rightClicks:'Right Clicks'};
+    detailEl.innerHTML = Object.entries(proctorViolations).map(([k,v])=>
+      `<div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text2)">${labels[k]||k}</span>
+        <span style="font-weight:700;font-family:var(--mono);color:${v>0?'var(--red)':'var(--green)'}">${v}</span>
+      </div>`).join('');
+  }
 }
+
 function terminateExam() { submitProctorExam(true); }
 
 function renderProctorExam() {
@@ -1416,17 +1689,17 @@ function renderProctorExam() {
   container.innerHTML = `
     <div style="display:flex;flex-direction:column;height:100vh;overflow:hidden">
       <div class="proctor-header">
-        <div style="display:flex;align-items:center;gap:9px;font-weight:700"><div class="nav-logo" style="width:24px;height:24px;font-size:10px">🔒</div>Proctored Exam</div>
-        <div style="font-family:var(--mono);font-size:1.125rem;font-weight:700;color:var(--red)" id="proctor-timer"></div>
+        <div style="display:flex;align-items:center;gap:9px;font-weight:700;flex-shrink:0"><div class="nav-logo" style="width:24px;height:24px;font-size:10px">🔒</div>Proctored Exam</div>
+        <div style="font-family:var(--mono);font-size:1.125rem;font-weight:700;color:var(--red)" id="proctor-timer">--:--</div>
         <div style="font-size:0.75rem;color:var(--text3)" id="proctor-qnum">Q 1 / ${proctorQuestions.length}</div>
-        <div style="display:flex;gap:0.375rem;align-items:center" id="proctor-violations">
+        <div style="display:flex;gap:0.375rem;align-items:center;flex-wrap:wrap" id="proctor-violations">
           <span class="violation-badge">Tab: 0</span>
           <span class="violation-badge">FS: 0</span>
           <span class="violation-badge">Paste: 0</span>
         </div>
         <button class="btn btn-danger btn-sm" onclick="confirmEndExam()" style="margin-left:auto">End Exam</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 260px;flex:1;overflow:hidden" id="proctor-body">
+      <div style="display:grid;grid-template-columns:1fr 260px;flex:1;overflow:hidden">
         <div id="proctor-main" style="padding:2rem;overflow-y:auto"></div>
         <div style="border-left:1px solid var(--border);padding:1.25rem;overflow-y:auto;background:var(--bg1)">
           <div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.75rem">Question Map</div>
@@ -1434,7 +1707,10 @@ function renderProctorExam() {
           <div style="margin-top:1.25rem">
             <div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.5rem">Violations</div>
             <div id="proctor-v-detail">
-              ${Object.entries(proctorViolations).map(([k,v])=>`<div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">${k}</span><span style="font-weight:700;font-family:var(--mono)">${v}</span></div>`).join('')}
+              <div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Tab Switches</span><span style="font-weight:700;font-family:var(--mono);color:var(--green)">0</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Fullscreen Exits</span><span style="font-weight:700;font-family:var(--mono);color:var(--green)">0</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Paste Attempts</span><span style="font-weight:700;font-family:var(--mono);color:var(--green)">0</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:0.75rem;padding:0.3rem 0"><span style="color:var(--text2)">Right Clicks</span><span style="font-weight:700;font-family:var(--mono);color:var(--green)">0</span></div>
             </div>
           </div>
           <div style="margin-top:1.25rem">
@@ -1553,8 +1829,8 @@ function submitProctorExam(autoSubmit=false) {
         <div style="font-weight:600;margin-bottom:1rem">📊 Integrity Report</div>
         ${Object.entries(proctorViolations).map(([k,v])=>`
           <div style="display:flex;justify-content:space-between;align-items:center;padding:0.625rem 0;border-bottom:1px solid var(--border)">
-            <span style="font-size:0.875rem">${k}</span>
-            <span style="font-weight:700;color:${v>0?'var(--red)':'var(--green)'}${v>0?'':''};font-family:var(--mono)">${v} ${v>0?'⚠️':'✓'}</span>
+            <span style="font-size:0.875rem">${{tabSwitches:'Tab Switches',fullscreenExits:'Fullscreen Exits',pasteAttempts:'Paste Attempts',rightClicks:'Right Clicks'}[k]||k}</span>
+            <span style="font-weight:700;color:${v>0?'var(--red)':'var(--green)'};font-family:var(--mono)">${v} ${v>0?'⚠️':'✓'}</span>
           </div>`).join('')}
         <div style="margin-top:0.75rem;padding:0.875rem;background:${integrity>=80?'var(--green-bg)':integrity>=60?'var(--yellow-bg)':'var(--red-bg)'};border-radius:8px;font-weight:600;color:${integrity>=80?'var(--green)':integrity>=60?'var(--yellow)':'var(--red)'}">
           Final Integrity Score: ${integrity}/100 — ${integrity>=80?'Excellent ✅':integrity>=60?'Acceptable ⚠️':'Poor — Violations Detected ❌'}
@@ -1618,34 +1894,35 @@ window.playGame = function(gameId) {
 
 // ===== GAME 1: TECH FLASHCARDS =====
 const FLASHCARDS = [
-  {front:"What is Big O notation?",back:"A mathematical notation describing algorithm complexity — the upper bound on how runtime/space grows with input size."},
-  {front:"What is a REST API?",back:"Representational State Transfer — an architectural style for APIs using HTTP methods (GET, POST, PUT, DELETE) and stateless communication."},
-  {front:"What is ACID in databases?",back:"Atomicity, Consistency, Isolation, Durability — properties guaranteeing reliable database transactions."},
-  {front:"What is a race condition?",back:"When a program's behavior depends on the sequence/timing of uncontrollable events (e.g., two threads modifying shared data simultaneously)."},
-  {front:"What is polymorphism in OOP?",back:"The ability of different objects to respond to the same method call in different ways. Achieved via method overriding (runtime) or overloading (compile-time)."},
-  {front:"What is a hash collision?",back:"When two different inputs produce the same hash output. Resolved using chaining (linked lists at each bucket) or open addressing."},
-  {front:"What is memoization?",back:"An optimization technique storing results of expensive function calls and returning cached results for repeated inputs. A form of dynamic programming."},
-  {front:"What is the CAP theorem?",back:"A distributed system can guarantee at most 2 of: Consistency, Availability, Partition tolerance."},
-  {front:"What is dependency injection?",back:"A design pattern where objects receive their dependencies from outside rather than creating them internally. Improves testability and decoupling."},
-  {front:"What is a deadlock?",back:"When two or more processes wait indefinitely for resources held by each other, forming a circular wait — none can proceed."},
-  {front:"What is JWT?",back:"JSON Web Token — a compact, self-contained token encoding user claims, signed with a secret/key. Used for stateless authentication."},
-  {front:"What is database normalization?",back:"Organizing a database to reduce redundancy and improve integrity by dividing data into related tables (1NF, 2NF, 3NF, BCNF)."},
-  {front:"What is a B-tree?",back:"A self-balancing tree data structure where each node can have multiple keys and children. Used in databases/file systems for efficient indexing."},
-  {front:"What is TCP/IP?",back:"Transmission Control Protocol/Internet Protocol — the fundamental suite enabling reliable, ordered data transmission across the internet."},
-  {front:"What is a closure in programming?",back:"A function that retains access to its outer scope's variables even after the outer function has returned."},
-  {front:"What is load balancing?",back:"Distributing incoming network traffic across multiple servers to ensure no single server is overwhelmed, improving availability and reliability."},
-  {front:"What is a mutex?",back:"Mutual Exclusion object — a synchronization primitive that allows only one thread/process to access a shared resource at a time."},
-  {front:"What is sharding?",back:"Horizontally partitioning data across multiple databases (shards) so each shard holds a subset of data, enabling horizontal scaling."},
-  {front:"What is the Observer pattern?",back:"A behavioral design pattern where an object (subject) maintains a list of dependents (observers) that are notified on state changes."},
-  {front:"What is a semaphore?",back:"A signaling mechanism used for process synchronization. Can be binary (0/1, like mutex) or counting (limiting concurrent access to N resources)."}
+  {front:"What is Big O notation?",back:"A mathematical notation describing algorithm complexity — the upper bound on how runtime/space grows with input size. O(1) constant, O(log n) logarithmic, O(n) linear, O(n²) quadratic."},
+  {front:"What is a REST API?",back:"Representational State Transfer — an architectural style for APIs using HTTP methods (GET, POST, PUT, DELETE) and stateless communication. Each request contains all needed info."},
+  {front:"What is ACID in databases?",back:"Atomicity (all or nothing), Consistency (valid state), Isolation (concurrent transactions don't interfere), Durability (committed data persists). Properties guaranteeing reliable database transactions."},
+  {front:"What is a race condition?",back:"When a program's behavior depends on the sequence/timing of uncontrollable events — e.g., two threads modifying shared data simultaneously. Fixed with locks, mutexes, or atomic operations."},
+  {front:"What is polymorphism in OOP?",back:"The ability of different objects to respond to the same method call in different ways. Runtime polymorphism via method overriding; compile-time via method overloading."},
+  {front:"What is a hash collision?",back:"When two different inputs produce the same hash output. Resolved using chaining (linked lists at each bucket) or open addressing (linear/quadratic probing)."},
+  {front:"What is memoization?",back:"An optimization technique storing results of expensive function calls and returning cached results for repeated inputs. Top-down DP. Example: cache fibonacci(n) so it's computed only once."},
+  {front:"What is the CAP theorem?",back:"A distributed system can guarantee at most 2 of: Consistency (all nodes see same data), Availability (always responds), Partition tolerance (survives network splits)."},
+  {front:"What is dependency injection?",back:"A design pattern where objects receive their dependencies from outside rather than creating them internally. Improves testability, decoupling, and maintainability."},
+  {front:"What is a deadlock?",back:"When two or more processes wait indefinitely for resources held by each other forming a circular wait. Requires: Mutual Exclusion, Hold & Wait, No Preemption, Circular Wait."},
+  {front:"What is JWT?",back:"JSON Web Token — a compact, self-contained token encoding user claims, signed with a secret/key (HMAC or RSA). Used for stateless authentication. Header.Payload.Signature format."},
+  {front:"What is database normalization?",back:"Organizing a database to reduce redundancy and improve integrity by dividing data into related tables (1NF, 2NF, 3NF, BCNF). Eliminates partial and transitive dependencies."},
+  {front:"What is a B-tree?",back:"A self-balancing tree where each node can have multiple keys and children. All leaves at same level. Used in databases/file systems for efficient indexing with O(log n) search."},
+  {front:"What is TCP/IP?",back:"Transmission Control Protocol/Internet Protocol — TCP provides reliable, ordered, error-checked delivery (3-way handshake). IP routes packets across networks using IP addresses."},
+  {front:"What is a closure in programming?",back:"A function that retains access to its outer scope's variables even after the outer function has returned. Common in JavaScript, Python. Used for data encapsulation and factory functions."},
+  {front:"What is load balancing?",back:"Distributing incoming network traffic across multiple servers. Algorithms: Round Robin, Least Connections, IP Hash, Weighted. Ensures availability and prevents single server overload."},
+  {front:"What is a mutex?",back:"Mutual Exclusion object — a synchronization primitive that allows only one thread/process to access a shared resource at a time. Ownership-based: only the acquirer can release it."},
+  {front:"What is sharding?",back:"Horizontally partitioning data across multiple databases (shards) based on a shard key (e.g., user_id % N). Each shard holds a subset of data, enabling horizontal scaling."},
+  {front:"What is the Observer pattern?",back:"A behavioral design pattern where an object (subject) maintains a list of dependents (observers) that are notified automatically on state changes. Basis of event-driven programming."},
+  {front:"What is a semaphore?",back:"A signaling mechanism for process synchronization. Binary semaphore (0/1) works like mutex. Counting semaphore limits concurrent access to N resources. P() decrements, V() increments."}
 ];
 
 let flashcardIdx = 0;
 let flashcardFlipped = false;
 let flashcardScore = 0;
+let fcReviewed = 0;
 
 function renderFlashcards(area) {
-  flashcardIdx = 0; flashcardFlipped = false; flashcardScore = 0;
+  flashcardIdx = 0; flashcardFlipped = false; flashcardScore = 0; fcReviewed = 0;
   area.innerHTML = `
     <div class="card" style="margin-top:1rem;max-width:600px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
@@ -1688,7 +1965,6 @@ function updateFlashcard() {
 }
 window.fcNext = function() { if(flashcardIdx<FLASHCARDS.length-1){flashcardIdx++;updateFlashcard();} else fcFinish(); };
 window.fcPrev = function() { if(flashcardIdx>0){flashcardIdx--;updateFlashcard();} };
-let fcReviewed = 0;
 window.fcKnew = function() { flashcardScore++; fcReviewed++; document.getElementById('fc-score').textContent=`Score: ${flashcardScore} / ${fcReviewed} reviewed`; fcNext(); };
 window.fcDidntKnow = function() { fcReviewed++; document.getElementById('fc-score').textContent=`Score: ${flashcardScore} / ${fcReviewed} reviewed`; fcNext(); };
 function fcFinish() {
@@ -1892,7 +2168,7 @@ function renderTermBoard(area) {
     <div class="card" style="margin-top:1rem;max-width:800px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
         <div style="font-weight:700;font-size:1rem">📚 Term Sprint</div>
-        <div style="font-size:0.8125rem;color:var(--text3)">Matched: ${ts.matched.size}/${ts.terms.length}</div>
+        <div style="font-size:0.8125rem;color:var(--text3)">Matched: ${ts.matched.size/2|0}/${ts.terms.length}</div>
       </div>
       <p style="font-size:0.8125rem;color:var(--text2);margin-bottom:1.25rem">Click a term, then click its matching definition.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
@@ -1949,7 +2225,7 @@ window.checkTermMatch = function(id1, id2) {
     ts.matched.add(tId); ts.matched.add(dId);
     ts.score++;
     if(fb) {fb.style.color='var(--green)';fb.textContent='✅ Correct match!';}
-    if(ts.matched.size >= ts.terms.length*2) { setTimeout(()=>finishTermSprint(),600); }
+    if(ts.score >= ts.terms.length) { setTimeout(()=>finishTermSprint(),600); }
   } else {
     if(fb){fb.style.color='var(--red)';fb.textContent=`❌ No match. ${tName} ≠ ${dName}`;}
   }
@@ -1974,177 +2250,201 @@ function renderCompetitions(container) {
   const now = new Date();
   const nextSat = new Date(now);
   nextSat.setDate(now.getDate() + (6 - now.getDay() + 7) % 7 || 7);
-  nextSat.setHours(18,0,0,0);
+  nextSat.setHours(18, 0, 0, 0);
   const diff = Math.max(0, nextSat - now);
-  const days = Math.floor(diff/86400000);
-  const hrs = Math.floor((diff%86400000)/3600000);
-  const mins2 = Math.floor((diff%3600000)/60000);
-  
+  const days = Math.floor(diff / 86400000);
+  const hrs = Math.floor((diff % 86400000) / 3600000);
+  const mins2 = Math.floor((diff % 3600000) / 60000);
+
+  fetch(API_BASE + '/competitions')
+    .then(res => res.json())
+    .then(comps => { renderCompetitionsHTML(container, comps, days, hrs, mins2); })
+    .catch(() => { renderCompetitionsHTML(container, [], days, hrs, mins2); });
+}
+
+function renderCompetitionsHTML(container, competitions, days, hrs, mins2) {
+  const now = new Date();
   container.innerHTML = `
     <button class="page-back" onclick="goBack()">← Dashboard</button>
-    <div class="page-title">🏅 Competitions</div>
+    <div class="page-title">🏅 Live Competitions</div>
     <p class="page-sub">Weekly coding contests and quiz battles. Top rankers earn XP multipliers and exclusive badges.</p>
-    
-    <!-- Countdown -->
     <div style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(59,130,246,0.05));border:1px solid rgba(168,85,247,0.2);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;text-align:center">
       <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--purple);margin-bottom:0.5rem">⏳ Next Competition Starts In</div>
       <div style="font-family:var(--mono);font-size:2.5rem;font-weight:800;color:var(--text);margin-bottom:0.25rem">${days}d ${hrs}h ${mins2}m</div>
       <div style="font-size:0.8125rem;color:var(--text3)">Saturday 6:00 PM IST · Weekly Quiz Battle</div>
     </div>
-    
-    <!-- Live Competition -->
-    <div class="comp-card">
-      <div class="comp-banner">
-        <div class="comp-header">
-          <div>
-            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="badge badge-green">🟢 LIVE NOW</span><span class="badge badge-purple">Week ${Math.ceil(now.getDate()/7)}</span></div>
-            <div class="comp-title">⚡ Weekend DSA Blitz</div>
-            <div style="font-size:0.8125rem;color:var(--text2)">Solve 5 algorithmic problems in 60 minutes. Fastest correct solutions win!</div>
-          </div>
-          <button class="btn btn-primary btn-lg" style="background:var(--purple);border-color:var(--purple)" onclick="joinCompetition('dsa-blitz')">Join Now →</button>
-        </div>
-      </div>
-      <div class="comp-body">
-        <div class="comp-prizes">
-          <div class="comp-prize"><div class="comp-prize-rank">🥇</div><div class="comp-prize-label">1st Place</div><div class="comp-prize-val">+500 XP + Champion Badge</div></div>
-          <div class="comp-prize"><div class="comp-prize-rank">🥈</div><div class="comp-prize-label">2nd Place</div><div class="comp-prize-val">+300 XP + Silver Badge</div></div>
-          <div class="comp-prize"><div class="comp-prize-rank">🥉</div><div class="comp-prize-label">3rd Place</div><div class="comp-prize-val">+150 XP + Bronze Badge</div></div>
-        </div>
-        <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-          <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem">
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Format</div>
-            <div style="font-size:0.875rem;font-weight:600">5 Coding Problems · 60 min</div>
-          </div>
-          <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem">
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Participants</div>
-            <div style="font-size:0.875rem;font-weight:600">247 Registered</div>
-          </div>
-          <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem">
-            <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Difficulty</div>
-            <div style="font-size:0.875rem;font-weight:600">Easy → Hard</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Upcoming -->
-    <div style="font-weight:700;font-size:0.9375rem;margin-bottom:1rem">📅 Upcoming Competitions</div>
-    ${[
-      {title:'Java Mastery Quiz',date:'Next Monday 7 PM',type:'quiz',badge:'badge-blue',xp:'+200 XP',desc:'20 MCQs on Java core, OOP, collections, streams.'},
-      {title:'SQL Challenge Sprint',date:'Next Wednesday 6 PM',type:'sql',badge:'badge-yellow',xp:'+150 XP',desc:'Write correct SQL queries against a sample database schema.'},
-      {title:'System Design Battle',date:'Next Friday 8 PM',type:'design',badge:'badge-purple',xp:'+400 XP',desc:'Open-ended: Design scalable systems, voted by the community.'},
-    ].map(c=>`
+    ${competitions.length > 0 ? competitions.map(comp => `
       <div class="comp-card">
-        <div style="padding:1.25rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
-          <div>
-            <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="badge ${c.badge}">Upcoming</span></div>
-            <div style="font-weight:600;font-size:0.9375rem;margin-bottom:0.25rem">${c.title}</div>
-            <div style="font-size:0.8125rem;color:var(--text2);margin-bottom:0.5rem">${c.desc}</div>
-            <div style="font-size:0.75rem;color:var(--text3)">🗓 ${c.date} · Prize: ${c.xp}</div>
+        <div class="comp-banner">
+          <div class="comp-header">
+            <div>
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem">
+                <span class="badge badge-${comp.status==='live'?'green':'yellow'}">${comp.status==='live'?'🟢 LIVE NOW':'🔜 UPCOMING'}</span>
+                <span class="badge badge-purple">${comp.title}</span>
+              </div>
+              <div class="comp-title">${comp.title}</div>
+              <div style="font-size:0.8125rem;color:var(--text2)">${comp.description}</div>
+            </div>
+            <button class="btn btn-primary btn-lg" style="background:var(--purple);border-color:var(--purple)" onclick="joinCompetition('${comp.id}')">Join Now →</button>
           </div>
-          <button class="btn btn-ghost" onclick="registerCompetition()">Register →</button>
         </div>
-      </div>`).join('')}
-    
-    <!-- Past Results -->
-    <div style="font-weight:700;font-size:0.9375rem;margin:1.5rem 0 1rem">🏆 Past Results (Last 3 Weeks)</div>
-    <div class="card">
-      <table class="tbl">
-        <thead><tr><th>Competition</th><th>Winner</th><th>Your Rank</th><th>XP Won</th></tr></thead>
-        <tbody>
-          <tr><td>DSA Blitz W${Math.ceil(now.getDate()/7)-1}</td><td>Rahul S.</td><td><span class="badge badge-yellow">Top 25%</span></td><td style="color:var(--accent)">+75 XP</td></tr>
-          <tr><td>Java Quiz Battle</td><td>Priya M.</td><td><span class="badge badge-gray">Not Joined</span></td><td>—</td></tr>
-          <tr><td>SQL Sprint</td><td>Aditya K.</td><td><span class="badge badge-green">🥉 3rd</span></td><td style="color:var(--accent)">+150 XP</td></tr>
-        </tbody>
-       </table>
+        <div class="comp-body">
+          <div class="comp-prizes">
+            <div class="comp-prize"><div class="comp-prize-rank">🥇</div><div class="comp-prize-label">1st Place</div><div class="comp-prize-val">+${comp.prize_first} XP + Champion Badge</div></div>
+            <div class="comp-prize"><div class="comp-prize-rank">🥈</div><div class="comp-prize-label">2nd Place</div><div class="comp-prize-val">+${comp.prize_second} XP + Silver Badge</div></div>
+            <div class="comp-prize"><div class="comp-prize-rank">🥉</div><div class="comp-prize-label">3rd Place</div><div class="comp-prize-val">+${comp.prize_third} XP + Bronze Badge</div></div>
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+            <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Format</div><div style="font-size:0.875rem;font-weight:600">${comp.format}</div></div>
+            <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Participants</div><div style="font-size:0.875rem;font-weight:600">${comp.participants} Registered</div></div>
+            <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Difficulty</div><div style="font-size:0.875rem;font-weight:600">${comp.difficulty}</div></div>
+          </div>
+        </div>
+      </div>`).join('') : `
+      <div class="comp-card">
+        <div class="comp-banner">
+          <div class="comp-header">
+            <div>
+              <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="badge badge-green">🟢 LIVE NOW</span><span class="badge badge-purple">Week ${Math.ceil(now.getDate()/7)}</span></div>
+              <div class="comp-title">⚡ Weekend DSA Blitz</div>
+              <div style="font-size:0.8125rem;color:var(--text2)">Solve 5 algorithmic problems in 60 minutes. Fastest correct solutions win!</div>
+            </div>
+            <button class="btn btn-primary btn-lg" style="background:var(--purple);border-color:var(--purple)" onclick="joinCompetition('dsa-blitz')">Join Now →</button>
+          </div>
+        </div>
+        <div class="comp-body">
+          <div class="comp-prizes">
+            <div class="comp-prize"><div class="comp-prize-rank">🥇</div><div class="comp-prize-label">1st Place</div><div class="comp-prize-val">+500 XP + Champion Badge</div></div>
+            <div class="comp-prize"><div class="comp-prize-rank">🥈</div><div class="comp-prize-label">2nd Place</div><div class="comp-prize-val">+300 XP + Silver Badge</div></div>
+            <div class="comp-prize"><div class="comp-prize-rank">🥉</div><div class="comp-prize-label">3rd Place</div><div class="comp-prize-val">+150 XP + Bronze Badge</div></div>
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+            <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Format</div><div style="font-size:0.875rem;font-weight:600">5 Coding Problems · 60 min</div></div>
+            <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Participants</div><div style="font-size:0.875rem;font-weight:600">247 Registered</div></div>
+            <div style="flex:1;background:var(--bg2);border-radius:8px;padding:0.875rem"><div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:0.375rem">Difficulty</div><div style="font-size:0.875rem;font-weight:600">Easy → Hard</div></div>
+          </div>
+        </div>
+      </div>`}
+    <div style="font-weight:700;font-size:0.9375rem;margin-bottom:1rem">📅 Upcoming Competitions</div>
+    <div class="comp-card">
+      <div style="padding:1.25rem">
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem"><span class="badge badge-blue">Upcoming</span></div>
+        <div style="font-weight:600;font-size:0.9375rem;margin-bottom:0.25rem">Java Mastery Quiz</div>
+        <div style="font-size:0.8125rem;color:var(--text2);margin-bottom:0.5rem">20 MCQs on Java core, OOP, collections, streams.</div>
+        <div style="font-size:0.75rem;color:var(--text3)">🗓 Next Monday 7 PM · Prize: +200 XP</div>
+        <button class="btn btn-ghost" style="margin-top:0.75rem" onclick="toast('Registered! We will notify you.','success')">Register →</button>
+      </div>
     </div>`;
 }
 
-window.joinCompetition = function(id) {
-  showModal('⚡ Join Competition', `
-    <p style="color:var(--text2);margin-bottom:1.25rem">You're about to join the <strong>Weekend DSA Blitz</strong>. The competition is live!</p>
-    <div style="background:var(--bg2);border-radius:8px;padding:1rem;margin-bottom:1.25rem">
-      <div style="font-size:0.875rem;font-weight:600;margin-bottom:0.5rem">Competition Rules:</div>
-      <ul style="font-size:0.8125rem;color:var(--text2);line-height:2;padding-left:1rem;list-style:disc">
-        <li>5 algorithmic problems to solve</li>
-        <li>60 minute time limit</li>
-        <li>Ranked by correct answers, then by speed</li>
-        <li>No external help — honor system</li>
-      </ul>
-    </div>
-    <button class="btn btn-primary btn-full" style="background:var(--purple);border-color:var(--purple)" onclick="startCompetitionMode();document.getElementById('app-modal').remove()">🚀 Enter Competition</button>`);
-};
-window.registerCompetition = function() { toast('Registered! You\'ll get a reminder 30 min before.', 'success'); };
-window.startCompetitionMode = function() {
-  // Run 5 random test questions as a competition
-  const pool = Object.values(TEST_QUESTIONS).flat().filter(q=>q.opts).sort(()=>Math.random()-0.5).slice(0,5);
-  activeTest = {topic:'Competition', qs:pool, current:0, answers:[], startTime:Date.now(), duration:3600, timerInterval:null};
-  renderTestQuestion();
-  toast('🏅 Competition started! Good luck!', 'success');
-  document.getElementById('app-modal')?.remove();
-};
+window.joinCompetition = function(id) { toast('Joining competition... Feature coming soon!', 'info'); };
+window.registerCompetition = function() { toast('Registered! We will notify you.', 'success'); };
 
-// ========== LEADERBOARD ==========
+// ========== FIX 3: LEADERBOARD — always shows data, uses localStorage fallback ==========
 function renderLeaderboard(container) {
   container.innerHTML = `
     <button class="page-back" onclick="goBack()">← Dashboard</button>
     <div class="page-title">🏆 Global Leaderboard</div>
     <p class="page-sub">Top performers ranked by XP. Updates with every practice session.</p>
-    <div style="display:flex;gap:0.75rem;margin-bottom:1.25rem;flex-wrap:wrap">
-      <button class="q-filter-btn active" id="lb-tab-global" onclick="switchLBTab('global')">🌍 Global</button>
-      <button class="q-filter-btn" id="lb-tab-weekly" onclick="switchLBTab('weekly')">📅 This Week</button>
-    </div>
     <div id="leaderboard-content">
       <div class="lb-table">
-        <div class="lb-header-row"><span>Rank</span><span>User</span><span>Level</span><span>XP</span><span>Streak</span></div>
-        <div id="lb-body" style="text-align:center;padding:2rem;color:var(--text3)">Loading leaderboard...</div>
+        <div class="lb-header-row">
+          <span>Rank</span>
+          <span>User</span>
+          <span>Level</span>
+          <span>XP</span>
+          <span>Streak</span>
+        </div>
+        <div id="lb-body" style="text-align:center;padding:2rem;color:var(--text3)">
+          <div style="display:inline-block;width:24px;height:24px;border:3px solid var(--accent);border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:0.5rem"></div>
+          <div>Loading leaderboard...</div>
+        </div>
       </div>
-    </div>`;
-  loadLeaderboard();
-}
-
-async function loadLeaderboard() {
-  try {
-    const res = await fetch(API_BASE + '/leaderboard');
-    const data = await res.json();
-    renderLBRows(data);
-  } catch(e) {
-    document.getElementById('lb-body').innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text3)">Could not load leaderboard. Try again later.</div>';
-  }
+    </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
+  
+  // Try backend first, fall back to local data
+  fetch(API_BASE + '/leaderboard', { signal: AbortSignal.timeout(5000) })
+    .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(data => {
+      if (data && data.length > 0) {
+        // Merge with local data to ensure current user appears
+        const local = getLocalLB();
+        const merged = [...data];
+        local.forEach(lu => {
+          if (!merged.find(u => u.email === lu.email)) merged.push(lu);
+          else {
+            // Update XP to whichever is higher (local may be more up-to-date)
+            const idx = merged.findIndex(u => u.email === lu.email);
+            if (lu.xp > merged[idx].xp) merged[idx] = {...merged[idx], ...lu};
+          }
+        });
+        merged.sort((a,b) => (b.xp||0) - (a.xp||0));
+        renderLBRows(merged);
+      } else {
+        renderLBRows(getLocalLB());
+      }
+    })
+    .catch(() => {
+      // Use local fallback — shows current user + any cached users
+      const local = getLocalLB();
+      if (local.length > 0) {
+        renderLBRows(local);
+        const lb = document.getElementById('lb-body');
+        if (lb) {
+          const note = document.createElement('div');
+          note.style.cssText = 'text-align:center;padding:0.5rem;font-size:0.72rem;color:var(--text3);border-top:1px solid var(--border)';
+         
+          lb.parentElement.appendChild(note);
+        }
+      } else {
+        const lb = document.getElementById('lb-body');
+        if (lb) lb.innerHTML = `
+          <div style="padding:2rem;text-align:center;color:var(--text3)">
+            <div style="font-size:2rem;margin-bottom:0.5rem">🏆</div>
+            <div style="font-weight:600;margin-bottom:0.25rem">No data yet</div>
+            <div style="font-size:0.8125rem">Answer some questions and earn XP to appear here!</div>
+            <button class="btn btn-primary btn-sm" style="margin-top:1rem;background:var(--red);border-color:var(--red)" onclick="navigateTo('practice')">Start Practicing →</button>
+          </div>`;
+      }
+    });
 }
 
 function renderLBRows(data) {
   const lb = document.getElementById('lb-body');
   if (!lb) return;
-  if (!data || !data.length) { lb.innerHTML='<div style="padding:2rem;text-align:center;color:var(--text3)">No users yet. Be the first to register!</div>'; return; }
-  
-  const medals = ['🥇','🥈','🥉'];
-  lb.innerHTML = data.map((u,i) => {
-    const isMe = currentUser && u.email === currentUser.email;
-    const level = getLevel(u.xp||0);
-    return `<div class="lb-row" style="${isMe?'background:var(--accent-bg);border-left:3px solid var(--accent)':''}">
-      <div class="lb-rank" style="font-size:${i<3?'1.25rem':'0.875rem'}">${medals[i]||i+1}</div>
-      <div class="lb-user">
-        <div class="lb-ava" style="background:${i===0?'linear-gradient(135deg,#eab308,#f97316)':i===1?'linear-gradient(135deg,#94a3b8,#64748b)':i===2?'linear-gradient(135deg,#cd7c2f,#92400e)':'linear-gradient(135deg,var(--accent),var(--purple))'}">${(u.name||'?')[0].toUpperCase()}</div>
-        <div>
-          <div class="lb-name">${u.name||'Anonymous'} ${isMe?'<span class="badge badge-blue">You</span>':''}</div>
-          <div style="font-size:0.68rem;color:var(--text3)">${u.role||''}</div>
+  if (!data || data.length === 0) {
+    lb.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text3)">No users yet. Be the first!</div>';
+    return;
+  }
+  const medals = ['🥇', '🥈', '🥉'];
+  lb.innerHTML = data.map((user, index) => {
+    const rank = index + 1;
+    const isMe = currentUser && (user.email === currentUser.email);
+    const xp = user.xp || 0;
+    const level = user.level || getLevel(xp);
+    let levelColor = 'gray';
+    if (level === 'Grandmaster') levelColor = 'purple';
+    else if (level === 'Master') levelColor = 'red';
+    else if (level === 'Expert') levelColor = 'yellow';
+    else if (level === 'Practitioner') levelColor = 'blue';
+    else if (level === 'Apprentice') levelColor = 'green';
+    return `
+      <div class="lb-row" style="${isMe?'background:var(--accent-bg);border-left:3px solid var(--accent)':''}">
+        <div class="lb-rank" style="font-size:${rank<=3?'1.25rem':'0.875rem'}">${rank<=3?medals[rank-1]:rank}</div>
+        <div class="lb-user">
+          <div class="lb-ava">${(user.name||'?')[0].toUpperCase()}</div>
+          <div>
+            <div class="lb-name">${user.name||'Anonymous'} ${isMe?'<span class="badge badge-blue" style="margin-left:0.5rem">You</span>':''}</div>
+            
+          </div>
         </div>
-      </div>
-      <div><span class="badge badge-${level==='Grandmaster'?'purple':level==='Master'?'red':level==='Expert'?'yellow':level==='Practitioner'?'blue':level==='Apprentice'?'green':'gray'}">${level}</span></div>
-      <div class="lb-xp">${(u.xp||0).toLocaleString()}</div>
-      <div style="font-size:0.875rem;color:var(--yellow)">🔥 ${u.streak||0}</div>
-    </div>`;
+        <div><span class="badge badge-${levelColor}">${level}</span></div>
+        <div class="lb-xp">${xp.toLocaleString()}</div>
+        <div style="font-size:0.875rem;color:var(--yellow)">🔥 ${user.streak||0}</div>
+      </div>`;
   }).join('');
 }
-
-window.switchLBTab = function(tab) {
-  document.getElementById('lb-tab-global')?.classList.toggle('active', tab==='global');
-  document.getElementById('lb-tab-weekly')?.classList.toggle('active', tab==='weekly');
-  if (tab === 'weekly') {
-    document.getElementById('lb-body').innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text3)">Weekly rankings reset every Monday. Practice now to climb!</div>';
-  } else { loadLeaderboard(); }
-};
 
 // ========== STREAKS & BADGES ==========
 function renderStreaks(container) {
@@ -2216,7 +2516,7 @@ const JOBS_DATA = [
 function renderJobs(container) {
   let filter = 'All';
   function buildHTML() {
-    const filtered = filter === 'All' ? JOBS_DATA : filter === 'Internship' ? JOBS_DATA.filter(j=>j.type==='Internship') : filter === 'Full-Time' ? JOBS_DATA.filter(j=>j.type==='Full-Time') : JOBS_DATA;
+    const filtered = filter === 'All' ? JOBS_DATA : filter === 'Internship' ? JOBS_DATA.filter(j=>j.type==='Internship') : JOBS_DATA.filter(j=>j.type==='Full-Time');
     return `
       <button class="page-back" onclick="goBack()">← Dashboard</button>
       <div class="page-title">💼 Jobs & Internships</div>
@@ -2249,67 +2549,39 @@ function renderJobs(container) {
       </div>`;
   }
   container.innerHTML = buildHTML();
-  
-  window.filterJobs = function(f) {
-    filter = f;
-    container.innerHTML = buildHTML();
-    window.filterJobs = arguments.callee;
-  };
+  window.filterJobs = function(f) { filter = f; container.innerHTML = buildHTML(); window.filterJobs = arguments.callee; };
   window.saveJob = function(company) { toast(`${company} job saved! 💾`, 'success'); };
 }
 
 // ========== ROADMAP ==========
 function renderRoadmap(container) {
   const phases = [
-    {
-      num:1, title:'Foundations', weeks:'Weeks 1–2', color:'var(--green)', bg:'var(--green-bg)',
-      topics:['Arrays, Strings, and basic problem solving','Linked Lists — singly, doubly, circular','Stacks & Queues — implementation and use cases','Big O Notation — time and space complexity analysis','Recursion basics and the call stack'],
-      weeks: [
-        {num:'Week 1', title:'Arrays & Complexity', topics:['Big O Notation','Array traversal patterns','Two-pointer technique','Sliding window','HashMap for O(1) lookups']},
-        {num:'Week 2', title:'Linked Lists & Recursion', topics:['Singly & doubly linked lists','Floyd\'s cycle detection','Recursion vs iteration','Stack and Queue implementations','Basic problem practice: 5 problems']}
-      ]
-    },
-    {
-      num:2, title:'Core DSA', weeks:'Weeks 3–5', color:'var(--accent)', bg:'var(--accent-bg)',
-      topics:['Trees — Binary, BST, traversals','Graphs — BFS, DFS, shortest paths','Dynamic Programming — memoization, tabulation','Sorting — QuickSort, MergeSort, HeapSort','Heap/Priority Queue — top-K problems'],
-      weeks:[
-        {num:'Week 3', title:'Trees', topics:['Binary Tree traversals','BST operations','Height, balance, lowest common ancestor','Level-order traversal (BFS)','Tree construction problems']},
-        {num:'Week 4', title:'Graphs & Hashing', topics:['Graph representation (adjacency list/matrix)','BFS and DFS','Dijkstra\'s shortest path','Topological sort','Union-Find']},
-        {num:'Week 5', title:'Dynamic Programming', topics:['Fibonacci — memoization vs tabulation','Knapsack problem','Longest Common Subsequence','Coin change','House robber pattern']}
-      ]
-    },
-    {
-      num:3, title:'System Design', weeks:'Weeks 6–7', color:'var(--purple)', bg:'var(--purple-bg)',
-      topics:['Scalability — horizontal vs vertical','Load balancing and reverse proxies','Caching — Redis, CDN, cache invalidation','Database design — SQL vs NoSQL','Microservices vs Monoliths'],
-      weeks:[
-        {num:'Week 6', title:'Fundamentals', topics:['CAP theorem','Load balancing algorithms','Database indexing and sharding','Message queues (Kafka, RabbitMQ)','REST API design best practices']},
-        {num:'Week 7', title:'Design Practice', topics:['Design URL shortener','Design Twitter feed','Design ride-sharing backend','Design notification service','Rate limiting and throttling']}
-      ]
-    },
-    {
-      num:4, title:'Tech Stack', weeks:'Weeks 8–9', color:'var(--yellow)', bg:'var(--yellow-bg)',
-      topics:['Java — OOP, Collections, Streams, Spring Boot','SQL & NoSQL — advanced queries, indexing','Operating Systems — processes, threads, memory','Cloud — AWS/GCP basics, serverless','Networking — TCP/IP, HTTP, WebSockets'],
-      weeks:[
-        {num:'Week 8', title:'Java & Databases', topics:['Java 8+ features (Streams, Lambdas)','Spring Boot REST APIs','SQL joins, subqueries, window functions','MongoDB basics','ORM with Hibernate/JPA']},
-        {num:'Week 9', title:'OS, Networking & Cloud', topics:['Process scheduling, deadlocks, semaphores','Virtual memory, paging, caching','HTTP/HTTPS, REST vs GraphQL','Docker containers and Kubernetes basics','CI/CD pipeline fundamentals']}
-      ]
-    },
-    {
-      num:5, title:'Interview Readiness', weeks:'Week 10', color:'var(--red)', bg:'var(--red-bg)',
-      topics:['STAR Method for behavioral questions','Salary negotiation tactics','Mock interview sessions (3+ full rounds)','Company-specific question banks','Resume and GitHub portfolio review'],
-      weeks:[
-        {num:'Week 10', title:'Final Sprint', topics:['10 full mock interviews (timed)','Top 50 most-asked questions review','Behavioral question bank (Tell me about yourself, Failure, Leadership)','Salary & offer negotiation framework','Day-before interview checklist']}
-      ]
-    }
+    {num:1,title:'Foundations',weeks:'Weeks 1–2',color:'var(--green)',bg:'var(--green-bg)',weeks_data:[
+      {num:'Week 1',title:'Arrays & Complexity',topics:['Big O Notation','Array traversal patterns','Two-pointer technique','Sliding window','HashMap for O(1) lookups']},
+      {num:'Week 2',title:'Linked Lists & Recursion',topics:['Singly & doubly linked lists','Floyd\'s cycle detection','Recursion vs iteration','Stack and Queue implementations','5 practice problems']}
+    ]},
+    {num:2,title:'Core DSA',weeks:'Weeks 3–5',color:'var(--accent)',bg:'var(--accent-bg)',weeks_data:[
+      {num:'Week 3',title:'Trees',topics:['Binary Tree traversals','BST operations','Height, balance, LCA','Level-order BFS','Tree construction']},
+      {num:'Week 4',title:'Graphs & Hashing',topics:['Adjacency list/matrix','BFS and DFS','Dijkstra\'s shortest path','Topological sort','Union-Find']},
+      {num:'Week 5',title:'Dynamic Programming',topics:['Fibonacci memoization','Knapsack problem','LCS','Coin change','House robber pattern']}
+    ]},
+    {num:3,title:'System Design',weeks:'Weeks 6–7',color:'var(--purple)',bg:'var(--purple-bg)',weeks_data:[
+      {num:'Week 6',title:'Fundamentals',topics:['CAP theorem','Load balancing algorithms','DB indexing and sharding','Message queues','REST API design']},
+      {num:'Week 7',title:'Design Practice',topics:['Design URL shortener','Design Twitter feed','Design ride-sharing','Design notification service','Rate limiting']}
+    ]},
+    {num:4,title:'Tech Stack',weeks:'Weeks 8–9',color:'var(--yellow)',bg:'var(--yellow-bg)',weeks_data:[
+      {num:'Week 8',title:'Java & Databases',topics:['Java 8+ Streams, Lambdas','Spring Boot REST APIs','SQL joins, subqueries','MongoDB basics','ORM with Hibernate']},
+      {num:'Week 9',title:'OS, Networking & Cloud',topics:['Process scheduling, deadlocks','Virtual memory, paging','HTTP/HTTPS, REST vs GraphQL','Docker and Kubernetes basics','CI/CD pipelines']}
+    ]},
+    {num:5,title:'Interview Readiness',weeks:'Week 10',color:'var(--red)',bg:'var(--red-bg)',weeks_data:[
+      {num:'Week 10',title:'Final Sprint',topics:['10 full mock interviews (timed)','Top 50 most-asked questions','Behavioral question bank (STAR)','Salary & negotiation framework','Day-before interview checklist']}
+    ]}
   ];
-  
   const completed = parseInt(localStorage.getItem('roadmap_week')||'0');
-  
   container.innerHTML = `
     <button class="page-back" onclick="goBack()">← Dashboard</button>
     <div class="page-title">🗺 10-Week Learning Roadmap</div>
     <p class="page-sub">A structured plan from basics to interview-ready. Check off weeks as you complete them.</p>
-    
     <div style="background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:1.25rem;margin-bottom:1.5rem">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
         <span style="font-weight:600">Overall Progress</span>
@@ -2320,31 +2592,27 @@ function renderRoadmap(container) {
         ${Array.from({length:10},(_,i)=>`<div style="width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:600;cursor:pointer;background:${i<completed?'var(--green)':'var(--bg3)'};color:${i<completed?'#fff':'var(--text3)'};border:1px solid ${i<completed?'var(--green)':'var(--border)'}" onclick="markWeek(${i+1})">${i+1}</div>`).join('')}
       </div>
     </div>
-    
     ${phases.map(phase=>`
       <div class="roadmap-phase">
         <div class="roadmap-phase-header" onclick="togglePhase(this)">
           <div class="roadmap-phase-num" style="background:${phase.bg};color:${phase.color}">${phase.num}</div>
           <div style="flex:1">
             <div style="font-weight:700">${phase.title}</div>
-            <div style="font-size:0.75rem;color:var(--text3)">${phase.weeks} · ${phase.topics.length} core topics</div>
+            <div style="font-size:0.75rem;color:var(--text3)">${phase.weeks}</div>
           </div>
           <span style="color:var(--text3);font-size:1.125rem;transition:transform 0.2s" class="phase-arrow">▼</span>
         </div>
         <div class="roadmap-phase-body" style="display:none">
-          ${phase.weeks.map(w=>`
+          ${phase.weeks_data.map(w=>`
             <div class="roadmap-week">
               <div class="roadmap-week-num">${w.num}</div>
               <div class="roadmap-week-content">
                 <div class="roadmap-week-title">${w.title}</div>
-                <div class="roadmap-week-topics">
-                  ${w.topics.map(t=>`<span class="tag">${t}</span>`).join('')}
-                </div>
+                <div class="roadmap-week-topics">${w.topics.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
               </div>
             </div>`).join('')}
         </div>
       </div>`).join('')}
-    
     <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap">
       <button class="btn btn-primary" style="background:var(--red);border-color:var(--red)" onclick="navigateTo('practice')">Start Practicing →</button>
       <button class="btn btn-ghost" onclick="navigateTo('tests')">Take Topic Tests</button>
@@ -2392,7 +2660,7 @@ function renderProfile(container) {
     </div>
     <div class="card" style="margin-bottom:1rem">
       <div class="card-title">XP Progress</div>
-      <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text3);margin-bottom:0.375rem"><span>${getLevel(xp)}</span><span>${getLevel(xp+1)||'Max'}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--text3);margin-bottom:0.375rem"><span>${getLevel(xp)}</span><span>${xp>=15000?'Max Level':'Next: '+getNextLevelXP(xp)+' XP'}</span></div>
       <div class="progress"><div class="progress-fill" style="width:${getProgressPct(xp)}%;background:var(--red)"></div></div>
       <div style="text-align:right;font-size:0.72rem;color:var(--text3);margin-top:0.375rem">${getNextLevelXP(xp) > 0 ? getNextLevelXP(xp)+' XP to next level' : '🏆 Maximum level!'}</div>
     </div>
@@ -2494,6 +2762,271 @@ function startCounters() {
 
 window.sendResetCode = function() { toast('Reset code sent (demo)', 'info'); };
 window.resetPassword = function() { toast('Password reset (demo)', 'success'); showPage('login'); };
+</script>
+<script>
+// ========== COMPLETE TEST SYSTEM FIX ==========
+// This overrides only the test-related functions without breaking anything else
+
+// Store original if exists
+const originalRenderTests = window.renderTests;
+
+// New working renderTests
+window.renderTests = function(container) {
+  container.innerHTML = `
+    <button class="page-back" onclick="goBack()">← Dashboard</button>
+    <div class="page-title">📝 Topic-wise Tests</div>
+    <p class="page-sub">Timed, auto-graded tests. Each test has 10 questions. Grade A+–D. XP proportional to score.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+      ${Object.keys(TEST_QUESTIONS).map(topic => {
+        const hist = JSON.parse(localStorage.getItem('test_hist_'+topic)||'null');
+        return `
+          <div class="card" style="cursor:pointer" data-test-topic="${topic}">
+            <div style="font-size:2rem;margin-bottom:0.75rem">${{Java:'☕',DSA:'🔗',SQL:'🗄️',OS:'🖥️',Networking:'🌐','System Design':'🏗️'}[topic]||'📚'}</div>
+            <div style="font-weight:600;margin-bottom:0.25rem">${topic}</div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-bottom:0.75rem">10 questions · 10 min</div>
+            ${hist ? `<div class="badge badge-${hist.grade==='A+'||hist.grade==='A'?'green':hist.grade==='B'?'blue':'yellow'}">${hist.grade} · ${hist.score}%</div>` : '<div class="badge badge-gray">Not attempted</div>'}
+            <button class="btn btn-primary btn-sm" style="margin-top:0.75rem;width:100%;background:var(--red);border-color:var(--red)">${hist?'Retake':'Start Test'}</button>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+  
+  // Add click listeners
+  document.querySelectorAll('[data-test-topic]').forEach(card => {
+    card.removeEventListener('click', window.testClickHandler);
+    window.testClickHandler = function() {
+      const topic = this.getAttribute('data-test-topic');
+      startNewTest(topic);
+    };
+    card.addEventListener('click', window.testClickHandler);
+  });
+};
+
+// Working test starter
+function startNewTest(topic) {
+  const qs = TEST_QUESTIONS[topic];
+  if (!qs) return;
+  
+  window.activeTest = { 
+    topic: topic,
+    qs: JSON.parse(JSON.stringify(qs)), 
+    current: 0, 
+    answers: [], 
+    startTime: Date.now(), 
+    duration: 600, 
+    timerInterval: null 
+  };
+  
+  renderTestQuestionNew();
+}
+
+// Working question renderer
+function renderTestQuestionNew() {
+  const t = window.activeTest;
+  const container = document.getElementById('app-main');
+  const q = t.qs[t.current];
+  const elapsed = Math.floor((Date.now() - t.startTime) / 1000);
+  const remaining = Math.max(0, t.duration - elapsed);
+  
+  if (remaining <= 0) { finishTest(); return; }
+  
+  const mins = Math.floor(remaining / 60);
+  const secs = remaining % 60;
+  
+  container.innerHTML = `
+    <div style="max-width:720px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.75rem">
+        <div>
+          <div class="page-title" style="margin:0">${t.topic} Test</div>
+          <div style="font-size:0.78rem;color:var(--text3)">Question ${t.current+1} of ${t.qs.length}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem">
+          <div style="font-family:var(--mono);font-size:1.25rem;font-weight:600;color:${remaining<120?'var(--red)':remaining<300?'var(--yellow)':'var(--text)'}" id="test-timer">${mins}:${secs.toString().padStart(2,'0')}</div>
+          <button class="btn btn-danger btn-sm" onclick="finishTest()">Submit</button>
+        </div>
+      </div>
+      <div class="progress" style="margin-bottom:1.5rem"><div class="progress-fill" style="width:${(t.current/t.qs.length)*100}%"></div></div>
+      <div class="card" style="margin-bottom:1rem">
+        <div style="font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:1.25rem">${t.current+1}. ${q.q}</div>
+        <div id="test-options">
+          ${q.opts.map((opt,i) => `
+            <div class="mcq-option" onclick="selectTestAnswerNew(${i})" id="test-opt-${i}">
+              <div class="mcq-key">${'ABCD'[i]}</div>
+              <span>${opt}</span>
+            </div>`).join('')}
+        </div>
+        <div id="test-feedback" style="display:none;margin-top:1rem;padding:0.875rem;border-radius:8px;font-size:0.875rem"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between">
+        <button class="btn btn-ghost" ${t.current===0?'disabled':''} onclick="prevTestQNew()">← Previous</button>
+        <button class="btn btn-primary" style="background:var(--accent)" id="next-test-btn" onclick="nextTestQNew()">
+          ${t.current===t.qs.length-1?'Submit Test':'Next →'}
+        </button>
+      </div>
+    </div>
+  `;
+  
+  // Restore selected answer if exists
+  if (t.answers[t.current] !== undefined) {
+    document.querySelectorAll('#test-options .mcq-option').forEach((el,i) => {
+      if (i === t.answers[t.current]) el.classList.add('selected');
+    });
+  }
+  
+  // Timer
+  if (t.timerInterval) clearInterval(t.timerInterval);
+  t.timerInterval = setInterval(() => {
+    const rem = t.duration - Math.floor((Date.now() - t.startTime) / 1000);
+    const el = document.getElementById('test-timer');
+    if (!el) { clearInterval(t.timerInterval); return; }
+    if (rem <= 0) { clearInterval(t.timerInterval); finishTest(); return; }
+    el.textContent = Math.floor(rem/60)+':'+(rem%60).toString().padStart(2,'0');
+    el.style.color = rem<120?'var(--red)':rem<300?'var(--yellow)':'var(--text)';
+  }, 1000);
+}
+
+// Select answer
+window.selectTestAnswerNew = function(idx) {
+  const t = window.activeTest;
+  if (!t) return;
+  t.answers[t.current] = idx;
+  document.querySelectorAll('#test-options .mcq-option').forEach((el,i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  const btn = document.getElementById('next-test-btn');
+  if (btn) btn.disabled = false;
+};
+
+// Next question
+window.nextTestQNew = function() {
+  const t = window.activeTest;
+  if (!t) return;
+  if (t.answers[t.current] === undefined) {
+    toast('Please select an answer', 'warning');
+    return;
+  }
+  if (t.current === t.qs.length - 1) {
+    finishTest();
+    return;
+  }
+  t.current++;
+  renderTestQuestionNew();
+};
+
+// Previous question
+window.prevTestQNew = function() {
+  const t = window.activeTest;
+  if (!t) return;
+  if (t.current > 0) {
+    t.current--;
+    renderTestQuestionNew();
+  }
+};
+
+// Finish and grade
+function finishTest() {
+  const t = window.activeTest;
+  if (!t) return;
+  if (t.timerInterval) clearInterval(t.timerInterval);
+  
+  let correct = 0;
+  t.qs.forEach((q, i) => { if (t.answers[i] === q.ans) correct++; });
+  const score = Math.round((correct / t.qs.length) * 100);
+  const grade = score >= 90 ? 'A+' : score >= 80 ? 'A' : score >= 70 ? 'B' : score >= 60 ? 'C' : score >= 50 ? 'D' : 'F';
+  const xp = Math.round(score * 1.5);
+  
+  localStorage.setItem('test_hist_' + t.topic, JSON.stringify({ score, grade, correct, total: t.qs.length }));
+  if (window.awardXP) window.awardXP(xp, 'topic-test');
+  
+  const container = document.getElementById('app-main');
+  container.innerHTML = `
+    <div style="max-width:600px;margin:0 auto;padding:1rem 0">
+      <div class="card" style="text-align:center;padding:2rem;margin-bottom:1.5rem">
+        <div style="font-size:0.8125rem;font-weight:600;color:var(--text3);margin-bottom:1rem">TEST COMPLETE · ${t.topic}</div>
+        <div class="result-circle" style="border-color:${score>=70?'var(--green)':score>=50?'var(--yellow)':'var(--red)'}">
+          <div class="result-pct">${score}%</div>
+          <div class="result-grade" style="color:${score>=70?'var(--green)':score>=50?'var(--yellow)':'var(--red)'}">${grade}</div>
+        </div>
+        <div style="font-size:1.5rem;font-weight:700;margin-bottom:0.25rem">${correct}/${t.qs.length} Correct</div>
+        <div style="color:var(--text2);margin-bottom:1rem">+${xp} XP earned</div>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-primary" style="background:var(--red);border-color:var(--red)" onclick="startNewTest('${t.topic}')">Retake Test</button>
+          <button class="btn btn-ghost" onclick="navigateTo('tests')">All Topics</button>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-weight:600;margin-bottom:1rem">Answer Review</div>
+        ${t.qs.map((q,i) => `
+          <div style="padding:0.875rem 0;border-bottom:1px solid var(--border)">
+            <div style="display:flex;gap:0.5rem;align-items:flex-start;margin-bottom:0.5rem">
+              <span style="font-size:1rem">${t.answers[i]===q.ans?'✅':'❌'}</span>
+              <span style="font-size:0.875rem;font-weight:500">${q.q}</span>
+            </div>
+            <div style="font-size:0.8125rem;color:var(--green);margin-bottom:0.25rem">✓ ${q.opts[q.ans]}</div>
+            ${t.answers[i]!==undefined&&t.answers[i]!==q.ans?`<div style="font-size:0.8125rem;color:var(--red)">✗ Your answer: ${q.opts[t.answers[i]]}</div>`:''}
+            <div style="font-size:0.78rem;color:var(--text3);margin-top:0.375rem;line-height:1.5">${q.exp}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `;
+  
+  window.activeTest = null;
+}
+
+// Override the original navigateTo to use our test renderer
+const originalNavigateTo = window.navigateTo;
+if (originalNavigateTo) {
+  window.navigateTo = function(section) {
+    if (section === 'tests') {
+      if (window.renderTests) window.renderTests(document.getElementById('app-main'));
+      else originalNavigateTo(section);
+    } else {
+      originalNavigateTo(section);
+    }
+  };
+}
+
+console.log('✅ Test system fixed and ready!');
+</script>
+<script>
+// ========== DIRECT SIDEBAR RED FIX ==========
+(function() {
+  // Find all sidebar items
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+  
+  // Function to set active based on clicked item
+  function setActive(item) {
+    // Remove active from all
+    sidebarItems.forEach(i => {
+      i.classList.remove('active');
+      i.style.background = '';
+      i.style.color = '';
+    });
+    // Add active to clicked
+    item.classList.add('active');
+    item.style.background = 'var(--red-bg)';
+    item.style.color = 'var(--red)';
+  }
+  
+  // Add click listeners to all sidebar items
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', function() {
+      setActive(this);
+    });
+  });
+  
+  // Also check which one should be active on page load
+  const currentHref = window.location.hash;
+  sidebarItems.forEach(item => {
+    const onclickAttr = item.getAttribute('onclick');
+    if(onclickAttr && currentHref.includes(onclickAttr.split("'")[1])) {
+      setActive(item);
+    }
+  });
+  
+  console.log('✅ Sidebar red fix applied');
+})();
 </script>
 </body>
 </html>
