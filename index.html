@@ -635,27 +635,70 @@ window.emailRegister = async function() {
   const password = document.getElementById('reg-pass').value;
   const confirm = document.getElementById('reg-confirm').value;
   const role = document.getElementById('reg-role').value;
-  if (!fname || !email || !password) { toast('Please fill required fields', 'error'); return; }
-  if (password !== confirm) { toast('Passwords do not match', 'error'); return; }
+  
+  // Basic validation
+  if (!fname || !email || !password) { 
+    toast('Please fill required fields', 'error'); 
+    return; 
+  }
+  
+  // Real-time password strength validation before submit
+  const pwd = password;
+  const errors = [];
+  
+  if (pwd.length < 12) errors.push('Password must be at least 12 characters long');
+  if (!/[A-Z]/.test(pwd)) errors.push('Password must contain at least one uppercase letter');
+  if (!/[a-z]/.test(pwd)) errors.push('Password must contain at least one lowercase letter');
+  if (!/[0-9]/.test(pwd)) errors.push('Password must contain at least one number');
+  if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pwd)) errors.push('Password must contain at least one special character');
+  if (/012|123|234|345|456|567|678|789|890/.test(pwd)) errors.push('Password cannot contain sequential numbers (123, 234, etc.)');
+  if (/(.)\1{2,}/.test(pwd)) errors.push('Password cannot contain repeated characters (aaa, bbb, etc.)');
+  
+  if (errors.length > 0) {
+    toast(errors[0], 'error');
+    return;
+  }
+  
+  // Check if passwords match
+  if (password !== confirm) { 
+    toast('Passwords do not match', 'error'); 
+    return; 
+  }
+  
   try {
     const response = await fetch(API_BASE + '/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: `${fname} ${lname}`.trim(), email, password, role: role || 'Undergraduate' })
+      body: JSON.stringify({ 
+        name: `${fname} ${lname}`.trim(), 
+        email, 
+        password, 
+        role: role || 'Undergraduate' 
+      })
     });
+    
     const data = await response.json();
+    
     if (!response.ok) throw new Error(data.error || 'Registration failed');
+    
     localStorage.setItem('if_session', JSON.stringify({ user: data.user, token: data.token }));
     currentUser = data.user;
     authToken = data.token;
-    // FIX 3: Save user to local leaderboard cache on register
-    saveUserToLocalLB(data.user);
+    
+    // Save user to local leaderboard cache on register
+    if (typeof saveUserToLocalLB === 'function') {
+      saveUserToLocalLB(data.user);
+    }
+    
     await loadData();
     updateSidebar();
     showPage('app');
     navigateTo('dashboard');
     toast('Registration successful!', 'success');
-  } catch (error) { toast(error.message, 'error'); }
+    
+  } catch (error) { 
+    toast(error.message, 'error'); 
+  }
 };
 
 // ========== LOGIN ==========
@@ -3027,6 +3070,103 @@ console.log('✅ Test system fixed and ready!');
   
   console.log('✅ Sidebar red fix applied');
 })();
+// Real-time password strength checker (updates as you type)
+const passInput = document.getElementById('reg-pass');
+const passConfirm = document.getElementById('reg-confirm');
+const errorContainer = document.createElement('div');
+errorContainer.className = 'password-error';
+errorContainer.style.cssText = 'color: var(--red); font-size: 0.7rem; margin-top: 0.25rem;';
+
+if (passInput) {
+  // Insert error container after password input
+  passInput.parentNode.appendChild(errorContainer);
+  
+  passInput.addEventListener('input', function() {
+    const pwd = this.value;
+    const checks = {
+      length: pwd.length >= 12,
+      upper: /[A-Z]/.test(pwd),
+      lower: /[a-z]/.test(pwd),
+      number: /[0-9]/.test(pwd),
+      special: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pwd),
+      sequence: !/012|123|234|345|456|567|678|789|890/.test(pwd),
+      repeat: !/(.)\1{2,}/.test(pwd)
+    };
+    
+    let strength = 0;
+    let firstError = '';
+    for (let [key, valid] of Object.entries(checks)) {
+      if (valid) strength++;
+      else if (!firstError) {
+        if (key === 'length') firstError = 'Password must be at least 12 characters long';
+        else if (key === 'upper') firstError = 'Password must contain at least one uppercase letter';
+        else if (key === 'lower') firstError = 'Password must contain at least one lowercase letter';
+        else if (key === 'number') firstError = 'Password must contain at least one number';
+        else if (key === 'special') firstError = 'Password must contain at least one special character';
+        else if (key === 'sequence') firstError = 'Password cannot contain sequential numbers (123, 234, etc.)';
+        else if (key === 'repeat') firstError = 'Password cannot contain repeated characters (aaa, bbb, etc.)';
+      }
+    }
+    
+    // Update strength bar
+    const bar = document.querySelector('.strength-bar');
+    const strengthText = document.querySelector('.strength-text');
+    if (bar && strengthText) {
+      if (pwd.length === 0) {
+        bar.className = 'strength-bar';
+        bar.style.width = '0%';
+        strengthText.textContent = '';
+      } else if (strength <= 3) {
+        bar.className = 'strength-bar weak';
+        strengthText.textContent = 'Weak password';
+      } else if (strength <= 5) {
+        bar.className = 'strength-bar medium';
+        strengthText.textContent = 'Medium password';
+      } else {
+        bar.className = 'strength-bar strong';
+        strengthText.textContent = 'Strong password!';
+      }
+    }
+    
+    // Update individual requirement checks
+    for (let [key, valid] of Object.entries(checks)) {
+      const el = document.getElementById(`req-${key}`);
+      if (el) {
+        const label = el.innerText.substring(2);
+        if (valid) {
+          el.innerHTML = '✓ ' + label;
+          el.classList.add('valid');
+        } else {
+          el.innerHTML = '✗ ' + label;
+          el.classList.remove('valid');
+        }
+      }
+    }
+    
+    // Show/hide live error message
+    if (pwd.length > 0 && firstError) {
+      errorContainer.textContent = firstError;
+      errorContainer.style.display = 'block';
+    } else {
+      errorContainer.style.display = 'none';
+    }
+  });
+}
+
+// Confirm password real-time check
+if (passConfirm) {
+  passConfirm.addEventListener('input', function() {
+    const pwd = passInput.value;
+    const confirm = this.value;
+    const confirmError = document.getElementById('confirm-error');
+    
+    if (confirm.length > 0 && pwd !== confirm) {
+      if (confirmError) confirmError.textContent = 'Passwords do not match';
+    } else if (confirmError) {
+      confirmError.textContent = '';
+    }
+  });
+}
 </script>
 </body>
 </html>
