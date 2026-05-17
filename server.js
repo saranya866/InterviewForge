@@ -184,6 +184,14 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// Check if password is breached
+const isBreached = await isPasswordBreached(password);
+if (isBreached) {
+  return res.status(400).json({ 
+    error: 'This password has been found in data breaches. Please choose a different password.' 
+  });
+}
+
 // ========== LOGIN ==========
 app.post('/api/login', async (req, res) => {
   try {
