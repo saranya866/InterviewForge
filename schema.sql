@@ -1,9 +1,3 @@
--- ══════════════════════════════════════════════
---  InterviewForge — PostgreSQL Schema for Neon
---  Run once via: psql $NEON_DB_URL -f schema.sql
---  OR paste into Neon Console → SQL Editor
--- ══════════════════════════════════════════════
-
 -- ── Users ──────────────────────────────────────
 CREATE TABLE IF NOT EXISTS users (
   id                SERIAL PRIMARY KEY,
