@@ -152,8 +152,18 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
+    
+    // Rate limiting check
+    const rateCheck = checkRateLimit(email);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({ 
+        error: `Account locked for ${rateCheck.hoursLeft} hours due to too many failed attempts`
+      });
+    }
+    
     const [users] = await pool.query(
-      'SELECT id, name, email, role, xp, streak, password_hash FROM users WHERE email = ?',
+      `SELECT id, name, email, role, xp, streak, level, questions_answered, 
+       average_score, password_hash, password_last_changed FROM users WHERE email = ?`,
       [email.toLowerCase()]
     );
     
@@ -166,11 +176,27 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     
+    // Reset rate limit on success
+    resetRateLimit(email);
+    
+    // Check password expiry (6 months)
+    const passwordExpired = await checkPasswordExpiry(users[0].id);
+    if (passwordExpired) {
+      return res.status(200).json({ 
+        requiresPasswordChange: true,
+        message: 'Your password has expired. Please update your password.'
+      });
+    }
+    
+    // Update last login
+    await pool.query('UPDATE users SET last_login = NOW() WHERE id = ?', [users[0].id]);
+    
     const { password_hash, ...user } = users[0];
-    user.level = 'Novice';
-    user.questions_answered = 0;
+    user.initial = user.name[0].toUpperCase();
+    
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
     res.json({ user, token });
+    
   } catch (e) {
     console.error('Login error:', e);
     res.status(500).json({ error: e.message });
