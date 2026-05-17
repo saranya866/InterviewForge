@@ -112,6 +112,22 @@ function authenticateToken(req, res, next) {
   });
 }
 
+async function isPasswordBreached(password) {
+  try {
+    const hash = crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
+    const prefix = hash.substring(0, 5);
+    const suffix = hash.substring(5);
+    
+    const response = await fetch(`https://api.pwnedpasswords.com/range/${prefix}`);
+    const data = await response.text();
+    
+    return data.includes(suffix);
+  } catch (error) {
+    console.error('Breach check failed:', error);
+    return false;
+  }
+}
+
 // ========== HEALTH CHECK ==========
 app.get('/api/health', async (req, res) => {
   try {
