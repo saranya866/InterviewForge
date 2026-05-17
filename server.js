@@ -138,6 +138,33 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+
+//===============================================
+const https = require('https');
+
+async function isPasswordBreached(password) {
+  return new Promise((resolve) => {
+    const hash = crypto.createHash('sha1').update(password).digest('hex').toUpperCase();
+    const prefix = hash.substring(0, 5);
+    const suffix = hash.substring(5);
+    
+    const options = {
+      hostname: 'api.pwnedpasswords.com',
+      path: `/range/${prefix}`,
+      method: 'GET',
+      headers: { 'User-Agent': 'AceCast-App' }
+    };
+    
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve(data.includes(suffix)));
+    });
+    
+    req.on('error', () => resolve(false));
+    req.end();
+  });
+}
 // ========== REGISTER ==========
 app.post('/api/register', async (req, res) => {
   try {
@@ -150,6 +177,11 @@ app.post('/api/register', async (req, res) => {
     const passwordCheck = validatePasswordStrength(password);
     if (!passwordCheck.valid) {
       return res.status(400).json({ error: passwordCheck.errors[0] });
+    }
+
+    const isBreached = await isPasswordBreached(password);
+    if (isBreached) {
+      return res.status(400).json({ error: 'This password has been found in data breaches. Please choose a different password.' });
     }
     
     const [existing] = await pool.query('SELECT id FROM users WHERE email = ?', [email.toLowerCase()]);
@@ -174,9 +206,12 @@ app.post('/api/register', async (req, res) => {
       level: 'Novice',
       questions_answered: 0
     };
+
+    
     
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
     res.json({ user, token });
+    
     
   } catch (e) {
     console.error('Register error:', e);
@@ -184,13 +219,7 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// Check if password is breached
-const isBreached = await isPasswordBreached(password);
-if (isBreached) {
-  return res.status(400).json({ 
-    error: 'This password has been found in data breaches. Please choose a different password.' 
-  });
-}
+
 
 // ========== LOGIN ==========
 app.post('/api/login', async (req, res) => {
