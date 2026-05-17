@@ -206,6 +206,13 @@ app.post('/api/register', async (req, res) => {
       level: 'Novice',
       questions_answered: 0
     };
+    // Inside your register endpoint, right after password validation:
+const isBreached = await isPasswordBreached(password);
+console.log('IS BREACHED RESULT:', isBreached);  // ← ADD THIS
+
+if (isBreached) {
+  return res.status(400).json({ error: 'This password has been found in data breaches. Please choose a different password.' });
+}
 
     
     
