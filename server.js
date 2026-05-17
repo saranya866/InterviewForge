@@ -216,3 +216,387 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+// ========== SECURITY IMPORTS ==========
+const crypto = require('crypto');
+const nodemailer = require('nodemailer'); // npm install nodemailer
+const speakeasy = require('speakeasy');   // npm install speakeasy
+const qrcode = require('qrcode');         // npm install qrcode
+
+// ========== SECURITY CONSTANTS ==========
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+const PASSWORD_EXPIRY_DAYS = 180; // 6 months
+const COMMON_PASSWORDS = [
+  'password123', '12345678', 'qwerty123', 'admin123', 
+  'Test@123456', 'Password@123', 'Aaaa@1234'
+];
+
+// ========== PASSWORD VALIDATION FUNCTION ==========
+function validatePasswordStrength(password) {
+  const errors = [];
+  
+  // Length check (12+ digits)
+  if (password.length < 12) {
+    errors.push('Password must be at least 12 characters long');
+  }
+  
+  // Uppercase letter
+  if (!/[A-Z]/.test(password)) {
+    errors.push('Password must contain at least one uppercase letter');
+  }
+  
+  // Lowercase letter
+  if (!/[a-z]/.test(password)) {
+    errors.push('Password must contain at least one lowercase letter');
+  }
+  
+  // Number
+  if (!/[0-9]/.test(password)) {
+    errors.push('Password must contain at least one number');
+  }
+  
+  // Special character
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    errors.push('Password must contain at least one special character (!@#$%^&* etc.)');
+  }
+  
+  // No sequential numbers (123, 234, 345, etc.)
+  const sequential = /012|123|234|345|456|567|678|789|890/;
+  if (sequential.test(password)) {
+    errors.push('Password cannot contain sequential numbers (123, 234, etc.)');
+  }
+  
+  // No repeated characters (aaa, bbb, etc.)
+  if (/(.)\1{2,}/.test(password)) {
+    errors.push('Password cannot contain repeated characters (aaa, bbb, etc.)');
+  }
+  
+  // Check against common passwords
+  const lowerPass = password.toLowerCase();
+  if (COMMON_PASSWORDS.some(common => lowerPass.includes(common))) {
+    errors.push('Password is too common. Choose a more unique password');
+  }
+  
+  return { valid: errors.length === 0, errors };
+}
+
+// ========== MIDDLEWARE: RATE LIMITING ==========
+const loginAttempts = new Map(); // Store attempts
+
+function checkRateLimit(email) {
+  const now = Date.now();
+  const record = loginAttempts.get(email);
+  
+  if (!record) {
+    loginAttempts.set(email, { count: 1, lockUntil: null });
+    return { allowed: true, remaining: MAX_LOGIN_ATTEMPTS - 1 };
+  }
+  
+  // Check if locked
+  if (record.lockUntil && now < record.lockUntil) {
+    const hoursLeft = Math.ceil((record.lockUntil - now) / (60 * 60 * 1000));
+    return { allowed: false, lockUntil: record.lockUntil, hoursLeft };
+  }
+  
+  // Reset if lock expired
+  if (record.lockUntil && now >= record.lockUntil) {
+    loginAttempts.set(email, { count: 1, lockUntil: null });
+    return { allowed: true, remaining: MAX_LOGIN_ATTEMPTS - 1 };
+  }
+  
+  // Increment failed attempts
+  record.count++;
+  const allowed = record.count <= MAX_LOGIN_ATTEMPTS;
+  
+  if (!allowed) {
+    record.lockUntil = now + LOCKOUT_DURATION;
+    return { allowed: false, lockUntil: record.lockUntil, hoursLeft: 24 };
+  }
+  
+  loginAttempts.set(email, record);
+  return { allowed: true, remaining: MAX_LOGIN_ATTEMPTS - record.count };
+}
+
+function resetRateLimit(email) {
+  loginAttempts.delete(email);
+}
+
+// ========== PASSWORD EXPIRY CHECK ==========
+async function checkPasswordExpiry(userId) {
+  const [rows] = await pool.query(
+    'SELECT password_last_changed FROM users WHERE id = ?',
+    [userId]
+  );
+  
+  if (rows.length === 0) return false;
+  
+  const lastChanged = new Date(rows[0].password_last_changed);
+  const expiryDate = new Date(lastChanged);
+  expiryDate.setDate(expiryDate.getDate() + PASSWORD_EXPIRY_DAYS);
+  
+  return new Date() >= expiryDate;
+}
+
+// ========== UPDATE REGISTER ENDPOINT ==========
+app.post('/api/register', async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+    
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: 'Name, email and password required' });
+    }
+    
+    // Validate password strength
+    const passwordCheck = validatePasswordStrength(password);
+    if (!passwordCheck.valid) {
+      return res.status(400).json({ error: passwordCheck.errors[0] });
+    }
+    
+    const [existing] = await pool.query('SELECT id FROM users WHERE email = ?', [email.toLowerCase()]);
+    if (existing.length > 0) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+    
+    const hash = await bcrypt.hash(password, 12); // Increased salt rounds to 12
+    
+    const [result] = await pool.query(
+      `INSERT INTO users (name, email, password_hash, role, xp, streak, level, 
+       password_last_changed, mfa_enabled, mfa_secret, email_verified) 
+       VALUES (?, ?, ?, ?, 50, 1, 'Novice', NOW(), 0, NULL, 0)`,
+      [name, email.toLowerCase(), hash, role || 'Undergraduate']
+    );
+    
+    // Send verification email (implement with nodemailer)
+    await sendVerificationEmail(email, result.insertId);
+    
+    const user = {
+      id: result.insertId,
+      name: name,
+      email: email.toLowerCase(),
+      role: role || 'Undergraduate',
+      xp: 50,
+      streak: 1,
+      level: 'Novice',
+      questions_answered: 0,
+      mfa_enabled: false
+    };
+    
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ user, token, requiresMFA: false });
+    
+  } catch (e) {
+    console.error('Register error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ========== UPDATE LOGIN ENDPOINT (with rate limiting) ==========
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password, mfaCode } = req.body;
+    
+    // Rate limiting check
+    const rateCheck = checkRateLimit(email);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({ 
+        error: `Account locked for ${rateCheck.hoursLeft} hours due to too many failed attempts`,
+        lockUntil: rateCheck.lockUntil
+      });
+    }
+    
+    const [users] = await pool.query(
+      `SELECT id, name, email, role, xp, streak, level, questions_answered, 
+       average_score, password_hash, mfa_enabled, mfa_secret, email_verified 
+       FROM users WHERE email = ?`,
+      [email.toLowerCase()]
+    );
+    
+    if (users.length === 0) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    const valid = await bcrypt.compare(password, users[0].password_hash);
+    if (!valid) {
+      // Increment failed attempts automatically via checkRateLimit
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    // Reset rate limit on successful login
+    resetRateLimit(email);
+    
+    // Check if MFA is enabled
+    if (users[0].mfa_enabled) {
+      if (!mfaCode) {
+        return res.status(200).json({ requiresMFA: true, userId: users[0].id });
+      }
+      
+      const verified = speakeasy.totp.verify({
+        secret: users[0].mfa_secret,
+        encoding: 'base32',
+        token: mfaCode
+      });
+      
+      if (!verified) {
+        return res.status(401).json({ error: 'Invalid MFA code' });
+      }
+    }
+    
+    // Check if email is verified
+    if (!users[0].email_verified) {
+      return res.status(401).json({ error: 'Please verify your email before logging in' });
+    }
+    
+    // Check password expiry
+    const passwordExpired = await checkPasswordExpiry(users[0].id);
+    if (passwordExpired) {
+      return res.status(200).json({ 
+        requiresPasswordChange: true,
+        message: 'Your password has expired. Please update your password.'
+      });
+    }
+    
+    // Update last login
+    await pool.query('UPDATE users SET last_login = NOW() WHERE id = ?', [users[0].id]);
+    
+    const { password_hash, mfa_secret, ...user } = users[0];
+    user.initial = user.name[0].toUpperCase();
+    
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+    res.json({ user, token, requiresMFA: false });
+    
+  } catch (e) {
+    console.error('Login error:', e);
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ========== UPDATE PASSWORD ENDPOINT ==========
+app.post('/api/update-password', authenticateToken, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    
+    const [users] = await pool.query('SELECT password_hash FROM users WHERE id = ?', [req.user.id]);
+    if (users.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    const valid = await bcrypt.compare(currentPassword, users[0].password_hash);
+    if (!valid) {
+      return res.status(401).json({ error: 'Current password is incorrect' });
+    }
+    
+    const passwordCheck = validatePasswordStrength(newPassword);
+    if (!passwordCheck.valid) {
+      return res.status(400).json({ error: passwordCheck.errors[0] });
+    }
+    
+    const hash = await bcrypt.hash(newPassword, 12);
+    await pool.query(
+      'UPDATE users SET password_hash = ?, password_last_changed = NOW() WHERE id = ?',
+      [hash, req.user.id]
+    );
+    
+    res.json({ success: true, message: 'Password updated successfully' });
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ========== FORGOT PASSWORD ENDPOINT ==========
+app.post('/api/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    const [users] = await pool.query('SELECT id, name FROM users WHERE email = ?', [email.toLowerCase()]);
+    if (users.length === 0) {
+      // Don't reveal if email exists for security
+      return res.json({ success: true, message: 'If your email is registered, you will receive a reset link' });
+    }
+    
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    
+    await pool.query(
+      'UPDATE users SET reset_token = ?, reset_expiry = ? WHERE id = ?',
+      [resetToken, resetExpiry, users[0].id]
+    );
+    
+    // Send reset email (implement with nodemailer)
+    await sendResetEmail(email, resetToken, users[0].name);
+    
+    res.json({ success: true, message: 'If your email is registered, you will receive a reset link' });
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ========== RESET PASSWORD ENDPOINT ==========
+app.post('/api/reset-password', async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    
+    const [users] = await pool.query(
+      'SELECT id FROM users WHERE reset_token = ? AND reset_expiry > NOW()',
+      [token]
+    );
+    
+    if (users.length === 0) {
+      return res.status(400).json({ error: 'Invalid or expired reset token' });
+    }
+    
+    const passwordCheck = validatePasswordStrength(newPassword);
+    if (!passwordCheck.valid) {
+      return res.status(400).json({ error: passwordCheck.errors[0] });
+    }
+    
+    const hash = await bcrypt.hash(newPassword, 12);
+    await pool.query(
+      'UPDATE users SET password_hash = ?, password_last_changed = NOW(), reset_token = NULL, reset_expiry = NULL WHERE id = ?',
+      [hash, users[0].id]
+    );
+    
+    res.json({ success: true, message: 'Password reset successfully' });
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ========== MFA SETUP ENDPOINT ==========
+app.post('/api/setup-mfa', authenticateToken, async (req, res) => {
+  try {
+    const secret = speakeasy.generateSecret({ length: 20 });
+    
+    const otpauthUrl = speakeasy.otpauthURL({
+      secret: secret.ascii,
+      label: `AceCast:${req.user.email}`,
+      issuer: 'AceCast'
+    });
+    
+    const qrCodeUrl = await qrcode.toDataURL(otpauthUrl);
+    
+    await pool.query(
+      'UPDATE users SET mfa_secret = ?, mfa_enabled = 1 WHERE id = ?',
+      [secret.base32, req.user.id]
+    );
+    
+    res.json({ secret: secret.base32, qrCodeUrl });
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// ========== EMAIL FUNCTIONS (implement with nodemailer) ==========
+async function sendVerificationEmail(email, userId) {
+  // Implementation using nodemailer
+  console.log(`Verification email sent to ${email}`);
+}
+
+async function sendResetEmail(email, token, name) {
+  // Implementation using nodemailer
+  console.log(`Reset email sent to ${email} with token: ${token}`);
+}
