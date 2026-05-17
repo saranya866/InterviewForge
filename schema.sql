@@ -57,3 +57,15 @@ CREATE TABLE IF NOT EXISTS roadmap_progress (
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_xp    ON users(xp DESC);
 CREATE INDEX IF NOT EXISTS idx_xp_user     ON xp_events(user_id);
+
+-- Add password_last_changed column
+ALTER TABLE users ADD COLUMN password_last_changed TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+-- Add last_login column
+ALTER TABLE users ADD COLUMN last_login TIMESTAMP NULL;
+
+-- Add reset_token column
+ALTER TABLE users ADD COLUMN reset_token VARCHAR(255) NULL;
+
+-- Add reset_expiry column
+ALTER TABLE users ADD COLUMN reset_expiry TIMESTAMP NULL;
