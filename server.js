@@ -22,6 +22,58 @@ const pool = mysql.createPool({
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_key_change_me';
 
+// ========== SECURITY: Rate Limiting ==========
+const loginAttempts = new Map();
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+function checkRateLimit(email) {
+  const now = Date.now();
+  const record = loginAttempts.get(email);
+  
+  if (!record) {
+    loginAttempts.set(email, { count: 1, lockUntil: null });
+    return { allowed: true, remaining: MAX_LOGIN_ATTEMPTS - 1 };
+  }
+  
+  if (record.lockUntil && now < record.lockUntil) {
+    const hoursLeft = Math.ceil((record.lockUntil - now) / (60 * 60 * 1000));
+    return { allowed: false, lockUntil: record.lockUntil, hoursLeft };
+  }
+  
+  if (record.lockUntil && now >= record.lockUntil) {
+    loginAttempts.set(email, { count: 1, lockUntil: null });
+    return { allowed: true, remaining: MAX_LOGIN_ATTEMPTS - 1 };
+  }
+  
+  record.count++;
+  const allowed = record.count <= MAX_LOGIN_ATTEMPTS;
+  
+  if (!allowed) {
+    record.lockUntil = now + LOCKOUT_DURATION;
+    return { allowed: false, lockUntil: record.lockUntil, hoursLeft: 24 };
+  }
+  
+  loginAttempts.set(email, record);
+  return { allowed: true, remaining: MAX_LOGIN_ATTEMPTS - record.count };
+}
+
+function resetRateLimit(email) {
+  loginAttempts.delete(email);
+}
+
+// ========== SECURITY: Password Expiry Check ==========
+async function checkPasswordExpiry(userId) {
+  const [rows] = await pool.query('SELECT password_last_changed FROM users WHERE id = ?', [userId]);
+  if (rows.length === 0) return false;
+  
+  const lastChanged = new Date(rows[0].password_last_changed);
+  const expiryDate = new Date(lastChanged);
+  expiryDate.setMonth(expiryDate.getMonth() + 6);
+  
+  return new Date() >= expiryDate;
+}
+
 // ========== HELPER FUNCTIONS ==========
 
 function getLevel(xp) {
